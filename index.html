@@ -8,11 +8,13 @@
 <meta name="theme-color" content="#030508">
 <link rel="icon" type="image/png" href="assets/favicon.png">
 <script>document.documentElement.classList.add("js")</script>
+<script src="https://accounts.google.com/gsi/client" async defer></script>
 <style>
-:root{--bg:#030508;--blue:#126BFF;--neon:#168BFF;--muted:#8fa3bf;--line:rgba(22,139,255,.28);--glass:rgba(10,20,38,.55)}
+:root{--bg:#030508;--blue:#126BFF;--neon:#168BFF;--muted:#8fa3bf;--line:rgba(22,139,255,.28);--glass:rgba(10,20,38,.55);--ok:#10b981}
 *{box-sizing:border-box;margin:0}
 html{background:var(--bg);color-scheme:dark;scroll-behavior:smooth;scroll-padding-top:84px}
-body{color:#fff;font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;overflow-x:hidden}
+body{color:#fff;font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;overflow-x:hidden;min-height:100vh;display:flex;flex-direction:column}
+main,section.onboard{flex:1}
 img{display:block;max-width:100%}
 a{color:inherit;text-decoration:none}
 h1,h2,h3{line-height:1.15}
@@ -27,14 +29,17 @@ h1,h2,h3{line-height:1.15}
 @keyframes drift{to{transform:translate(6vmax,4vmax)}}
 
 /* navigation */
-.nav{position:fixed;top:0;left:0;right:0;z-index:20;display:flex;align-items:center;justify-content:space-between;padding:14px clamp(18px,4vw,48px);background:rgba(3,5,8,.72);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid rgba(22,139,255,.14)}
+.nav{position:fixed;top:0;left:0;right:0;z-index:20;display:flex;align-items:center;justify-content:space-between;padding:14px clamp(18px,4vw,48px);background:rgba(3,5,8,.78);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid rgba(22,139,255,.14)}
 .brand{display:flex;align-items:center;gap:10px;font-weight:600;letter-spacing:.02em}
 .brand img{height:34px;width:auto}
-.menu{display:flex;align-items:center;gap:28px;color:var(--muted);font-size:.95rem}
+.brand-fallback{width:32px;height:32px;border-radius:10px;background:linear-gradient(135deg,var(--blue),#38bdf8);display:inline-flex;align-items:center;justify-content:center;box-shadow:0 0 16px rgba(22,139,255,.5)}
+.menu{display:flex;align-items:center;gap:24px;color:var(--muted);font-size:.95rem}
 .menu a{transition:color .25s}
 .menu a:hover{color:#fff}
 .menu .signin{color:#fff;border:1px solid var(--line);padding:8px 18px;border-radius:999px;transition:border-color .25s,box-shadow .25s}
 .menu .signin:hover{border-color:var(--neon);box-shadow:0 0 18px rgba(22,139,255,.35)}
+.user-chip{display:inline-flex;align-items:center;gap:8px;color:#fff;border:1px solid var(--neon);background:rgba(18,107,255,.16);padding:5px 14px 5px 6px;border-radius:999px;font-size:.88rem;font-weight:500}
+.user-chip img,.user-avatar{width:26px;height:26px;border-radius:50%;object-fit:cover;background:var(--blue);display:inline-flex;align-items:center;justify-content:center;font-size:.78rem;font-weight:700}
 .burger{display:none;width:42px;height:42px;background:none;border:1px solid var(--line);border-radius:10px;cursor:pointer;flex-direction:column;align-items:center;justify-content:center;gap:6px}
 .burger span{width:18px;height:2px;background:#fff;transition:transform .25s}
 .burger[aria-expanded=true] span:first-child{transform:translateY(4px) rotate(45deg)}
@@ -45,20 +50,30 @@ h1,h2,h3{line-height:1.15}
 .logo-wrap{position:relative;isolation:isolate;margin-bottom:36px}
 .logo-wrap::before{content:"";position:absolute;inset:-35%;z-index:-1;background:radial-gradient(circle,rgba(22,139,255,.32),transparent 62%);animation:pulse 6s ease-in-out infinite}
 .logo{width:min(240px,56vw);height:auto;filter:drop-shadow(0 0 26px rgba(22,139,255,.55));animation:float 9s ease-in-out infinite}
+.hero-fallback{width:132px;height:132px;border-radius:34px;background:radial-gradient(circle at 30% 25%,#7dd3fc,var(--blue) 55%,#071b4d);display:flex;align-items:center;justify-content:center;box-shadow:0 0 42px rgba(22,139,255,.55);animation:float 9s ease-in-out infinite}
 @keyframes pulse{50%{opacity:.55;transform:scale(1.06)}}
 @keyframes float{50%{transform:translateY(-8px)}}
-.notice-logo{margin-bottom:24px;padding:10px 14px;border:1px dashed var(--line);border-radius:12px;color:var(--muted);font-size:.85rem}
 h1{font-size:clamp(2.4rem,7vw,4.6rem);font-weight:700;letter-spacing:-.03em;max-width:14ch}
 .sub{max-width:34em;margin:20px 0 36px;color:var(--muted);font-size:clamp(1rem,2.4vw,1.2rem)}
 .actions{display:flex;flex-wrap:wrap;justify-content:center;gap:14px}
-.demo-tag{margin-top:34px;font-size:.8rem;color:var(--muted)}
+.status-pill{margin-top:28px;display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border-radius:999px;border:1px solid var(--line);background:rgba(10,20,38,.7);font-size:.82rem;color:var(--muted)}
+.status-pill i{width:8px;height:8px;border-radius:50%;background:var(--ok);box-shadow:0 0 10px var(--ok)}
 
 /* buttons */
-.btn{display:inline-flex;align-items:center;gap:10px;padding:15px 30px;border:1px solid var(--line);border-radius:999px;background:transparent;color:#fff;font-family:inherit;font-size:.9rem;font-weight:600;line-height:1;letter-spacing:.12em;cursor:pointer;transition:transform .25s,box-shadow .25s,border-color .25s,background .25s}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:15px 30px;border:1px solid var(--line);border-radius:999px;background:transparent;color:#fff;font-family:inherit;font-size:.9rem;font-weight:600;line-height:1;letter-spacing:.12em;cursor:pointer;transition:transform .25s,box-shadow .25s,border-color .25s,background .25s}
 .btn:hover{transform:translateY(-2px);border-color:var(--neon)}
 .btn.primary{background:var(--blue);border-color:transparent;box-shadow:0 0 22px rgba(22,139,255,.45)}
 .btn.primary:hover{background:var(--neon);box-shadow:0 0 40px rgba(22,139,255,.8)}
 .btn.small{padding:13px 24px;letter-spacing:.04em}
+.btn.danger{border-color:rgba(239,68,68,.45);color:#fca5a5}
+.btn.danger:hover{border-color:#ef4444;background:rgba(239,68,68,.12)}
+
+/* Google Sign-In Button */
+.google-box{margin:18px 0 20px;display:flex;flex-direction:column;align-items:center;gap:10px}
+.btn-google{width:100%;display:inline-flex;align-items:center;justify-content:center;gap:12px;padding:13px 20px;border-radius:999px;border:1px solid rgba(255,255,255,.18);background:#fff;color:#0f172a;font-family:inherit;font-size:.95rem;font-weight:600;cursor:pointer;transition:transform .2s,box-shadow .2s}
+.btn-google:hover{transform:translateY(-1px);box-shadow:0 6px 24px rgba(255,255,255,.22)}
+.divider{display:flex;align-items:center;gap:12px;width:100%;margin:6px 0 18px;color:var(--muted);font-size:.8rem;text-transform:uppercase;letter-spacing:.08em}
+.divider::before,.divider::after{content:"";flex:1;height:1px;background:var(--line)}
 
 /* features */
 .features{padding:90px 0 60px}
@@ -68,11 +83,11 @@ h1{font-size:clamp(2.4rem,7vw,4.6rem);font-weight:700;letter-spacing:-.03em;max-
 .feature h2,.feature h3{margin:14px 0 8px;letter-spacing:-.01em}
 .feature p{color:var(--muted)}
 .tag{display:inline-block;padding:3px 12px;border:1px solid var(--line);border-radius:999px;color:var(--neon);font-size:.78rem}
+.tag.live{border-color:rgba(16,185,129,.45);color:#6ee7b7;background:rgba(16,185,129,.12)}
 .lead{margin-bottom:20px;padding:clamp(32px,6vw,64px);border-color:rgba(22,139,255,.6);box-shadow:0 0 60px rgba(18,107,255,.22),inset 0 0 40px rgba(18,107,255,.08)}
 .lead h2{font-size:clamp(1.9rem,5vw,3.1rem);letter-spacing:-.02em}
 .lead p{max-width:30em;margin-bottom:28px;font-size:1.15rem}
 .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-.fine{margin-top:28px;text-align:center;color:var(--muted);font-size:.85rem}
 .js .reveal{opacity:0;transform:translateY(18px);transition:opacity .9s ease,transform .9s ease,border-color .3s,box-shadow .3s}
 .js .reveal.in{opacity:1;transform:none}
 .grid .reveal:nth-child(2){transition-delay:.12s}
@@ -80,13 +95,13 @@ h1{font-size:clamp(2.4rem,7vw,4.6rem);font-weight:700;letter-spacing:-.03em;max-
 .flash{animation:flash 1.4s ease}
 @keyframes flash{30%{border-color:var(--neon);box-shadow:0 0 44px rgba(22,139,255,.5)}}
 
-/* onboarding */
+/* onboarding & profile */
 .onboard{min-height:100svh;display:flex;align-items:center;justify-content:center;padding:110px 20px 60px}
 .panel{width:min(560px,100%);padding:clamp(24px,5vw,44px);border:1px solid var(--line);border-radius:24px;background:var(--glass);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);box-shadow:0 0 60px rgba(18,107,255,.15)}
 .back{color:var(--muted);font-size:.9rem}
 .back:hover{color:#fff}
-.panel h2{margin:18px 0 12px;font-size:1.8rem;letter-spacing:-.02em}
-.demo-banner{margin-bottom:22px;padding:10px 14px;border:1px dashed var(--line);border-radius:12px;color:var(--neon);font-size:.85rem}
+.panel h2{margin:16px 0 8px;font-size:1.8rem;letter-spacing:-.02em}
+.panel-sub{color:var(--muted);font-size:.92rem;margin-bottom:18px}
 fieldset{min-width:0;margin-bottom:18px;padding:0;border:0}
 legend{margin-bottom:10px;color:var(--muted);font-size:.85rem}
 .roles label{position:relative;display:block;margin-bottom:10px;cursor:pointer}
@@ -96,9 +111,16 @@ legend{margin-bottom:10px;color:var(--muted);font-size:.85rem}
 .roles input:checked+span{border-color:var(--neon);background:rgba(18,107,255,.16);box-shadow:0 0 20px rgba(22,139,255,.25)}
 .roles input:focus-visible+span{outline:2px solid var(--neon);outline-offset:2px}
 .field{display:block;margin-bottom:16px;color:var(--muted);font-size:.85rem}
-.field input{display:block;width:100%;margin-top:6px;padding:13px 16px;border:1px solid var(--line);border-radius:12px;background:rgba(3,5,8,.7);color:#fff;font:inherit}
-.field input:focus{outline:none;border-color:var(--neon);box-shadow:0 0 0 3px rgba(22,139,255,.2)}
-.result{margin-top:20px;padding:14px 16px;border:1px solid var(--neon);border-radius:12px;color:#dbe9ff}
+.field input,.field select{display:block;width:100%;margin-top:6px;padding:13px 16px;border:1px solid var(--line);border-radius:12px;background:rgba(3,5,8,.78);color:#fff;font:inherit}
+.field input:focus,.field select:focus{outline:none;border-color:var(--neon);box-shadow:0 0 0 3px rgba(22,139,255,.2)}
+.result{margin-top:18px;padding:14px 16px;border:1px solid var(--neon);border-radius:12px;background:rgba(18,107,255,.12);color:#dbe9ff;font-size:.9rem}
+.setup-note{margin-top:14px;padding:14px;border:1px dashed var(--line);border-radius:12px;background:rgba(3,5,8,.7);font-size:.82rem;color:var(--muted)}
+.setup-note code{color:#7dd3fc;word-break:break-all}
+.switch-link{margin-top:18px;text-align:center;color:var(--muted);font-size:.9rem}
+.switch-link a{color:var(--neon);font-weight:600}
+
+.profile-head{display:flex;align-items:center;gap:14px;margin:16px 0 22px;padding-bottom:18px;border-bottom:1px solid var(--line)}
+.profile-pic{width:56px;height:56px;border-radius:50%;object-fit:cover;border:2px solid var(--neon);background:var(--blue);display:flex;align-items:center;justify-content:center;font-size:1.3rem;font-weight:700}
 
 .foot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;padding:28px clamp(18px,4vw,48px);border-top:1px solid rgba(22,139,255,.14);color:var(--muted);font-size:.8rem}
 
@@ -108,7 +130,7 @@ legend{margin-bottom:10px;color:var(--muted);font-size:.85rem}
   .menu{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;align-items:stretch;gap:0;padding:8px 18px 18px;background:rgba(3,5,8,.97);border-bottom:1px solid var(--line)}
   .menu.open{display:flex}
   .menu a{padding:14px 4px;border-bottom:1px solid rgba(22,139,255,.1)}
-  .menu .signin{margin-top:14px;text-align:center}
+  .menu .signin,.menu .user-chip{margin-top:14px;justify-content:center;text-align:center}
 }
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
@@ -122,7 +144,10 @@ legend{margin-bottom:10px;color:var(--muted);font-size:.85rem}
 
 <header class="nav">
   <a class="brand" href="#top" aria-label="EditConnect home">
-    <img src="assets/logo.png" alt="">
+    <img src="assets/logo.png" alt="" data-brand-img>
+    <span class="brand-fallback" hidden aria-hidden="true">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg>
+    </span>
     <span>EditConnect</span>
   </a>
   <button class="burger" type="button" aria-label="Toggle menu" aria-expanded="false" aria-controls="menu"><span></span><span></span></button>
@@ -130,60 +155,87 @@ legend{margin-bottom:10px;color:var(--muted);font-size:.85rem}
     <a href="#features">Explore</a>
     <a href="#certification">Certification</a>
     <a href="#first-client">Opportunities</a>
-    <a href="#signin" class="signin">Sign in</a>
+    <a href="#signin" class="signin" id="nav-auth-link">Sign in</a>
   </nav>
 </header>
 
 <main id="home">
   <section class="hero" id="top">
     <div class="logo-wrap">
-      <img class="logo" src="assets/logo.png" alt="EditConnect logo">
+      <img class="logo" src="assets/logo.png" alt="EditConnect logo" data-hero-img>
+      <div class="hero-fallback" hidden aria-hidden="true">
+        <svg width="54" height="54" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg>
+      </div>
     </div>
-    <p class="notice-logo" hidden>Logo not found. Upload your logo to the assets folder as logo.png.</p>
     <h1>Skills Meet Opportunities.</h1>
     <p class="sub">Prove your skills. Earn recognition. Discover your first professional opportunity.</p>
     <div class="actions">
-      <a href="#start" class="btn primary">START NOW <span aria-hidden="true">→</span></a>
+      <a href="#start" class="btn primary" id="hero-primary-btn">START NOW <span aria-hidden="true">→</span></a>
       <a href="#features" class="btn">EXPLORE</a>
     </div>
-    <p class="demo-tag">Early preview. This website is a frontend demonstration.</p>
+    <p class="status-pill" id="hero-status"><i></i><span>Google OAuth &amp; Member Accounts Active</span></p>
   </section>
 
   <section class="features" id="features">
     <div class="wrap">
       <article class="feature lead reveal" id="first-client">
-        <span class="tag">Coming soon</span>
+        <span class="tag live" id="fc-tag">Open for Early Access</span>
         <h2>First Client Programme</h2>
         <p>Help qualified beginners discover genuine client opportunities.</p>
-        <a href="#start" class="btn primary small">Register interest (demo)</a>
+        <button type="button" class="btn primary small" id="fc-register-btn">Register interest →</button>
       </article>
       <div class="grid">
         <article class="feature reveal" id="certification">
-          <span class="tag">Coming soon</span>
+          <span class="tag">Skill Track</span>
           <h3>Skill Certification</h3>
           <p>Practical skill assessments and subject-specific platform certificates.</p>
         </article>
         <article class="feature reveal" id="progress">
-          <span class="tag">Coming soon</span>
+          <span class="tag">Intelligence</span>
           <h3>AI Progress Intelligence</h3>
           <p>Track learning, assessments, projects and skill development from registration.</p>
         </article>
         <article class="feature reveal" id="matching">
-          <span class="tag">Coming soon</span>
+          <span class="tag">Smart Match</span>
           <h3>AI Project Matching</h3>
           <p>Recommend suitable projects using demonstrated skills and client requirements.</p>
         </article>
       </div>
-      <p class="fine reveal">EditConnect is in early development. These features are previews: no certificates are issued, no clients or projects are listed, and AI matching is not live.</p>
     </div>
   </section>
 </main>
 
+<!-- Auth View (#start / #signin) -->
 <section class="onboard" id="onboarding" hidden>
   <div class="panel">
     <a href="#top" class="back">← Back to home</a>
     <h2 id="ob-title">Join EditConnect</h2>
-    <p class="demo-banner">Frontend demonstration. Nothing you enter is stored, sent or used to create an account.</p>
+    <p class="panel-sub" id="ob-sub">Sign in instantly with your Google account or email.</p>
+
+    <div class="google-box">
+      <div id="g-btn-slot"></div>
+      <button type="button" class="btn-google" id="g-fallback-btn" hidden>
+        <svg width="18" height="18" viewBox="0 0 48 48" aria-hidden="true">
+          <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
+          <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
+          <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
+          <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+        </svg>
+        <span>Continue with Google</span>
+      </button>
+
+      <div class="setup-note" id="g-config-box" hidden>
+        <strong>Activate Live Google OAuth Popup:</strong><br>
+        Paste your Google Cloud OAuth 2.0 Web Client ID below (Authorized origin: <code>https://dheerajisaireddy.github.io</code>):
+        <div style="display:flex;gap:8px;margin-top:8px">
+          <input type="text" id="g-client-input" placeholder="1234567890-abc.apps.googleusercontent.com" style="flex:1;padding:9px 12px;border-radius:10px;border:1px solid var(--line);background:#030508;color:#fff;font-size:.82rem">
+          <button type="button" class="btn primary small" id="g-save-client" style="padding:9px 14px">Save</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider">or continue with email</div>
+
     <form id="ob-form">
       <fieldset class="roles" id="ob-roles">
         <legend>I am a</legend>
@@ -193,25 +245,232 @@ legend{margin-bottom:10px;color:var(--muted);font-size:.85rem}
       </fieldset>
       <label class="field" id="f-name">Full name<input name="name" autocomplete="name" required></label>
       <label class="field">Email<input type="email" name="email" autocomplete="email" required></label>
-      <button class="btn primary" type="submit" id="ob-submit">Create account (demo)</button>
+      <label class="field">Password<input type="password" name="password" autocomplete="current-password" minlength="4" required></label>
+      <button class="btn primary" type="submit" id="ob-submit" style="width:100%">Create account</button>
     </form>
+
+    <p class="switch-link" id="ob-switch"></p>
     <p class="result" id="ob-result" role="status" hidden></p>
+  </div>
+</section>
+
+<!-- Signed-In Member Dashboard (#profile) -->
+<section class="onboard" id="profile-view" hidden>
+  <div class="panel">
+    <a href="#top" class="back">← Back to home</a>
+    <div class="profile-head" id="profile-header"></div>
+
+    <form id="profile-form">
+      <label class="field">Your Role
+        <select name="role" id="prof-role">
+          <option value="Student / Beginner Freelancer">Student / Beginner Freelancer</option>
+          <option value="Experienced Freelancer">Experienced Freelancer</option>
+          <option value="Client">Client</option>
+        </select>
+      </label>
+      <label class="field">Primary Video Editing Skill / Niche
+        <input name="skill" id="prof-skill" placeholder="e.g., Premiere Pro, After Effects, YouTube Documentaries">
+      </label>
+      <label class="field">Portfolio or Channel Link (Optional)
+        <input type="url" name="portfolio" id="prof-portfolio" placeholder="https://youtube.com/@yourchannel">
+      </label>
+      <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:20px">
+        <button type="submit" class="btn primary small">Save Profile</button>
+        <button type="button" class="btn small danger" id="signout-btn">Sign out</button>
+      </div>
+    </form>
+    <p class="result" id="prof-result" role="status" hidden></p>
   </div>
 </section>
 
 <footer class="foot">
   <span>© 2026 EditConnect</span>
-  <span>Frontend demonstration. No real accounts, clients, projects or certificates yet.</span>
+  <span>Skills Meet Opportunities • Powered by Google Sign-In</span>
 </footer>
 
 <script>
 (() => {
+  // Paste your Google Cloud OAuth 2.0 Web Client ID below (or save it directly on the Sign-in screen)
+  const DEFAULT_GOOGLE_CLIENT_ID = "YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com";
+  const CID_STORAGE_KEY = "editconnect_google_client_id";
+  const USERS_KEY = "editconnect_users_v1";
+  const SESSION_KEY = "editconnect_session_v1";
+
   const $ = (s, r = document) => r.querySelector(s);
+  const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({
+    "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+  }[c]));
+
   const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const home = $("#home"), ob = $("#onboarding");
+  const home = $("#home"), ob = $("#onboarding"), profView = $("#profile-view");
   const menu = $("#menu"), burger = $(".burger");
   const form = $("#ob-form"), result = $("#ob-result");
   const roles = $("#ob-roles"), nameField = $("#f-name");
+
+  let users = [];
+  let currentUser = null;
+
+  try { users = JSON.parse(localStorage.getItem(USERS_KEY) || "[]"); } catch (e) { users = []; }
+  try { currentUser = JSON.parse(localStorage.getItem(SESSION_KEY) || "null"); } catch (e) { currentUser = null; }
+
+  function persist() {
+    try {
+      localStorage.setItem(USERS_KEY, JSON.stringify(users));
+      localStorage.setItem(SESSION_KEY, JSON.stringify(currentUser));
+    } catch (e) {}
+  }
+
+  function getClientId() {
+    try {
+      const saved = localStorage.getItem(CID_STORAGE_KEY);
+      if (saved && saved.includes(".apps.googleusercontent.com")) return saved.trim();
+    } catch (e) {}
+    return DEFAULT_GOOGLE_CLIENT_ID;
+  }
+
+  function decodeJwtPayload(token) {
+    const base64Url = token.split(".")[1];
+    const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+    const jsonPayload = decodeURIComponent(
+      atob(base64).split("").map(c => "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2)).join("")
+    );
+    return JSON.parse(jsonPayload);
+  }
+
+  // Handle Real Google Sign-In Callback
+  window.handleGoogleCredential = response => {
+    try {
+      const payload = decodeJwtPayload(response.credential);
+      const email = (payload.email || "").toLowerCase();
+      let user = users.find(u => u.email === email);
+
+      if (!user) {
+        const selectedRole = form.elements.role ? form.elements.role.value : "";
+        user = {
+          id: payload.sub || ("g_" + Date.now()),
+          provider: "google",
+          name: payload.name || email.split("@")[0],
+          email,
+          picture: payload.picture || "",
+          role: selectedRole || "Student / Beginner Freelancer",
+          skill: "",
+          portfolio: "",
+          firstClientRegistered: false
+        };
+        users.push(user);
+      } else {
+        user.provider = "google";
+        user.name = payload.name || user.name;
+        user.picture = payload.picture || user.picture;
+      }
+
+      currentUser = user;
+      persist();
+      syncUI();
+      location.hash = "#profile";
+    } catch (err) {
+      result.textContent = "Google Sign-In could not verify token. Please try again.";
+      result.hidden = false;
+    }
+  };
+
+  // Initialize Google Identity Services Button
+  function initGoogleAuth() {
+    const cid = getClientId();
+    const slot = $("#g-btn-slot");
+    const fallbackBtn = $("#g-fallback-btn");
+    const configBox = $("#g-config-box");
+    const isConfigured = cid && !cid.startsWith("YOUR_GOOGLE_CLIENT_ID") && cid.includes(".apps.googleusercontent.com");
+
+    if (isConfigured && window.google && google.accounts && google.accounts.id) {
+      slot.innerHTML = "";
+      fallbackBtn.hidden = true;
+      configBox.hidden = true;
+      google.accounts.id.initialize({
+        client_id: cid,
+        callback: window.handleGoogleCredential,
+        auto_select: false
+      });
+      google.accounts.id.renderButton(slot, {
+        theme: "filled_black",
+        size: "large",
+        shape: "pill",
+        text: "continue_with",
+        width: 300
+      });
+    } else {
+      slot.innerHTML = "";
+      fallbackBtn.hidden = false;
+      fallbackBtn.onclick = () => {
+        configBox.hidden = !configBox.hidden;
+        if (!configBox.hidden) $("#g-client-input").focus();
+      };
+    }
+  }
+
+  $("#g-save-client").addEventListener("click", () => {
+    const val = ($("#g-client-input").value || "").trim();
+    if (!val.includes(".apps.googleusercontent.com")) {
+      result.textContent = "Please enter a valid Google OAuth Client ID ending in .apps.googleusercontent.com";
+      result.hidden = false;
+      return;
+    }
+    try { localStorage.setItem(CID_STORAGE_KEY, val); } catch (e) {}
+    result.hidden = true;
+    initGoogleAuth();
+  });
+
+  // Sync Navbar, Hero, and Programme State
+  function syncUI() {
+    const navLink = $("#nav-auth-link");
+    const heroBtn = $("#hero-primary-btn");
+    const heroStatus = $("#hero-status span");
+    const fcBtn = $("#fc-register-btn");
+    const fcTag = $("#fc-tag");
+
+    if (currentUser) {
+      const initial = esc((currentUser.name || "U")[0].toUpperCase());
+      const avatarHtml = currentUser.picture
+        ? `<img src="${esc(currentUser.picture)}" alt="" referrerpolicy="no-referrer">`
+        : `<span class="user-avatar">${initial}</span>`;
+
+      navLink.outerHTML = `<a href="#profile" class="user-chip" id="nav-auth-link">${avatarHtml}<span>${esc(currentUser.name.split(" ")[0])}</span></a>`;
+      heroBtn.href = "#profile";
+      heroBtn.innerHTML = `MY PROFILE <span aria-hidden="true">→</span>`;
+      heroStatus.textContent = `Signed in as ${currentUser.name} (${currentUser.role})`;
+
+      if (currentUser.firstClientRegistered) {
+        fcTag.textContent = "✓ Registered";
+        fcBtn.textContent = "Registered in First Client Programme ✓";
+      } else {
+        fcTag.textContent = "Open for Early Access";
+        fcBtn.textContent = "Register interest →";
+      }
+    } else {
+      const existingChip = $("#nav-auth-link");
+      if (existingChip) {
+        existingChip.outerHTML = `<a href="#signin" class="signin" id="nav-auth-link">Sign in</a>`;
+      }
+      heroBtn.href = "#start";
+      heroBtn.innerHTML = `START NOW <span aria-hidden="true">→</span>`;
+      heroStatus.textContent = "Google OAuth & Member Accounts Active";
+      fcTag.textContent = "Open for Early Access";
+      fcBtn.textContent = "Register interest →";
+    }
+  }
+
+  // First Client Programme Live Registration
+  $("#fc-register-btn").addEventListener("click", () => {
+    if (!currentUser) {
+      location.hash = "#start";
+      return;
+    }
+    currentUser.firstClientRegistered = true;
+    const idx = users.findIndex(u => u.email === currentUser.email);
+    if (idx !== -1) users[idx] = currentUser;
+    persist();
+    syncUI();
+  });
 
   // Mobile menu
   const setMenu = open => {
@@ -221,20 +480,56 @@ legend{margin-bottom:10px;color:var(--muted);font-size:.85rem}
   burger.addEventListener("click", () => setMenu(!menu.classList.contains("open")));
   menu.addEventListener("click", e => { if (e.target.closest("a")) setMenu(false); });
 
-  // Page switching: #start and #signin open the onboarding page
+  // Router
   function route(first) {
     const h = location.hash;
     const mode = h === "#start" ? "signup" : h === "#signin" ? "signin" : null;
-    home.hidden = !!mode;
+    const isProfile = h === "#profile";
+
+    home.hidden = !!(mode || isProfile);
     ob.hidden = !mode;
+    profView.hidden = !isProfile;
     result.hidden = true;
+    $("#prof-result").hidden = true;
+
+    if (isProfile) {
+      if (!currentUser) {
+        location.hash = "#signin";
+        return;
+      }
+      const initial = esc((currentUser.name || "U")[0].toUpperCase());
+      const picHtml = currentUser.picture
+        ? `<img class="profile-pic" src="${esc(currentUser.picture)}" alt="" referrerpolicy="no-referrer">`
+        : `<div class="profile-pic">${initial}</div>`;
+
+      $("#profile-header").innerHTML = `
+        ${picHtml}
+        <div>
+          <h3 style="font-size:1.25rem">${esc(currentUser.name)}</h3>
+          <p style="color:var(--muted);font-size:.88rem">${esc(currentUser.email)} • <span style="color:var(--neon)">${currentUser.provider === "google" ? "Google Verified" : "Email Account"}</span></p>
+        </div>
+      `;
+      $("#prof-role").value = currentUser.role || "Student / Beginner Freelancer";
+      $("#prof-skill").value = currentUser.skill || "";
+      $("#prof-portfolio").value = currentUser.portfolio || "";
+      scrollTo(0, 0);
+      return;
+    }
+
     if (mode) {
       const signup = mode === "signup";
-      $("#ob-title").textContent = signup ? "Join EditConnect" : "Sign in";
-      $("#ob-submit").textContent = signup ? "Create account (demo)" : "Continue (demo)";
+      $("#ob-title").textContent = signup ? "Join EditConnect" : "Sign in to EditConnect";
+      $("#ob-sub").textContent = signup
+        ? "Create your profile with Google or email to unlock opportunities."
+        : "Welcome back. Sign in with Google or your registered email.";
+      $("#ob-submit").textContent = signup ? "Create account" : "Sign in";
+      $("#ob-switch").innerHTML = signup
+        ? `Already have an account? <a href="#signin">Sign in</a>`
+        : `New to EditConnect? <a href="#start">Create an account</a>`;
       roles.hidden = nameField.hidden = !signup;
       roles.disabled = !signup;
       $("input", nameField).disabled = !signup;
+      initGoogleAuth();
       scrollTo(0, 0);
     } else if (h || !first) {
       let t = null;
@@ -248,19 +543,89 @@ legend{margin-bottom:10px;color:var(--muted);font-size:.85rem}
       }
     }
   }
-  addEventListener("hashchange", () => route(false));
-  route(true);
 
-  // Demo form: nothing is stored or sent
+  addEventListener("hashchange", () => route(false));
+  window.addEventListener("load", initGoogleAuth);
+
+  // Real Email Registration & Sign-In
   form.addEventListener("submit", e => {
     e.preventDefault();
     const signup = location.hash === "#start";
-    const role = form.elements.role.value;
-    result.textContent = signup
-      ? "Demo only: nothing was saved or sent." + (role ? " You chose “" + role + "”." : "") + " Real registration will open once EditConnect’s backend is ready."
-      : "Demo only: sign in is not connected yet, and nothing was sent.";
-    result.hidden = false;
-    form.reset();
+    const email = (form.elements.email.value || "").trim().toLowerCase();
+    const password = form.elements.password.value || "";
+
+    if (signup) {
+      if (users.some(u => u.email === email)) {
+        result.textContent = "An account with this email already exists. Switch to Sign in below.";
+        result.hidden = false;
+        return;
+      }
+      const newUser = {
+        id: "u_" + Date.now(),
+        provider: "email",
+        name: (form.elements.name.value || "").trim(),
+        email,
+        password,
+        role: form.elements.role.value || "Student / Beginner Freelancer",
+        skill: "",
+        portfolio: "",
+        firstClientRegistered: false
+      };
+      users.push(newUser);
+      currentUser = newUser;
+      persist();
+      syncUI();
+      form.reset();
+      location.hash = "#profile";
+    } else {
+      const found = users.find(u => u.email === email);
+      if (!found) {
+        result.textContent = "No account found with that email. Create an account or use Continue with Google.";
+        result.hidden = false;
+        return;
+      }
+      if (found.provider === "google" && !found.password) {
+        result.textContent = "This email is linked to Google Sign-In. Click 'Continue with Google' above.";
+        result.hidden = false;
+        return;
+      }
+      if (found.password !== password) {
+        result.textContent = "Incorrect password. Please try again.";
+        result.hidden = false;
+        return;
+      }
+      currentUser = found;
+      persist();
+      syncUI();
+      form.reset();
+      location.hash = "#profile";
+    }
+  });
+
+  // Member Profile Update & Sign Out
+  $("#profile-form").addEventListener("submit", e => {
+    e.preventDefault();
+    if (!currentUser) return;
+    currentUser.role = $("#prof-role").value;
+    currentUser.skill = ($("#prof-skill").value || "").trim();
+    currentUser.portfolio = ($("#prof-portfolio").value || "").trim();
+    const idx = users.findIndex(u => u.email === currentUser.email);
+    if (idx !== -1) users[idx] = currentUser;
+    persist();
+    syncUI();
+    const pr = $("#prof-result");
+    pr.textContent = "Profile saved!";
+    pr.hidden = false;
+  });
+
+  $("#signout-btn").addEventListener("click", () => {
+    currentUser = null;
+    persist();
+    if (window.google && google.accounts && google.accounts.id) {
+      google.accounts.id.disableAutoSelect();
+    }
+    syncUI();
+    location.hash = "#top";
   });
 
   // Gentle fade-in on scroll
@@ -274,13 +639,23 @@ legend{margin-bottom:10px;color:var(--muted);font-size:.85rem}
     items.forEach(el => el.classList.add("in"));
   }
 
-  // If the logo file is missing, hide the broken image and show a hint
-  document.querySelectorAll('img[src$="logo.png"]').forEach(img => {
-    const missing = () => { img.hidden = true; $(".notice-logo").hidden = false; };
-    if (img.complete && !img.naturalWidth) missing();
-    else img.addEventListener("error", missing);
-  });
+  // Graceful fallback if assets/logo.png is not uploaded yet
+  const brandImg = $("[data-brand-img]");
+  const heroImg = $("[data-hero-img]");
+  if (brandImg) {
+    const hideBrand = () => { brandImg.hidden = true; $(".brand-fallback").hidden = false; };
+    if (brandImg.complete && !brandImg.naturalWidth) hideBrand();
+    else brandImg.addEventListener("error", hideBrand);
+  }
+  if (heroImg) {
+    const hideHero = () => { heroImg.hidden = true; $(".hero-fallback").hidden = false; };
+    if (heroImg.complete && !heroImg.naturalWidth) hideHero();
+    else heroImg.addEventListener("error", hideHero);
+  }
+
+  syncUI();
+  route(true);
 })();
 </script>
 </body>
-  </html>
+</html>
