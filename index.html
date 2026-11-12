@@ -1,1897 +1,286 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
+<meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EditConnect | Skills Meet Opportunities</title>
+<meta name="description" content="Prove your skills. Earn recognition. Discover your first professional opportunity.">
 <meta name="theme-color" content="#030508">
-<title>EditConnect by Dheeraj — Video Editors &amp; Clients</title>
-<meta name="description" content="Find top video editors ranked by CONNECTS, completed projects, and verified portfolio branches.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Syne:wght@700;800&display=swap" rel="stylesheet">
-
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<script>document.documentElement.classList.add("js")</script>
 <style>
-:root {
-  --bg: #030508;
-  --primary: #126BFF;
-  --secondary: #168BFF;
-  --glow: #38bdf8;
-  --soft-glow: #7dd3fc;
-  --gold: #fbbf24;
-  --muted: #94a3b8;
-  --line: rgba(56, 189, 248, .24);
-  --glass: rgba(10, 19, 36, .74);
-  --nav-bg: rgba(3, 5, 8, .86);
-  --btn-shadow: rgba(18, 107, 255, .42);
-  --btn-hover-bg: rgba(22, 139, 255, .15);
-  --pill-bg: rgba(22, 139, 255, .14);
-  --tag-bg: rgba(22, 139, 255, .10);
-  --tag-text: #e0f2fe;
-  --grad-btn: linear-gradient(135deg, #126BFF, #0ea5e9);
-  --grad-hero: linear-gradient(135deg, #126BFF, #38bdf8);
-  --grad-brand: linear-gradient(135deg, #ffffff 22%, #7dd3fc 72%, #38bdf8 100%);
-  --grad-pill: linear-gradient(135deg, rgba(18, 107, 255, .26), rgba(56, 189, 248, .16));
-  --toast-bg: #071224;
-  --font: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --brand-font: 'Syne', sans-serif;
-}
+:root{--bg:#030508;--blue:#126BFF;--neon:#168BFF;--muted:#8fa3bf;--line:rgba(22,139,255,.28);--glass:rgba(10,20,38,.55)}
+*{box-sizing:border-box;margin:0}
+html{background:var(--bg);color-scheme:dark;scroll-behavior:smooth;scroll-padding-top:84px}
+body{color:#fff;font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;overflow-x:hidden}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+h1,h2,h3{line-height:1.15}
+[hidden]{display:none!important}
+:focus-visible{outline:2px solid var(--neon);outline-offset:3px}
 
-/* Editor Mode: Diffused Orange & Red Scenery Theme */
-body[data-mode="editor"] {
-  --bg: #070303;
-  --primary: #dc2626;
-  --secondary: #f97316;
-  --glow: #fb923c;
-  --soft-glow: #fed7aa;
-  --muted: #b8a39e;
-  --line: rgba(249, 115, 22, .28);
-  --glass: rgba(26, 10, 8, .76);
-  --nav-bg: rgba(8, 3, 3, .88);
-  --btn-shadow: rgba(239, 68, 68, .44);
-  --btn-hover-bg: rgba(249, 115, 22, .16);
-  --pill-bg: rgba(239, 68, 68, .16);
-  --tag-bg: rgba(249, 115, 22, .12);
-  --tag-text: #ffedd5;
-  --grad-btn: linear-gradient(135deg, #dc2626, #f97316);
-  --grad-hero: linear-gradient(135deg, #ef4444, #fb923c);
-  --grad-brand: linear-gradient(135deg, #ffffff 22%, #fed7aa 72%, #fb923c 100%);
-  --grad-pill: linear-gradient(135deg, rgba(220, 38, 38, .28), rgba(249, 115, 22, .18));
-  --toast-bg: #220a07;
-}
+/* floating background light */
+.lights{position:fixed;inset:0;z-index:-1;overflow:hidden;pointer-events:none}
+.lights i{position:absolute;width:60vmax;height:60vmax;border-radius:50%;background:radial-gradient(circle,rgba(18,107,255,.16),transparent 65%);animation:drift 24s ease-in-out infinite alternate}
+.lights i:first-child{top:-25vmax;left:-15vmax}
+.lights i:last-child{bottom:-30vmax;right:-20vmax;animation-delay:-12s}
+@keyframes drift{to{transform:translate(6vmax,4vmax)}}
 
-* { box-sizing: border-box; margin: 0; }
-html { background: var(--bg); color-scheme: dark; scroll-behavior: smooth; }
-body {
-  background: var(--bg);
-  color: #f8fafc;
-  font-family: var(--font);
-  font-size: 16px;
-  line-height: 1.6;
-  overflow-x: hidden;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  transition: background-color .65s ease, color .4s ease;
-}
-main { flex: 1; }
-a { color: inherit; text-decoration: none; }
-button, input, textarea, select { font-family: inherit; font-size: inherit; }
-[hidden] { display: none !important; }
+/* navigation */
+.nav{position:fixed;top:0;left:0;right:0;z-index:20;display:flex;align-items:center;justify-content:space-between;padding:14px clamp(18px,4vw,48px);background:rgba(3,5,8,.72);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid rgba(22,139,255,.14)}
+.brand{display:flex;align-items:center;gap:10px;font-weight:600;letter-spacing:.02em}
+.brand img{height:34px;width:auto}
+.menu{display:flex;align-items:center;gap:28px;color:var(--muted);font-size:.95rem}
+.menu a{transition:color .25s}
+.menu a:hover{color:#fff}
+.menu .signin{color:#fff;border:1px solid var(--line);padding:8px 18px;border-radius:999px;transition:border-color .25s,box-shadow .25s}
+.menu .signin:hover{border-color:var(--neon);box-shadow:0 0 18px rgba(22,139,255,.35)}
+.burger{display:none;width:42px;height:42px;background:none;border:1px solid var(--line);border-radius:10px;cursor:pointer;flex-direction:column;align-items:center;justify-content:center;gap:6px}
+.burger span{width:18px;height:2px;background:#fff;transition:transform .25s}
+.burger[aria-expanded=true] span:first-child{transform:translateY(4px) rotate(45deg)}
+.burger[aria-expanded=true] span:last-child{transform:translateY(-4px) rotate(-45deg)}
 
-.wrap { max-width: 1080px; margin: auto; padding: 0 22px; }
-.pg { padding-top: 104px; padding-bottom: 64px; }
-.narrow { max-width: 540px; }
-.muted { color: var(--muted); transition: color .5s ease; }
-.ptitle { font-size: clamp(1.85rem, 4.5vw, 2.5rem); font-weight: 700; line-height: 1.18; letter-spacing: -0.02em; margin-bottom: 6px; }
-.sec { margin: 28px 0 12px; font-size: 1.25rem; font-weight: 700; }
+/* hero */
+.hero{min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:120px 24px 80px}
+.logo-wrap{position:relative;isolation:isolate;margin-bottom:36px}
+.logo-wrap::before{content:"";position:absolute;inset:-35%;z-index:-1;background:radial-gradient(circle,rgba(22,139,255,.32),transparent 62%);animation:pulse 6s ease-in-out infinite}
+.logo{width:min(240px,56vw);height:auto;filter:drop-shadow(0 0 26px rgba(22,139,255,.55));animation:float 9s ease-in-out infinite}
+@keyframes pulse{50%{opacity:.55;transform:scale(1.06)}}
+@keyframes float{50%{transform:translateY(-8px)}}
+.notice-logo{margin-bottom:24px;padding:10px 14px;border:1px dashed var(--line);border-radius:12px;color:var(--muted);font-size:.85rem}
+h1{font-size:clamp(2.4rem,7vw,4.6rem);font-weight:700;letter-spacing:-.03em;max-width:14ch}
+.sub{max-width:34em;margin:20px 0 36px;color:var(--muted);font-size:clamp(1rem,2.4vw,1.2rem)}
+.actions{display:flex;flex-wrap:wrap;justify-content:center;gap:14px}
+.demo-tag{margin-top:34px;font-size:.8rem;color:var(--muted)}
 
-/* Diffused Ambient Scenery Lights */
-.lights { position: fixed; inset: 0; z-index: -1; pointer-events: none; overflow: hidden; }
-.lights i {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(28px);
-  transition: opacity .75s ease;
-  animation: drift 16s ease-in-out infinite alternate;
-}
-/* Client Mode Cool Blue/Cyan Diffused Scenery */
-.lights i.c1 {
-  width: 66vmax; height: 66vmax; top: -26vmax; left: -16vmax;
-  background: radial-gradient(circle, rgba(18, 107, 255, .22), rgba(56, 189, 248, .08) 48%, transparent 72%);
-}
-.lights i.c2 {
-  width: 64vmax; height: 64vmax; bottom: -28vmax; right: -18vmax; animation-delay: -8s;
-  background: radial-gradient(circle, rgba(56, 189, 248, .18), rgba(18, 107, 255, .07) 48%, transparent 72%);
-}
-/* Editor Mode Warm Orange & Crimson Red Diffused Scenery */
-.lights i.e1 {
-  width: 72vmax; height: 72vmax; top: -26vmax; left: -14vmax;
-  background: radial-gradient(circle, rgba(239, 68, 68, .28), rgba(249, 115, 22, .14) 46%, transparent 72%);
-  opacity: 0;
-}
-.lights i.e2 {
-  width: 70vmax; height: 70vmax; bottom: -26vmax; right: -16vmax; animation-delay: -6s;
-  background: radial-gradient(circle, rgba(249, 115, 22, .26), rgba(220, 38, 38, .12) 48%, transparent 72%);
-  opacity: 0;
-}
-.lights i.e3 {
-  width: 56vmax; height: 56vmax; top: 24%; left: 50%; transform: translateX(-50%);
-  background: radial-gradient(circle, rgba(251, 146, 60, .14), rgba(220, 38, 38, .06) 50%, transparent 74%);
-  opacity: 0;
-  animation: pulseDiffused 10s ease-in-out infinite alternate;
-}
+/* buttons */
+.btn{display:inline-flex;align-items:center;gap:10px;padding:15px 30px;border:1px solid var(--line);border-radius:999px;background:transparent;color:#fff;font-family:inherit;font-size:.9rem;font-weight:600;line-height:1;letter-spacing:.12em;cursor:pointer;transition:transform .25s,box-shadow .25s,border-color .25s,background .25s}
+.btn:hover{transform:translateY(-2px);border-color:var(--neon)}
+.btn.primary{background:var(--blue);border-color:transparent;box-shadow:0 0 22px rgba(22,139,255,.45)}
+.btn.primary:hover{background:var(--neon);box-shadow:0 0 40px rgba(22,139,255,.8)}
+.btn.small{padding:13px 24px;letter-spacing:.04em}
 
-body[data-mode="editor"] .lights i.c1,
-body[data-mode="editor"] .lights i.c2 { opacity: 0; }
-body[data-mode="editor"] .lights i.e1,
-body[data-mode="editor"] .lights i.e2,
-body[data-mode="editor"] .lights i.e3 { opacity: 1; }
+/* features */
+.features{padding:90px 0 60px}
+.wrap{max-width:1040px;margin:0 auto;padding:0 24px}
+.feature{padding:28px;border:1px solid var(--line);border-radius:20px;background:var(--glass);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);transition:border-color .3s,box-shadow .3s}
+.feature:hover{border-color:var(--neon);box-shadow:0 0 30px rgba(22,139,255,.18)}
+.feature h2,.feature h3{margin:14px 0 8px;letter-spacing:-.01em}
+.feature p{color:var(--muted)}
+.tag{display:inline-block;padding:3px 12px;border:1px solid var(--line);border-radius:999px;color:var(--neon);font-size:.78rem}
+.lead{margin-bottom:20px;padding:clamp(32px,6vw,64px);border-color:rgba(22,139,255,.6);box-shadow:0 0 60px rgba(18,107,255,.22),inset 0 0 40px rgba(18,107,255,.08)}
+.lead h2{font-size:clamp(1.9rem,5vw,3.1rem);letter-spacing:-.02em}
+.lead p{max-width:30em;margin-bottom:28px;font-size:1.15rem}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.fine{margin-top:28px;text-align:center;color:var(--muted);font-size:.85rem}
+.js .reveal{opacity:0;transform:translateY(18px);transition:opacity .9s ease,transform .9s ease,border-color .3s,box-shadow .3s}
+.js .reveal.in{opacity:1;transform:none}
+.grid .reveal:nth-child(2){transition-delay:.12s}
+.grid .reveal:nth-child(3){transition-delay:.24s}
+.flash{animation:flash 1.4s ease}
+@keyframes flash{30%{border-color:var(--neon);box-shadow:0 0 44px rgba(22,139,255,.5)}}
 
-@keyframes drift {
-  0% { transform: translate(0, 0) scale(1); }
-  100% { transform: translate(4vmax, 3vmax) scale(1.08); }
-}
-@keyframes pulseDiffused {
-  0% { transform: translateX(-50%) scale(0.95); }
-  100% { transform: translateX(-50%) scale(1.12); }
-}
+/* onboarding */
+.onboard{min-height:100svh;display:flex;align-items:center;justify-content:center;padding:110px 20px 60px}
+.panel{width:min(560px,100%);padding:clamp(24px,5vw,44px);border:1px solid var(--line);border-radius:24px;background:var(--glass);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);box-shadow:0 0 60px rgba(18,107,255,.15)}
+.back{color:var(--muted);font-size:.9rem}
+.back:hover{color:#fff}
+.panel h2{margin:18px 0 12px;font-size:1.8rem;letter-spacing:-.02em}
+.demo-banner{margin-bottom:22px;padding:10px 14px;border:1px dashed var(--line);border-radius:12px;color:var(--neon);font-size:.85rem}
+fieldset{min-width:0;margin-bottom:18px;padding:0;border:0}
+legend{margin-bottom:10px;color:var(--muted);font-size:.85rem}
+.roles label{position:relative;display:block;margin-bottom:10px;cursor:pointer}
+.roles input{position:absolute;opacity:0}
+.roles span{display:block;padding:14px 18px;border:1px solid var(--line);border-radius:14px;transition:border-color .25s,background .25s,box-shadow .25s}
+.roles label:hover span{border-color:var(--neon)}
+.roles input:checked+span{border-color:var(--neon);background:rgba(18,107,255,.16);box-shadow:0 0 20px rgba(22,139,255,.25)}
+.roles input:focus-visible+span{outline:2px solid var(--neon);outline-offset:2px}
+.field{display:block;margin-bottom:16px;color:var(--muted);font-size:.85rem}
+.field input{display:block;width:100%;margin-top:6px;padding:13px 16px;border:1px solid var(--line);border-radius:12px;background:rgba(3,5,8,.7);color:#fff;font:inherit}
+.field input:focus{outline:none;border-color:var(--neon);box-shadow:0 0 0 3px rgba(22,139,255,.2)}
+.result{margin-top:20px;padding:14px 16px;border:1px solid var(--neon);border-radius:12px;color:#dbe9ff}
 
-/* Top Navigation & Custom Brand Lockup */
-.nav {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 30;
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 12px clamp(16px, 4vw, 48px);
-  background: var(--nav-bg);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border-bottom: 1px solid var(--line);
-  transition: background .6s ease, border-color .6s ease;
-}
-.brand {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-}
-#navFluidLogo {
-  width: 38px;
-  height: 38px;
-  flex-shrink: 0;
-  display: block;
-}
-.brand-text {
-  display: inline-flex;
-  align-items: baseline;
-  flex-wrap: wrap;
-  gap: 6px;
-}
-.brand-name {
-  font-family: var(--brand-font);
-  font-weight: 800;
-  font-size: clamp(1.18rem, 2.6vw, 1.38rem);
-  letter-spacing: -0.02em;
-  background: var(--grad-brand);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-.brand-by {
-  font-family: var(--font);
-  font-size: .78rem;
-  font-weight: 600;
-  color: var(--glow);
-  opacity: .92;
-  transition: color .5s ease;
-}
+.foot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;padding:28px clamp(18px,4vw,48px);border-top:1px solid rgba(22,139,255,.14);color:var(--muted);font-size:.8rem}
 
-.menu { display: flex; align-items: center; gap: 22px; color: var(--muted); font-size: .94rem; font-weight: 500; }
-.menu a { transition: color .2s; }
-.menu a:hover, .menu a[aria-current="true"] { color: #fff; }
-.menu .signin {
-  color: #fff; border: 1px solid var(--line); padding: 8px 18px;
-  border-radius: 999px; background: var(--tag-bg); transition: .25s;
+@media (max-width:900px){.grid{grid-template-columns:1fr}}
+@media (max-width:760px){
+  .burger{display:flex}
+  .menu{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;align-items:stretch;gap:0;padding:8px 18px 18px;background:rgba(3,5,8,.97);border-bottom:1px solid var(--line)}
+  .menu.open{display:flex}
+  .menu a{padding:14px 4px;border-bottom:1px solid rgba(22,139,255,.1)}
+  .menu .signin{margin-top:14px;text-align:center}
 }
-.menu .signin:hover { border-color: var(--glow); background: var(--btn-hover-bg); }
-.role-pill {
-  font-size: .8rem; font-weight: 600;
-  padding: 5px 12px; border-radius: 999px; border: 1px solid var(--line);
-  background: var(--pill-bg); color: var(--glow);
-  transition: all .5s ease;
-}
-.burger { display: none; background: none; border: 1px solid var(--line); color: #fff; padding: 8px 12px; border-radius: 10px; cursor: pointer; }
-
-/* Hero & High-Viscosity 3D Droplet Stage */
-.hero {
-  min-height: 92svh; display: flex; flex-direction: column;
-  align-items: center; justify-content: center; text-align: center;
-  padding: 100px 22px 56px;
-}
-.fluid-stage {
-  position: relative;
-  width: 250px;
-  height: 250px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 10px;
-  cursor: grab;
-  touch-action: pan-y;
-}
-.fluid-stage:active { cursor: grabbing; }
-.fluid-stage::before {
-  content: "";
-  position: absolute;
-  inset: 28px;
-  border-radius: 50%;
-  background: radial-gradient(circle, var(--glow), var(--primary) 55%, transparent 76%);
-  opacity: .26;
-  filter: blur(24px);
-  z-index: 0;
-  pointer-events: none;
-  transition: background .65s ease;
-}
-#fluidLogo {
-  position: relative;
-  z-index: 1;
-  width: 250px;
-  height: 250px;
-  display: block;
-}
-
-/* Mode Switcher */
-.mode-switch {
-  display: inline-flex; padding: 5px; border-radius: 999px;
-  background: var(--glass); border: 1px solid var(--line);
-  margin-bottom: 20px; gap: 4px;
-  transition: background .6s ease, border-color .6s ease;
-}
-.mode-btn {
-  padding: 9px 22px; border-radius: 999px; border: none; background: transparent;
-  color: var(--muted); font-weight: 600; font-size: .92rem; cursor: pointer; transition: .25s;
-}
-.mode-btn.active {
-  background: var(--grad-btn);
-  color: #fff;
-  box-shadow: 0 4px 18px var(--btn-shadow);
-}
-
-.explore-zone {
-  min-height: 64px; display: flex; flex-direction: column; align-items: center; justify-content: center;
-  margin-bottom: 22px;
-}
-
-h1 {
-  font-size: clamp(2.15rem, 5.8vw, 3.85rem);
-  font-weight: 800;
-  line-height: 1.12;
-  letter-spacing: -0.025em;
-  max-width: 17ch;
-}
-.sub { max-width: 36em; margin: 14px 0 28px; color: var(--muted); font-size: 1.05rem; font-weight: 400; }
-.actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
-
-/* Buttons */
-.btn {
-  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-  padding: 13px 26px; border: 1px solid var(--line);
-  border-radius: 999px; background: var(--glass); color: #fff;
-  font-size: .94rem; font-weight: 600;
-  cursor: pointer; transition: transform .2s, border-color .3s, background .3s, box-shadow .3s;
-}
-.btn:hover { transform: translateY(-2px); border-color: var(--glow); background: var(--btn-hover-bg); }
-.btn.primary {
-  background: var(--grad-btn);
-  border-color: transparent;
-  box-shadow: 0 6px 24px var(--btn-shadow);
-}
-.btn.primary:hover { box-shadow: 0 8px 30px var(--btn-shadow); filter: brightness(1.06); }
-.btn.explore-hero {
-  padding: 15px 34px; font-size: 1.02rem; font-weight: 700;
-  background: var(--grad-hero);
-  border: none; box-shadow: 0 8px 30px var(--btn-shadow);
-}
-.btn.small { padding: 9px 18px; font-size: .86rem; }
-.btn.danger { border-color: rgba(239, 68, 68, .45); color: #fca5a5; }
-.btn.danger:hover { border-color: #ef4444; background: rgba(239, 68, 68, .14); }
-
-/* Cards & Panels */
-.panel {
-  width: 100%; margin: 16px 0; padding: clamp(20px, 3.5vw, 32px);
-  border: 1px solid var(--line); border-radius: 22px;
-  background: var(--glass);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  transition: background .6s ease, border-color .6s ease;
-}
-.grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 20px; }
-.feature {
-  display: block; padding: 24px; border: 1px solid var(--line);
-  border-radius: 22px; background: var(--glass);
-  transition: transform .22s, border-color .5s, background .6s, box-shadow .3s;
-}
-.feature:hover { transform: translateY(-3px); border-color: var(--glow); box-shadow: 0 10px 28px rgba(0, 0, 0, .25); }
-
-/* Editor Leaderboard Card */
-.editor-card {
-  margin-top: 18px; padding: 24px; border: 1px solid var(--line);
-  border-radius: 22px; background: var(--glass);
-  transition: border-color .4s, background .6s;
-}
-.editor-card:hover { border-color: var(--glow); }
-.ed-top { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start; gap: 14px; }
-.ed-rank {
-  display: inline-flex; align-items: center; justify-content: center;
-  width: 32px; height: 32px; border-radius: 50%;
-  background: var(--pill-bg); border: 1px solid var(--glow);
-  font-weight: 700; font-size: .88rem; color: var(--glow);
-}
-.connects-pill {
-  display: inline-flex; align-items: center; gap: 8px;
-  padding: 8px 16px; border-radius: 999px;
-  background: var(--grad-pill);
-  border: 1px solid var(--line); color: #fff; font-weight: 700; font-size: .95rem;
-}
-.connects-pill span { color: var(--glow); }
-.ed-metrics {
-  display: flex; flex-wrap: wrap; gap: 12px; margin: 14px 0;
-  font-size: .9rem; color: var(--muted);
-}
-.ed-metrics b { color: #fff; font-weight: 600; }
-.stars-display { color: var(--gold); font-weight: 700; }
-
-.tag {
-  display: inline-block; margin: 0 6px 6px 0; padding: 5px 12px;
-  border: 1px solid var(--line); border-radius: 999px;
-  color: var(--glow); background: var(--tag-bg); font-size: .8rem; font-weight: 600;
-  transition: all .45s ease;
-}
-.tag.branch { border-color: var(--line); color: var(--tag-text); }
-.tag.hot { background: var(--grad-btn); color: #fff; border-color: transparent; }
-
-/* Portfolio Grid */
-.port-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 12px; margin-top: 12px; }
-.port-item {
-  padding: 16px; border-radius: 16px; border: 1px solid var(--line);
-  background: rgba(5, 3, 3, .55);
-}
-.port-item h4 { font-size: .98rem; font-weight: 600; margin: 6px 0 4px; }
-.port-item p { font-size: .85rem; color: var(--muted); margin-bottom: 10px; }
-
-/* Forms & Inputs */
-.field { display: block; margin-bottom: 15px; color: var(--muted); font-size: .88rem; font-weight: 500; }
-.field input, .field textarea, .field select {
-  display: block; width: 100%; margin-top: 6px; padding: 12px 14px;
-  border: 1px solid var(--line); border-radius: 14px;
-  background: rgba(5, 4, 6, .85); color: #fff;
-  transition: border-color .3s ease;
-}
-.field textarea { min-height: 84px; resize: vertical; }
-.field input:focus, .field textarea:focus, .field select:focus { outline: none; border-color: var(--glow); }
-
-.filter-bar { display: flex; flex-wrap: wrap; gap: 12px; margin: 18px 0; }
-.filter-bar input, .filter-bar select {
-  padding: 12px 16px; border-radius: 14px; border: 1px solid var(--line);
-  background: var(--glass); color: #fff;
-}
-.filter-bar input { flex: 1; min-width: 210px; }
-
-/* Star Picker */
-.star-picker { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0; }
-.star-btn {
-  padding: 8px 13px; border-radius: 12px; border: 1px solid var(--line);
-  background: rgba(5, 4, 6, .8); color: var(--muted); cursor: pointer; font-weight: 600;
-}
-.star-btn.active { border-color: var(--gold); color: var(--gold); background: rgba(251, 191, 36, .12); }
-
-/* Branch Checkboxes */
-.branch-picks { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
-.branch-chip {
-  padding: 7px 14px; border-radius: 999px; border: 1px solid var(--line);
-  background: rgba(5, 4, 6, .75); color: var(--muted); font-size: .84rem; cursor: pointer;
-  transition: all .25s ease;
-}
-.branch-chip.selected { border-color: var(--glow); color: #fff; background: var(--pill-bg); }
-
-.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 14px; margin: 18px 0; }
-.stats div { padding: 18px; border: 1px solid var(--line); border-radius: 18px; background: var(--glass); transition: background .6s, border-color .6s; }
-.stats b { display: block; font-size: 1.75rem; font-weight: 700; color: #fff; }
-.bar { height: 8px; margin: 12px 0; border-radius: 99px; background: var(--tag-bg); overflow: hidden; }
-.bar i { display: block; height: 100%; background: var(--grad-btn); transition: width .35s ease, background .6s ease; }
-
-.row { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--line); }
-.foot {
-  display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px;
-  padding: 24px 28px; border-top: 1px solid var(--line); color: var(--muted); font-size: .85rem;
-  transition: border-color .6s ease, color .5s ease;
-}
-#toast {
-  position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%); z-index: 60;
-  max-width: 92vw; padding: 13px 22px; border: 1px solid var(--glow);
-  border-radius: 14px; background: var(--toast-bg); font-weight: 500;
-  box-shadow: 0 10px 30px rgba(0,0,0,.65);
-}
-
-@media (max-width: 860px) {
-  .grid { grid-template-columns: 1fr; }
-  .burger { display: block; }
-  .menu {
-    display: none; position: absolute; top: 100%; left: 0; right: 0;
-    flex-direction: column; align-items: stretch; gap: 0;
-    padding: 12px 20px; background: var(--nav-bg); border-bottom: 1px solid var(--line);
-  }
-  .menu.open { display: flex; }
-  .menu a { padding: 12px; border-bottom: 1px solid var(--line); }
-  .menu .signin { text-align: center; margin-top: 10px; }
-}
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { animation: none !important; transition: none !important; }
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .js .reveal{opacity:1;transform:none}
 }
 </style>
 </head>
-
-<body data-mode="client">
-<div class="lights" aria-hidden="true">
-  <i class="c1"></i>
-  <i class="c2"></i>
-  <i class="e1"></i>
-  <i class="e2"></i>
-  <i class="e3"></i>
-</div>
+<body>
+<div class="lights" aria-hidden="true"><i></i><i></i></div>
 
 <header class="nav">
-  <a class="brand" href="#/home">
-    <canvas id="navFluidLogo" width="38" height="38" aria-hidden="true"></canvas>
-    <span class="brand-text">
-      <span class="brand-name">EditConnect</span>
-      <span class="brand-by">by Dheeraj</span>
-    </span>
+  <a class="brand" href="#top" aria-label="EditConnect home">
+    <img src="assets/logo.png" alt="">
+    <span>EditConnect</span>
   </a>
-  <button class="burger" id="burger" aria-expanded="false" aria-label="Toggle menu">☰</button>
-  <nav class="menu" id="menu"></nav>
+  <button class="burger" type="button" aria-label="Toggle menu" aria-expanded="false" aria-controls="menu"><span></span><span></span></button>
+  <nav class="menu" id="menu" aria-label="Main">
+    <a href="#features">Explore</a>
+    <a href="#certification">Certification</a>
+    <a href="#first-client">Opportunities</a>
+    <a href="#signin" class="signin">Sign in</a>
+  </nav>
 </header>
 
-<main id="view"></main>
+<main id="home">
+  <section class="hero" id="top">
+    <div class="logo-wrap">
+      <img class="logo" src="assets/logo.png" alt="EditConnect logo">
+    </div>
+    <p class="notice-logo" hidden>Logo not found. Upload your logo to the assets folder as logo.png.</p>
+    <h1>Skills Meet Opportunities.</h1>
+    <p class="sub">Prove your skills. Earn recognition. Discover your first professional opportunity.</p>
+    <div class="actions">
+      <a href="#start" class="btn primary">START NOW <span aria-hidden="true">→</span></a>
+      <a href="#features" class="btn">EXPLORE</a>
+    </div>
+    <p class="demo-tag">Early preview. This website is a frontend demonstration.</p>
+  </section>
+
+  <section class="features" id="features">
+    <div class="wrap">
+      <article class="feature lead reveal" id="first-client">
+        <span class="tag">Coming soon</span>
+        <h2>First Client Programme</h2>
+        <p>Help qualified beginners discover genuine client opportunities.</p>
+        <a href="#start" class="btn primary small">Register interest (demo)</a>
+      </article>
+      <div class="grid">
+        <article class="feature reveal" id="certification">
+          <span class="tag">Coming soon</span>
+          <h3>Skill Certification</h3>
+          <p>Practical skill assessments and subject-specific platform certificates.</p>
+        </article>
+        <article class="feature reveal" id="progress">
+          <span class="tag">Coming soon</span>
+          <h3>AI Progress Intelligence</h3>
+          <p>Track learning, assessments, projects and skill development from registration.</p>
+        </article>
+        <article class="feature reveal" id="matching">
+          <span class="tag">Coming soon</span>
+          <h3>AI Project Matching</h3>
+          <p>Recommend suitable projects using demonstrated skills and client requirements.</p>
+        </article>
+      </div>
+      <p class="fine reveal">EditConnect is in early development. These features are previews: no certificates are issued, no clients or projects are listed, and AI matching is not live.</p>
+    </div>
+  </section>
+</main>
+
+<section class="onboard" id="onboarding" hidden>
+  <div class="panel">
+    <a href="#top" class="back">← Back to home</a>
+    <h2 id="ob-title">Join EditConnect</h2>
+    <p class="demo-banner">Frontend demonstration. Nothing you enter is stored, sent or used to create an account.</p>
+    <form id="ob-form">
+      <fieldset class="roles" id="ob-roles">
+        <legend>I am a</legend>
+        <label><input type="radio" name="role" value="Student / Beginner Freelancer" required><span>Student / Beginner Freelancer</span></label>
+        <label><input type="radio" name="role" value="Experienced Freelancer"><span>Experienced Freelancer</span></label>
+        <label><input type="radio" name="role" value="Client"><span>Client</span></label>
+      </fieldset>
+      <label class="field" id="f-name">Full name<input name="name" autocomplete="name" required></label>
+      <label class="field">Email<input type="email" name="email" autocomplete="email" required></label>
+      <button class="btn primary" type="submit" id="ob-submit">Create account (demo)</button>
+    </form>
+    <p class="result" id="ob-result" role="status" hidden></p>
+  </div>
+</section>
 
 <footer class="foot">
-  <span>© 2026 EditConnect by Dheeraj</span>
-  <span>Transparent Video Editing Marketplace • Powered by CONNECTS</span>
+  <span>© 2026 EditConnect</span>
+  <span>Frontend demonstration. No real accounts, clients, projects or certificates yet.</span>
 </footer>
 
-<div id="toast" role="status" hidden></div>
-
 <script>
-const STORAGE_KEY = "editconnect_github_v1";
+(() => {
+  const $ = (s, r = document) => r.querySelector(s);
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const home = $("#home"), ob = $("#onboarding");
+  const menu = $("#menu"), burger = $(".burger");
+  const form = $("#ob-form"), result = $("#ob-result");
+  const roles = $("#ob-roles"), nameField = $("#f-name");
 
-const DEFAULT_BRANCHES = [
-  "YouTube Long-Form",
-  "Reels & Shorts",
-  "Motion Graphics",
-  "Color Grading",
-  "Gaming & Montage",
-  "Documentary",
-  "Podcasts & Talking Head",
-  "VFX & Transitions"
-];
-
-const SEED_USERS = [
-  {
-    id: "ed_aarav",
-    name: "Aarav Mehta",
-    email: "aarav@editconnect.demo",
-    password: "password123",
-    role: "editor",
-    experience: "4 Years",
-    pricing: "$60 / video",
-    availability: "Available Now",
-    bio: "Documentary & retention-focused YouTube editor. Specialized in pacing, sound design, and DaVinci Resolve color grading.",
-    branches: ["YouTube Long-Form", "Documentary", "Color Grading"],
-    connects: 86,
-    projectsCompleted: 6,
-    portfolio: [
-      {
-        id: "p1",
-        title: "How Tech Giants Build AI Chips (22-Min Doc)",
-        branch: "Documentary",
-        url: "https://youtube.com",
-        notes: "Premiere Pro + After Effects • 480K+ views"
-      },
-      {
-        id: "p2",
-        title: "Cinematic Travel LUT & Grade Breakdown",
-        branch: "Color Grading",
-        url: "https://youtube.com",
-        notes: "DaVinci Resolve Studio • LOG to Rec.709"
-      }
-    ],
-    reviews: [
-      { clientName: "Vikram Sethi", projectTitle: "Main Channel Documentary", stars: 5, projectConnects: 10, starConnects: 10, comment: "Incredible storytelling and sound design." },
-      { clientName: "Sarah Jenkins", projectTitle: "Brand Story Cut", stars: 4, projectConnects: 10, starConnects: 8, comment: "Delivered ahead of schedule with clean color." }
-    ]
-  },
-  {
-    id: "ed_elena",
-    name: "Elena Vance",
-    email: "elena@editconnect.demo",
-    password: "password123",
-    role: "editor",
-    experience: "3 Years",
-    pricing: "$35 / short",
-    availability: "Available Now",
-    bio: "High-retention short-form editor for creators and founders. Custom kinetic captions, sound FX, and smooth motion graphics.",
-    branches: ["Reels & Shorts", "Motion Graphics"],
-    connects: 78,
-    projectsCompleted: 5,
-    portfolio: [
-      {
-        id: "p3",
-        title: "30-Day Founder Reels Pack (High Retention)",
-        branch: "Reels & Shorts",
-        url: "https://youtube.com",
-        notes: "After Effects • 1.2M organic reach"
-      },
-      {
-        id: "p4",
-        title: "SaaS Product Launch Motion Explainer",
-        branch: "Motion Graphics",
-        url: "https://youtube.com",
-        notes: "After Effects + Illustrator • 60fps"
-      }
-    ],
-    reviews: [
-      { clientName: "Vikram Sethi", projectTitle: "10 Viral Shorts Bundle", stars: 5, projectConnects: 10, starConnects: 10, comment: "Doubled our average watch duration." }
-    ]
-  },
-  {
-    id: "ed_rohan",
-    name: "Rohan Kapoor",
-    email: "rohan@editconnect.demo",
-    password: "password123",
-    role: "editor",
-    experience: "2.5 Years",
-    pricing: "$45 / video",
-    availability: "Available Now",
-    bio: "Fast-paced gaming, montage, and VFX editor. Beat-synced cuts, 3D camera shakes, and custom transitions.",
-    branches: ["Gaming & Montage", "VFX & Transitions", "Reels & Shorts"],
-    connects: 54,
-    projectsCompleted: 4,
-    portfolio: [
-      {
-        id: "p5",
-        title: "Valorant Championship Frag Montage",
-        branch: "Gaming & Montage",
-        url: "https://youtube.com",
-        notes: "After Effects + Blender 3D Camera"
-      }
-    ],
-    reviews: [
-      { clientName: "Sarah Jenkins", projectTitle: "Esports Highlight Reel", stars: 4, projectConnects: 8, starConnects: 8, comment: "Super clean transitions and sync." }
-    ]
-  },
-  {
-    id: "ed_maya",
-    name: "Maya Lin",
-    email: "maya@editconnect.demo",
-    password: "password123",
-    role: "editor",
-    experience: "1.5 Years",
-    pricing: "$25 / episode",
-    availability: "Available Now",
-    bio: "Clean multi-cam podcast editing, audio leveling, and engaging YouTube talking-head cuts with B-roll.",
-    branches: ["Podcasts & Talking Head", "YouTube Long-Form"],
-    connects: 36,
-    projectsCompleted: 2,
-    portfolio: [
-      {
-        id: "p6",
-        title: "Startup Weekly Podcast Ep. #42 + Clips",
-        branch: "Podcasts & Talking Head",
-        url: "https://youtube.com",
-        notes: "Premiere Pro + Audition Studio Audio"
-      }
-    ],
-    reviews: [
-      { clientName: "Vikram Sethi", projectTitle: "Founder Interview Edit", stars: 4, projectConnects: 10, starConnects: 8, comment: "Crisp audio and great pacing." }
-    ]
-  },
-  {
-    id: "cl_vikram",
-    name: "Vikram Sethi",
-    email: "client@editconnect.demo",
-    password: "password123",
-    role: "client",
-    bio: "Tech creator & channel producer hiring editors for weekly YouTube documentaries and daily shorts.",
-    history: [
-      { editorName: "Aarav Mehta", projectTitle: "Main Channel Documentary", stars: 5, connectsAwarded: 20 },
-      { editorName: "Elena Vance", projectTitle: "10 Viral Shorts Bundle", stars: 5, connectsAwarded: 20 }
-    ]
-  },
-  {
-    id: "cl_sarah",
-    name: "Sarah Jenkins",
-    email: "sarah@editconnect.demo",
-    password: "password123",
-    role: "client",
-    bio: "Digital media producer looking for reliable motion graphics and podcast editors.",
-    history: [
-      { editorName: "Rohan Kapoor", projectTitle: "Esports Highlight Reel", stars: 4, connectsAwarded: 16 }
-    ]
-  }
-];
-
-let state = null;
-
-function saveState(nextState) {
-  state = nextState;
-  try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-  } catch (e) {}
-}
-
-function loadState() {
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (raw) {
-      const parsed = JSON.parse(raw);
-      if (parsed && Array.isArray(parsed.users)) return parsed;
-    }
-  } catch (e) {}
-  const initial = {
-    users: JSON.parse(JSON.stringify(SEED_USERS)),
-    currentUserId: null,
-    browseMode: "client"
+  // Mobile menu
+  const setMenu = open => {
+    menu.classList.toggle("open", open);
+    burger.setAttribute("aria-expanded", open);
   };
-  saveState(initial);
-  return initial;
-}
+  burger.addEventListener("click", () => setMenu(!menu.classList.contains("open")));
+  menu.addEventListener("click", e => { if (e.target.closest("a")) setMenu(false); });
 
-state = loadState();
-let authMode = "in";
-let authRole = "client";
-let searchTerm = "";
-let branchFilter = "ALL";
-let sortBy = "connects";
-
-const $ = s => document.querySelector(s);
-const view = $("#view");
-const menu = $("#menu");
-const burger = $("#burger");
-
-const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({
-  "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
-}[c]));
-
-const safeUrl = u => /^https?:\/\//i.test((u || "").trim()) ? u.trim() : "";
-
-const currentUser = () => state.users.find(u => u.id === state.currentUserId) || null;
-const activeMode = () => {
-  const u = currentUser();
-  return u ? u.role : state.browseMode;
-};
-
-const getEditors = () => state.users.filter(u => u.role === "editor");
-
-const getAllBranchesForEditor = ed => {
-  const set = new Set(ed.branches || []);
-  (ed.portfolio || []).forEach(p => { if (p.branch) set.add(p.branch); });
-  return [...set];
-};
-
-const avgStars = ed => {
-  const revs = ed.reviews || [];
-  if (!revs.length) return "New";
-  const sum = revs.reduce((acc, r) => acc + Number(r.stars || 0), 0);
-  return (sum / revs.length).toFixed(1) + " ★";
-};
-
-function toast(msg) {
-  const el = $("#toast");
-  el.textContent = msg;
-  el.hidden = false;
-  clearTimeout(toast._t);
-  toast._t = setTimeout(() => { el.hidden = true; }, 4000);
-}
-
-// ==========================================
-// COLOR INTERPOLATION HELPER (CLIENT BLUE <-> EDITOR ORANGE/RED)
-// ==========================================
-let themeMix = activeMode() === "editor" ? 1 : 0;
-
-function lerp(a, b, t) {
-  return a + (b - a) * t;
-}
-
-function mixRgb(c1, c2, t, alpha = 1) {
-  const r = Math.round(lerp(c1[0], c2[0], t));
-  const g = Math.round(lerp(c1[1], c2[1], t));
-  const b = Math.round(lerp(c1[2], c2[2], t));
-  return alpha < 1 ? `rgba(${r},${g},${b},${alpha})` : `rgb(${r},${g},${b})`;
-}
-
-// ==========================================
-// HIGH-VISCOSITY 3D LIQUID DROPLET ENGINES
-// ==========================================
-let dropletImpulse = 0;
-
-function triggerViscousPulse(amount = 1) {
-  dropletImpulse = Math.min(2.5, dropletImpulse + amount);
-}
-
-function initNavFluidLogo() {
-  const canvas = document.getElementById("navFluidLogo");
-  if (!canvas) return;
-  const ctx = canvas.getContext("2d");
-  const dpr = Math.min(window.devicePixelRatio || 1, 2);
-  const size = 38;
-  canvas.width = size * dpr;
-  canvas.height = size * dpr;
-  ctx.scale(dpr, dpr);
-
-  const cx = size / 2;
-  const cy = size / 2;
-
-  function drawViscousMini(t, baseR, phase, fill) {
-    const steps = 60;
-    ctx.beginPath();
-    for (let i = 0; i <= steps; i++) {
-      const th = (i / steps) * Math.PI * 2;
-      // Heavy viscous surface tension wave (slow, thick, cohesive)
-      const w1 = Math.sin(th * 2 + t * 1.1 + phase) * 1.25;
-      const w2 = Math.cos(th * 3 - t * 0.85 + phase) * 0.75;
-      const r = baseR + w1 + w2;
-      const x = cx + Math.cos(th) * r;
-      const y = cy + Math.sin(th) * r;
-      if (i === 0) ctx.moveTo(x, y);
-      else ctx.lineTo(x, y);
-    }
-    ctx.closePath();
-    ctx.fillStyle = fill;
-    ctx.fill();
-  }
-
-  function loop(now) {
-    const t = now * 0.001;
-    const m = themeMix;
-    ctx.clearRect(0, 0, size, size);
-
-    // Outer diffused liquid halo
-    const halo = ctx.createRadialGradient(cx, cy, 4, cx, cy, 18);
-    halo.addColorStop(0, mixRgb([56, 189, 248], [249, 115, 22], m, 0.45));
-    halo.addColorStop(1, mixRgb([18, 107, 255], [220, 38, 38], m, 0));
-    ctx.fillStyle = halo;
-    ctx.beginPath();
-    ctx.arc(cx, cy, 18, 0, Math.PI * 2);
-    ctx.fill();
-
-    // Thick 3D droplet body
-    const bodyGrad = ctx.createRadialGradient(cx - 5, cy - 6, 1.5, cx + 3, cy + 4, 15);
-    bodyGrad.addColorStop(0, mixRgb([224, 242, 254], [255, 237, 213], m));
-    bodyGrad.addColorStop(0.32, mixRgb([22, 139, 255], [249, 115, 22], m));
-    bodyGrad.addColorStop(0.78, mixRgb([11, 59, 156], [185, 28, 28], m));
-    bodyGrad.addColorStop(1, mixRgb([5, 20, 56], [69, 10, 10], m));
-    drawViscousMini(t, 13.2, 0.5, bodyGrad);
-
-    // Warm/cool bottom rim refraction
-    ctx.save();
-    ctx.beginPath();
-    ctx.arc(cx + 2, cy + 3, 10.5, 0.15 * Math.PI, 0.85 * Math.PI);
-    ctx.strokeStyle = mixRgb([125, 211, 252], [253, 186, 116], m, 0.55);
-    ctx.lineWidth = 1.4;
-    ctx.stroke();
-    ctx.restore();
-
-    // Wet specular highlight
-    ctx.beginPath();
-    ctx.ellipse(cx - 4.2, cy - 5.2, 4.4, 2.1, -0.55, 0, Math.PI * 2);
-    ctx.fillStyle = "rgba(255, 255, 255, 0.85)";
-    ctx.fill();
-
-    // Center Play Emblem
-    ctx.beginPath();
-    ctx.moveTo(cx - 2.3, cy - 3.6);
-    ctx.lineTo(cx + 4.3, cy);
-    ctx.lineTo(cx - 2.3, cy + 3.6);
-    ctx.closePath();
-    ctx.fillStyle = "rgba(255, 255, 255, 0.95)";
-    ctx.fill();
-
-    requestAnimationFrame(loop);
-  }
-  requestAnimationFrame(loop);
-}
-
-let fluidRaf = null;
-
-function initFluidLogo() {
-  if (fluidRaf) {
-    cancelAnimationFrame(fluidRaf);
-    fluidRaf = null;
-  }
-  const canvas = document.getElementById("fluidLogo");
-  if (!canvas) return;
-
-  const ctx = canvas.getContext("2d");
-  const dpr = Math.min(window.devicePixelRatio || 1, 2);
-  const size = 250;
-  canvas.width = size * dpr;
-  canvas.height = size * dpr;
-  ctx.scale(dpr, dpr);
-
-  const cx = size / 2;
-  const cy = size / 2;
-
-  // 36-Node High-Viscosity Spring-Mass Liquid Contour
-  const N = 36;
-  const radii = new Float32Array(N);
-  const velocities = new Float32Array(N);
-  const baseRadius = 72;
-
-  for (let i = 0; i < N; i++) {
-    radii[i] = baseRadius;
-    velocities[i] = 0;
-  }
-
-  let pointerX = 0;
-  let pointerY = 0;
-  let smoothX = 0;
-  let smoothY = 0;
-  let isDragging = false;
-
-  const applyViscousTouch = (clientX, clientY, strength) => {
-    const rect = canvas.getBoundingClientRect();
-    const nx = ((clientX - rect.left) / rect.width - 0.5) * 2;
-    const ny = ((clientY - rect.top) / rect.height - 0.5) * 2;
-    pointerX = Math.max(-1, Math.min(1, nx));
-    pointerY = Math.max(-1, Math.min(1, ny));
-
-    const touchAngle = Math.atan2(ny, nx);
-    for (let i = 0; i < N; i++) {
-      const nodeAngle = (i / N) * Math.PI * 2;
-      let diff = Math.atan2(Math.sin(nodeAngle - touchAngle), Math.cos(nodeAngle - touchAngle));
-      // Broad, heavy viscous pull around touch point
-      const influence = Math.exp(-(diff * diff) / 0.55);
-      velocities[i] += influence * strength;
-    }
-  };
-
-  canvas.addEventListener("pointerdown", e => {
-    isDragging = true;
-    applyViscousTouch(e.clientX, e.clientY, 2.2);
-  });
-  canvas.addEventListener("pointermove", e => {
-    applyViscousTouch(e.clientX, e.clientY, isDragging ? 1.4 : 0.45);
-  });
-  canvas.addEventListener("touchmove", e => {
-    if (e.touches[0]) applyViscousTouch(e.touches[0].clientX, e.touches[0].clientY, 1.1);
-  }, { passive: true });
-  window.addEventListener("pointerup", () => { isDragging = false; });
-  canvas.addEventListener("pointerleave", () => {
-    isDragging = false;
-    pointerX = 0;
-    pointerY = 0;
-  });
-
-  function drawSmoothClosedCurve(points) {
-    ctx.beginPath();
-    const len = points.length;
-    for (let i = 0; i < len; i++) {
-      const p0 = points[(i - 1 + len) % len];
-      const p1 = points[i];
-      const p2 = points[(i + 1) % len];
-      const mid1x = (p0.x + p1.x) * 0.5;
-      const mid1y = (p0.y + p1.y) * 0.5;
-      const mid2x = (p1.x + p2.x) * 0.5;
-      const mid2y = (p1.y + p2.y) * 0.5;
-      if (i === 0) ctx.moveTo(mid1x, mid1y);
-      ctx.quadraticCurveTo(p1.x, p1.y, mid2x, mid2y);
-    }
-    ctx.closePath();
-  }
-
-  function frame(now) {
-    if (!document.body.contains(canvas)) {
-      fluidRaf = null;
-      return;
-    }
-    const t = now * 0.001;
-    const targetMix = activeMode() === "editor" ? 1 : 0;
-    themeMix += (targetMix - themeMix) * 0.055;
-    const m = themeMix;
-
-    smoothX += (pointerX - smoothX) * 0.06;
-    smoothY += (pointerY - smoothY) * 0.06;
-
-    // If mode switched or pulse triggered, impart a slow heavy viscous wave
-    if (dropletImpulse > 0.01) {
-      for (let i = 0; i < N; i++) {
-        const th = (i / N) * Math.PI * 2;
-        velocities[i] += Math.sin(th * 3 + t * 4) * dropletImpulse * 0.55;
+  // Page switching: #start and #signin open the onboarding page
+  function route(first) {
+    const h = location.hash;
+    const mode = h === "#start" ? "signup" : h === "#signin" ? "signin" : null;
+    home.hidden = !!mode;
+    ob.hidden = !mode;
+    result.hidden = true;
+    if (mode) {
+      const signup = mode === "signup";
+      $("#ob-title").textContent = signup ? "Join EditConnect" : "Sign in";
+      $("#ob-submit").textContent = signup ? "Create account (demo)" : "Continue (demo)";
+      roles.hidden = nameField.hidden = !signup;
+      roles.disabled = !signup;
+      $("input", nameField).disabled = !signup;
+      scrollTo(0, 0);
+    } else if (h || !first) {
+      let t = null;
+      try { t = h.length > 1 && h !== "#top" ? $(h) : null; } catch (e) {}
+      if (!t) return scrollTo(0, 0);
+      t.scrollIntoView({ behavior: reduce ? "auto" : "smooth" });
+      if (t.classList.contains("feature")) {
+        t.classList.remove("flash");
+        void t.offsetWidth;
+        t.classList.add("flash");
       }
-      dropletImpulse *= 0.78;
     }
-
-    // Physics update: High viscosity = strong neighbor cohesion + heavy damping + slow spring
-    const stiffness = 0.022;      // Slow viscous recovery
-    const neighborPull = 0.14;    // High surface tension cohesion
-    const damping = 0.915;        // Thick, syrupy damping
-
-    for (let i = 0; i < N; i++) {
-      const th = (i / N) * Math.PI * 2;
-      // Slow organic heavy gravity/surface-tension tide
-      const slowTide =
-        Math.sin(th * 2 + t * 0.95) * 4.2 +
-        Math.cos(th * 3 - t * 0.72) * 2.6 +
-        Math.sin(th * 4 + t * 1.15) * 1.1;
-
-      const targetR = baseRadius + slowTide;
-      const prev = radii[(i - 1 + N) % N];
-      const next = radii[(i + 1) % N];
-
-      const springForce = (targetR - radii[i]) * stiffness;
-      const cohesionForce = ((prev + next) * 0.5 - radii[i]) * neighborPull;
-
-      velocities[i] = (velocities[i] + springForce + cohesionForce) * damping;
-    }
-
-    const outerPts = [];
-    const innerPts = [];
-
-    for (let i = 0; i < N; i++) {
-      radii[i] += velocities[i];
-      // Clamp deformation so droplet stays cohesive & thick
-      radii[i] = Math.max(baseRadius - 15, Math.min(baseRadius + 18, radii[i]));
-      const th = (i / N) * Math.PI * 2;
-      const r = radii[i];
-      outerPts.push({
-        x: cx + Math.cos(th) * r + smoothX * 8,
-        y: cy + Math.sin(th) * r + smoothY * 8
-      });
-      innerPts.push({
-        x: cx + Math.cos(th) * (r * 0.76) + smoothX * 4,
-        y: cy + Math.sin(th) * (r * 0.76) + smoothY * 4
-      });
-    }
-
-    ctx.clearRect(0, 0, size, size);
-
-    // 1. Diffused Volumetric Backdrop Glow
-    const aura = ctx.createRadialGradient(cx, cy, 18, cx, cy, 112);
-    aura.addColorStop(0, mixRgb([56, 189, 248], [249, 115, 22], m, 0.34));
-    aura.addColorStop(0.55, mixRgb([18, 107, 255], [220, 38, 38], m, 0.16));
-    aura.addColorStop(1, mixRgb([18, 107, 255], [220, 38, 38], m, 0));
-    ctx.fillStyle = aura;
-    ctx.beginPath();
-    ctx.arc(cx, cy, 112, 0, Math.PI * 2);
-    ctx.fill();
-
-    // 2. Heavy Viscous Satellite Micro-Droplets (slowly orbiting & coalescing)
-    const sats = [
-      { a: t * 0.65, dist: 92, r: 7.5, phase: 0.4 },
-      { a: -t * 0.52 + 2.3, dist: 96, r: 5.8, phase: 1.9 }
-    ];
-    sats.forEach(s => {
-      const wobble = Math.sin(t * 1.4 + s.phase) * 4;
-      const sx = cx + Math.cos(s.a) * (s.dist + wobble) + smoothX * 11;
-      const sy = cy + Math.sin(s.a) * ((s.dist + wobble) * 0.72) + smoothY * 11;
-      const sg = ctx.createRadialGradient(sx - s.r * 0.35, sy - s.r * 0.35, 1, sx, sy, s.r);
-      sg.addColorStop(0, "#ffffff");
-      sg.addColorStop(0.38, mixRgb([56, 189, 248], [251, 146, 60], m));
-      sg.addColorStop(0.85, mixRgb([18, 107, 255], [220, 38, 38], m));
-      sg.addColorStop(1, mixRgb([6, 24, 68], [80, 12, 12], m));
-      ctx.beginPath();
-      ctx.arc(sx, sy, s.r, 0, Math.PI * 2);
-      ctx.fillStyle = sg;
-      ctx.fill();
-    });
-
-    // 3. Main 3D Viscous Liquid Droplet Body
-    drawSmoothClosedCurve(outerPts);
-    const bodyGrad = ctx.createRadialGradient(
-      cx - 26 + smoothX * 18,
-      cy - 30 + smoothY * 18,
-      8,
-      cx + 14,
-      cy + 18,
-      92
-    );
-    bodyGrad.addColorStop(0, mixRgb([224, 242, 254], [255, 237, 213], m));
-    bodyGrad.addColorStop(0.24, mixRgb([56, 189, 248], [251, 146, 60], m));
-    bodyGrad.addColorStop(0.58, mixRgb([18, 107, 255], [239, 68, 68], m));
-    bodyGrad.addColorStop(0.86, mixRgb([9, 42, 117], [153, 27, 27], m));
-    bodyGrad.addColorStop(1, mixRgb([4, 14, 42], [58, 8, 8], m));
-    ctx.fillStyle = bodyGrad;
-    ctx.fill();
-
-    // Thick surface-tension edge rim
-    ctx.lineWidth = 1.8;
-    ctx.strokeStyle = mixRgb([125, 211, 252], [253, 186, 116], m, 0.55);
-    ctx.stroke();
-
-    // 4. Internal Subsurface Liquid Depth Layer
-    drawSmoothClosedCurve(innerPts);
-    const subGrad = ctx.createLinearGradient(cx - 55, cy - 55, cx + 55, cy + 55);
-    subGrad.addColorStop(0, "rgba(255, 255, 255, 0.22)");
-    subGrad.addColorStop(0.5, mixRgb([56, 189, 248], [249, 115, 22], m, 0.12));
-    subGrad.addColorStop(1, mixRgb([18, 107, 255], [220, 38, 38], m, 0.32));
-    ctx.fillStyle = subGrad;
-    ctx.fill();
-
-    // 5. Bottom-Right Internal Caustic Refraction Crescent (makes it look like thick 3D liquid!)
-    ctx.save();
-    ctx.translate(cx + 16 + smoothX * 6, cy + 20 + smoothY * 6);
-    ctx.rotate(-0.68);
-    const causticGrad = ctx.createRadialGradient(0, 0, 2, 0, 0, 34);
-    causticGrad.addColorStop(0, mixRgb([125, 211, 252], [254, 215, 170], m, 0.52));
-    causticGrad.addColorStop(0.6, mixRgb([56, 189, 248], [249, 115, 22], m, 0.18));
-    causticGrad.addColorStop(1, "rgba(255, 255, 255, 0)");
-    ctx.fillStyle = causticGrad;
-    ctx.beginPath();
-    ctx.ellipse(0, 0, 32, 11, 0, 0, Math.PI * 2);
-    ctx.fill();
-    ctx.restore();
-
-    // 6. Primary Wet Gloss Specular Highlight (Top-Left)
-    ctx.save();
-    ctx.translate(cx - 25 + smoothX * 12, cy - 28 + smoothY * 12);
-    ctx.rotate(-0.62);
-    const specGrad = ctx.createRadialGradient(0, 0, 1, 0, 0, 26);
-    specGrad.addColorStop(0, "rgba(255, 255, 255, 0.92)");
-    specGrad.addColorStop(0.45, "rgba(255, 255, 255, 0.36)");
-    specGrad.addColorStop(1, "rgba(255, 255, 255, 0)");
-    ctx.fillStyle = specGrad;
-    ctx.beginPath();
-    ctx.ellipse(0, 0, 24, 10.5, 0, 0, Math.PI * 2);
-    ctx.fill();
-
-    // Secondary sharp droplet pinpoint gleam
-    ctx.beginPath();
-    ctx.arc(24, 6, 3.2, 0, Math.PI * 2);
-    ctx.fillStyle = "rgba(255, 255, 255, 0.78)";
-    ctx.fill();
-    ctx.restore();
-
-    // 7. Suspended 3D Play Emblem inside the Liquid Core
-    ctx.save();
-    ctx.translate(cx + 2 + smoothX * 9, cy + smoothY * 9);
-    ctx.shadowColor = "rgba(0, 0, 0, 0.42)";
-    ctx.shadowBlur = 14;
-    ctx.shadowOffsetY = 5;
-    ctx.beginPath();
-    ctx.moveTo(-12, -16);
-    ctx.lineTo(17, 0);
-    ctx.lineTo(-12, 16);
-    ctx.closePath();
-    ctx.fillStyle = "rgba(255, 255, 255, 0.95)";
-    ctx.fill();
-    ctx.restore();
-
-    fluidRaf = requestAnimationFrame(frame);
   }
+  addEventListener("hashchange", () => route(false));
+  route(true);
 
-  fluidRaf = requestAnimationFrame(frame);
-}
+  // Demo form: nothing is stored or sent
+  form.addEventListener("submit", e => {
+    e.preventDefault();
+    const signup = location.hash === "#start";
+    const role = form.elements.role.value;
+    result.textContent = signup
+      ? "Demo only: nothing was saved or sent." + (role ? " You chose “" + role + "”." : "") + " Real registration will open once EditConnect’s backend is ready."
+      : "Demo only: sign in is not connected yet, and nothing was sent.";
+    result.hidden = false;
+    form.reset();
+  });
 
-// ==========================================
-// THEME & NAVIGATION SYNC
-// ==========================================
-function syncTheme() {
-  const mode = activeMode();
-  document.body.setAttribute("data-mode", mode);
-  const metaTheme = document.querySelector('meta[name="theme-color"]');
-  if (metaTheme) {
-    metaTheme.setAttribute("content", mode === "editor" ? "#070303" : "#030508");
-  }
-}
-
-function renderNav() {
-  const u = currentUser();
-  const mode = activeMode();
-
-  let links = `<a href="#/home">Home</a>`;
-
-  if (mode === "client") {
-    links += `<a href="#/explore">Explore Editors</a>`;
-    if (u) links += `<a href="#/activity">Client Activity</a>`;
+  // Gentle fade-in on scroll
+  const items = document.querySelectorAll(".reveal");
+  if ("IntersectionObserver" in window && !reduce) {
+    const io = new IntersectionObserver(entries => entries.forEach(en => {
+      if (en.isIntersecting) { en.target.classList.add("in"); io.unobserve(en.target); }
+    }), { threshold: 0.15 });
+    items.forEach(el => io.observe(el));
   } else {
-    if (u) links += `<a href="#/studio">Portfolio Studio</a>`;
+    items.forEach(el => el.classList.add("in"));
   }
 
-  if (u) {
-    links += `<span class="role-pill">${u.role === "client" ? "Client Mode" : "Editor Mode"}</span>`;
-    links += `<a href="#/logout" class="signin">Sign out (${esc(u.name.split(" ")[0])})</a>`;
-  } else {
-    links += `<a href="#/auth" class="signin">Sign in / Register</a>`;
-  }
-
-  menu.innerHTML = links;
-
-  const currentHash = location.hash || "#/home";
-  menu.querySelectorAll("a").forEach(a => {
-    if (a.getAttribute("href") === currentHash) {
-      a.setAttribute("aria-current", "true");
-    }
+  // If the logo file is missing, hide the broken image and show a hint
+  document.querySelectorAll('img[src$="logo.png"]').forEach(img => {
+    const missing = () => { img.hidden = true; $(".notice-logo").hidden = false; };
+    if (img.complete && !img.naturalWidth) missing();
+    else img.addEventListener("error", missing);
   });
-}
-
-// ==========================================
-// VIEWS
-// ==========================================
-const Views = {
-  home() {
-    const u = currentUser();
-    const mode = activeMode();
-    const editors = getEditors().sort((a, b) => b.connects - a.connects);
-
-    return `
-    <section class="hero">
-      <div class="fluid-stage" title="Touch or drag to ripple the viscous liquid droplet">
-        <canvas id="fluidLogo" width="250" height="250"></canvas>
-      </div>
-
-      ${!u ? `
-      <div class="mode-switch" role="group" aria-label="Select Role Mode">
-        <button type="button" class="mode-btn ${mode === "client" ? "active" : ""}" data-act="setMode" data-mode="client">I am a Client</button>
-        <button type="button" class="mode-btn ${mode === "editor" ? "active" : ""}" data-act="setMode" data-mode="editor">I am an Editor</button>
-      </div>
-      ` : `
-      <div style="margin-bottom:14px">
-        <span class="role-pill">Signed in as ${esc(u.name)} (${u.role === "client" ? "Client" : "Editor"})</span>
-      </div>
-      `}
-
-      <div class="explore-zone">
-        ${mode === "client" ? `
-          <a class="btn explore-hero" href="#/explore">Explore Editors →</a>
-          <span class="muted" style="font-size:.85rem;margin-top:8px">Compare ${editors.length} editors by CONNECTS, completed projects &amp; pricing</span>
-        ` : `
-          <a class="btn primary" href="${u ? "#/studio" : "#/auth"}">${u ? "Open Portfolio Studio →" : "Register as Editor →"}</a>
-          <span class="muted" style="font-size:.85rem;margin-top:8px">Editor Mode: Build your portfolio &amp; branch tags to get discovered by clients</span>
-        `}
-      </div>
-
-      <h1>${mode === "client" ? "Hire Proven Video Editors." : "Let Your Portfolio Speak."}</h1>
-      <p class="sub">
-        ${mode === "client"
-          ? "No guesswork. Compare editors transparently by earned CONNECTS, completed projects, verified star ratings, and branch specialties."
-          : "Upload your best edits tagged by branch. Clients discover you based on your CONNECTS, completed projects, and portfolio work."}
-      </p>
-
-      <div class="actions">
-        ${!u ? `
-          <a class="btn" href="#/join">Create Free Profile</a>
-          <button type="button" class="btn small" data-act="demoLogin" data-role="${mode}">Instant Demo (${mode === "client" ? "Client" : "Editor"})</button>
-        ` : mode === "client" ? `
-          <a class="btn" href="#/activity">View My Ratings &amp; Projects</a>
-        ` : `
-          <a class="btn" href="#/studio">Manage Portfolio &amp; Branches</a>
-        `}
-      </div>
-    </section>
-
-    <section class="wrap" style="padding-bottom:60px">
-      <div class="grid">
-        <div class="feature">
-          <span class="tag hot">CONNECTS Engine</span>
-          <h3 style="margin:10px 0 6px;font-weight:700">Earned Reputation</h3>
-          <p class="muted">Every completed project awards up to <b>10 CONNECTS</b>, and every client star (0–5 ★) converts into <b>2 CONNECTS</b>.</p>
-        </div>
-        <div class="feature">
-          <span class="tag">Client-First Discovery</span>
-          <h3 style="margin:10px 0 6px;font-weight:700">Zero Cold Spam</h3>
-          <p class="muted">Editors cannot pester clients. Clients explore ranked editors with clear pricing, experience, and project counts.</p>
-        </div>
-        <div class="feature">
-          <span class="tag">Branch Portfolios</span>
-          <h3 style="margin:10px 0 6px;font-weight:700">Skill-Tagged Work</h3>
-          <p class="muted">Editors upload portfolio pieces under editing branches so clients immediately see proven work in their niche.</p>
-        </div>
-      </div>
-    </section>`;
-  },
-
-  explore() {
-    const u = currentUser();
-    const mode = activeMode();
-
-    if (mode === "editor") {
-      return `
-      <div class="wrap pg narrow">
-        <div class="panel">
-          <span class="tag hot">Editor Mode Active</span>
-          <h2 style="margin:12px 0 8px">Explore is for Clients Only</h2>
-          <p class="muted" style="margin-bottom:20px">
-            On EditConnect, editors cannot browse or approach clients directly. Instead, build your portfolio and branch tags so clients can discover and hire you.
-          </p>
-          <a class="btn primary" href="${u ? "#/studio" : "#/home"}">${u ? "Go to Portfolio Studio →" : "Back to Home"}</a>
-        </div>
-      </div>`;
-    }
-
-    const allBranches = [...new Set([
-      ...DEFAULT_BRANCHES,
-      ...getEditors().flatMap(getAllBranchesForEditor)
-    ])];
-
-    let list = getEditors().map(ed => ({
-      ...ed,
-      allBranches: getAllBranchesForEditor(ed)
-    }));
-
-    if (branchFilter !== "ALL") {
-      list = list.filter(ed => ed.allBranches.includes(branchFilter));
-    }
-
-    if (searchTerm.trim()) {
-      const q = searchTerm.trim().toLowerCase();
-      list = list.filter(ed =>
-        ed.name.toLowerCase().includes(q) ||
-        (ed.bio || "").toLowerCase().includes(q) ||
-        ed.allBranches.some(b => b.toLowerCase().includes(q))
-      );
-    }
-
-    list.sort((a, b) => {
-      if (sortBy === "projects") return (b.projectsCompleted || 0) - (a.projectsCompleted || 0);
-      return (b.connects || 0) - (a.connects || 0);
-    });
-
-    return `
-    <div class="wrap pg">
-      <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:14px">
-        <div>
-          <h2 class="ptitle">Explore Video Editors</h2>
-          <p class="muted">Ranked by earned CONNECTS and completed project progress.</p>
-        </div>
-        ${!u ? `
-          <div style="display:flex;gap:8px;flex-wrap:wrap">
-            <button type="button" class="btn small primary" data-act="demoLogin" data-role="client">Demo Client Login (To Rate)</button>
-            <a class="btn small" href="#/auth">Sign In</a>
-          </div>
-        ` : `<span class="tag">Logged in as Client: ${esc(u.name)}</span>`}
-      </div>
-
-      <div class="filter-bar">
-        <input type="search" id="searchInput" placeholder="Search editor name, style, or branch..." value="${esc(searchTerm)}">
-        <select id="branchSelect">
-          <option value="ALL">All Editing Branches</option>
-          ${allBranches.map(b => `<option value="${esc(b)}" ${branchFilter === b ? "selected" : ""}>${esc(b)}</option>`).join("")}
-        </select>
-        <select id="sortSelect">
-          <option value="connects" ${sortBy === "connects" ? "selected" : ""}>Sort: Highest CONNECTS</option>
-          <option value="projects" ${sortBy === "projects" ? "selected" : ""}>Sort: Most Projects</option>
-        </select>
-      </div>
-
-      ${list.length ? list.map((ed, idx) => `
-        <article class="editor-card">
-          <div class="ed-top">
-            <div>
-              <div style="display:flex;align-items:center;flex-wrap:wrap;gap:10px">
-                <span class="ed-rank">#${idx + 1}</span>
-                <h3 style="font-size:1.35rem;font-weight:700">${esc(ed.name)}</h3>
-                <span class="tag">${esc(ed.availability || "Available Now")}</span>
-              </div>
-              <p class="muted" style="margin-top:8px;max-width:62ch">${esc(ed.bio || "Video editor ready for new projects.")}</p>
-            </div>
-            <div class="connects-pill" title="Earned from completed projects and client star ratings">
-              ⚡ <span>${ed.connects || 0}</span> CONNECTS
-            </div>
-          </div>
-
-          <div class="ed-metrics">
-            <span>Pricing: <b>${esc(ed.pricing || "Contact for rate")}</b></span>
-            <span>•</span>
-            <span>Experience: <b>${esc(ed.experience || "1+ Year")}</b></span>
-            <span>•</span>
-            <span>Completed Projects: <b>${ed.projectsCompleted || 0}</b></span>
-            <span>•</span>
-            <span>Rating: <span class="stars-display">${avgStars(ed)}</span> (${(ed.reviews || []).length})</span>
-          </div>
-
-          <div style="margin:10px 0 14px">
-            ${ed.allBranches.length
-              ? ed.allBranches.map(b => `<span class="tag branch"># ${esc(b)}</span>`).join("")
-              : `<span class="muted" style="font-size:.84rem">No branch tags added yet</span>`}
-          </div>
-
-          <details>
-            <summary class="btn small">View Portfolio (${(ed.portfolio || []).length}) &amp; Award CONNECTS</summary>
-            <div style="margin-top:16px;padding-top:16px;border-top:1px solid var(--line)">
-              <h4 style="margin-bottom:8px;color:var(--glow);font-weight:600">Portfolio Showcase</h4>
-              ${(ed.portfolio || []).length ? `
-                <div class="port-grid">
-                  ${ed.portfolio.map(item => `
-                    <div class="port-item">
-                      <span class="tag branch">${esc(item.branch)}</span>
-                      <h4>${esc(item.title)}</h4>
-                      <p>${esc(item.notes || "")}</p>
-                      ${safeUrl(item.url) ? `<a class="btn small" href="${esc(safeUrl(item.url))}" target="_blank" rel="noopener">Watch Sample ↗</a>` : ""}
-                    </div>
-                  `).join("")}
-                </div>
-              ` : `<p class="muted" style="font-size:.9rem">No portfolio samples uploaded yet.</p>`}
-
-              <div style="margin-top:22px;padding:18px;border-radius:18px;background:rgba(5,4,6,.72);border:1px solid var(--line)">
-                <h4 style="margin-bottom:4px;font-weight:600">Complete Project &amp; Rate ${esc(ed.name)}</h4>
-                <p class="muted" style="font-size:.85rem;margin-bottom:14px">
-                  Completing a project awards up to <b>10 CONNECTS</b>. Each star (0–5 ★) adds <b>2 CONNECTS</b>.
-                </p>
-
-                ${u && u.role === "client" ? `
-                  <form data-form="rateEditor" data-editor-id="${esc(ed.id)}">
-                    <label class="field">Project Name
-                      <input name="projectTitle" required maxlength="70" placeholder="e.g., YouTube Channel Trailer Edit">
-                    </label>
-
-                    <label class="field">Direct Project Completion Reward (1 to 10 CONNECTS)
-                      <select name="projectConnects">
-                        <option value="10" selected>+10 CONNECTS (Full Project Completed)</option>
-                        <option value="8">+8 CONNECTS</option>
-                        <option value="6">+6 CONNECTS</option>
-                        <option value="5">+5 CONNECTS</option>
-                        <option value="3">+3 CONNECTS</option>
-                        <option value="1">+1 CONNECT</option>
-                        <option value="0">0 CONNECTS (Star Rating Only)</option>
-                      </select>
-                    </label>
-
-                    <div class="field">
-                      <span>Star Rating (0 to 5 Stars — 1 Star = 2 CONNECTS)</span>
-                      <input type="hidden" name="stars" value="5">
-                      <div class="star-picker" data-star-group>
-                        ${[0, 1, 2, 3, 4, 5].map(n => `
-                          <button type="button" class="star-btn ${n === 5 ? "active" : ""}" data-act="pickStar" data-val="${n}">
-                            ${n} ★ (+${n * 2})
-                          </button>
-                        `).join("")}
-                      </div>
-                    </div>
-
-                    <label class="field">Feedback Note (Optional)
-                      <input name="comment" maxlength="160" placeholder="Great communication and crisp cuts!">
-                    </label>
-
-                    <button type="submit" class="btn primary small">Confirm Project &amp; Award CONNECTS</button>
-                  </form>
-                ` : `
-                  <div style="display:flex;flex-wrap:wrap;gap:10px;align-items:center">
-                    <a class="btn primary small" href="#/auth">Sign in as Client to Rate</a>
-                    <button type="button" class="btn small" data-act="demoLogin" data-role="client">1-Click Demo Client Sign-In</button>
-                  </div>
-                `}
-              </div>
-
-              ${(ed.reviews || []).length ? `
-                <h4 style="margin:18px 0 8px;font-weight:600">Recent Client Reviews</h4>
-                ${ed.reviews.map(r => `
-                  <div class="row" style="font-size:.9rem">
-                    <div>
-                      <b>${esc(r.clientName)}</b> • <span class="muted">${esc(r.projectTitle)}</span>
-                      ${r.comment ? `<div class="muted">"${esc(r.comment)}"</div>` : ""}
-                    </div>
-                    <div style="text-align:right;white-space:nowrap">
-                      <span class="stars-display">${r.stars} ★</span>
-                      <div style="color:var(--glow);font-weight:600;font-size:.82rem">+${(r.projectConnects || 0) + (r.starConnects || 0)} CONNECTS</div>
-                    </div>
-                  </div>
-                `).join("")}
-              ` : ""}
-            </div>
-          </details>
-        </article>
-      `).join("") : `<div class="panel"><p class="muted">No editors match that filter yet.</p></div>`}
-    </div>`;
-  },
-
-  studio() {
-    const u = currentUser();
-    if (!u) return Views.auth();
-    if (u.role !== "editor") {
-      return `
-      <div class="wrap pg narrow">
-        <div class="panel">
-          <h2>Client Account Active</h2>
-          <p class="muted" style="margin:10px 0 18px">Portfolio Studio is for Video Editors. Head to Explore to find editors.</p>
-          <a class="btn primary" href="#/explore">Explore Editors →</a>
-        </div>
-      </div>`;
-    }
-
-    const branches = getAllBranchesForEditor(u);
-    const portfolio = u.portfolio || [];
-    const checks = [
-      !!u.name,
-      (u.bio || "").length >= 15,
-      !!u.pricing,
-      branches.length >= 1,
-      portfolio.length >= 1
-    ];
-    const pct = Math.round((checks.filter(Boolean).length / checks.length) * 100);
-
-    return `
-    <div class="wrap pg">
-      <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px">
-        <div>
-          <h2 class="ptitle">Editor Portfolio Studio</h2>
-          <p class="muted">Build your portfolio and branch tags. Clients discover you by your CONNECTS &amp; progress.</p>
-        </div>
-        <div class="connects-pill">⚡ <span>${u.connects || 0}</span> CONNECTS</div>
-      </div>
-
-      <div class="stats">
-        <div><b>${u.connects || 0}</b><span class="muted">Total CONNECTS</span></div>
-        <div><b>${u.projectsCompleted || 0}</b><span class="muted">Completed Projects</span></div>
-        <div><b>${avgStars(u)}</b><span class="muted">Client Rating</span></div>
-        <div><b>${portfolio.length}</b><span class="muted">Portfolio Works</span></div>
-      </div>
-
-      <div class="panel">
-        <div style="display:flex;justify-content:space-between;align-items:center">
-          <b>Profile Strength: ${pct}%</b>
-          <span class="muted" style="font-size:.85rem">Explore button is disabled in Editor Mode</span>
-        </div>
-        <div class="bar"><i style="width:${pct}%"></i></div>
-      </div>
-
-      <div class="panel">
-        <h3 style="margin-bottom:14px;font-weight:700">1. Upload Portfolio Work (Auto-Tags Your Branch)</h3>
-        <form data-form="addPortfolio">
-          <label class="field">Project Title
-            <input name="title" required maxlength="80" placeholder="e.g., High-Retention Finance YouTube Video">
-          </label>
-          <label class="field">Editing Branch (Displayed as a tag on your profile for clients)
-            <input name="branch" list="branchSuggestions" required maxlength="40" placeholder="Select or type a branch (e.g., Reels & Shorts)">
-            <datalist id="branchSuggestions">
-              ${DEFAULT_BRANCHES.map(b => `<option value="${esc(b)}">`).join("")}
-            </datalist>
-          </label>
-          <label class="field">Video / Portfolio Link (Optional — YouTube, Google Drive, Vimeo)
-            <input name="url" type="url" placeholder="https://youtube.com/...">
-          </label>
-          <label class="field">Software &amp; Project Highlights
-            <input name="notes" maxlength="120" placeholder="e.g., Premiere Pro + After Effects • Sound Design &amp; Color">
-          </label>
-          <button type="submit" class="btn primary">Add to Portfolio &amp; Tag Branch</button>
-        </form>
-
-        ${portfolio.length ? `
-          <h4 style="margin:22px 0 10px;color:var(--glow);font-weight:600">Your Uploaded Portfolio (${portfolio.length})</h4>
-          <div class="port-grid">
-            ${portfolio.map(item => `
-              <div class="port-item">
-                <span class="tag branch"># ${esc(item.branch)}</span>
-                <h4>${esc(item.title)}</h4>
-                <p>${esc(item.notes || "")}</p>
-                <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px">
-                  ${safeUrl(item.url) ? `<a class="btn small" href="${esc(safeUrl(item.url))}" target="_blank" rel="noopener">Open Link ↗</a>` : ""}
-                  <button type="button" class="btn small danger" data-act="delPortfolio" data-id="${esc(item.id)}">Remove</button>
-                </div>
-              </div>
-            `).join("")}
-          </div>
-        ` : ""}
-      </div>
-
-      <div class="panel">
-        <h3 style="margin-bottom:14px;font-weight:700">2. Rates, Experience &amp; Branch Tags</h3>
-        <form data-form="saveEditorProfile">
-          <label class="field">Display Name
-            <input name="name" required maxlength="60" value="${esc(u.name)}">
-          </label>
-          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px">
-            <label class="field">Pricing Rate
-              <input name="pricing" required maxlength="40" value="${esc(u.pricing || "")}" placeholder="e.g., $40 / video">
-            </label>
-            <label class="field">Editing Experience
-              <input name="experience" required maxlength="40" value="${esc(u.experience || "")}" placeholder="e.g., 3 Years">
-            </label>
-            <label class="field">Availability Status
-              <select name="availability">
-                <option ${u.availability === "Available Now" ? "selected" : ""}>Available Now</option>
-                <option ${u.availability === "Open for Long-Term" ? "selected" : ""}>Open for Long-Term</option>
-                <option ${u.availability === "Limited Slots" ? "selected" : ""}>Limited Slots</option>
-              </select>
-            </label>
-          </div>
-          <label class="field">Bio &amp; Editing Style
-            <textarea name="bio" maxlength="300" placeholder="Describe your editing strengths...">${esc(u.bio || "")}</textarea>
-          </label>
-          <div class="field">
-            <span>Active Branch Tags (Click to toggle)</span>
-            <div class="branch-picks">
-              ${DEFAULT_BRANCHES.map(b => `
-                <button type="button" class="branch-chip ${branches.includes(b) ? "selected" : ""}" data-act="toggleBranch" data-branch="${esc(b)}">
-                  ${branches.includes(b) ? "✓ " : "+ "}${esc(b)}
-                </button>
-              `).join("")}
-            </div>
-          </div>
-          <button type="submit" class="btn primary">Save Editor Profile</button>
-        </form>
-      </div>
-    </div>`;
-  },
-
-  activity() {
-    const u = currentUser();
-    if (!u) return Views.auth();
-    const hist = u.history || [];
-
-    return `
-    <div class="wrap pg">
-      <h2 class="ptitle">Client Activity</h2>
-      <p class="muted">Projects you completed and CONNECTS awarded to editors.</p>
-
-      <div class="stats">
-        <div><b>${hist.length}</b><span class="muted">Projects Completed</span></div>
-        <div><b>${hist.reduce((a, b) => a + (b.connectsAwarded || 0), 0)}</b><span class="muted">Total CONNECTS Awarded</span></div>
-      </div>
-
-      <div class="panel">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
-          <h3 style="font-weight:700">Completed Project History</h3>
-          <a class="btn primary small" href="#/explore">Explore More Editors →</a>
-        </div>
-        ${hist.length ? hist.map(h => `
-          <div class="row">
-            <div>
-              <b>${esc(h.editorName)}</b> — <span class="muted">${esc(h.projectTitle)}</span>
-            </div>
-            <div style="text-align:right">
-              <span class="stars-display">${h.stars} ★</span>
-              <span class="tag" style="margin-left:8px">+${h.connectsAwarded} CONNECTS</span>
-            </div>
-          </div>
-        `).join("") : `<p class="muted">No completed projects logged yet. Visit Explore Editors to rate an editor.</p>`}
-      </div>
-    </div>`;
-  },
-
-  auth() {
-    return `
-    <div class="wrap pg narrow">
-      <div class="panel">
-        <h2 style="margin-bottom:6px;font-weight:700">${authMode === "in" ? "Sign in to EditConnect" : "Create your profile"}</h2>
-        <p class="muted" style="margin-bottom:18px;font-size:.92rem">
-          ${authMode === "in" ? "Access your Client or Editor account." : "Register as a Client to explore editors, or as an Editor to showcase your portfolio."}
-        </p>
-
-        <form data-form="auth">
-          ${authMode === "up" ? `
-            <div class="field">
-              <span>I am registering as a</span>
-              <div class="mode-switch" style="width:100%;margin-top:8px">
-                <button type="button" style="flex:1" class="mode-btn ${authRole === "client" ? "active" : ""}" data-act="setAuthRole" data-role="client">Client</button>
-                <button type="button" style="flex:1" class="mode-btn ${authRole === "editor" ? "active" : ""}" data-act="setAuthRole" data-role="editor">Video Editor</button>
-              </div>
-            </div>
-
-            <label class="field">Full Name
-              <input name="name" required maxlength="60" placeholder="Your name or channel name">
-            </label>
-
-            ${authRole === "editor" ? `
-              <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
-                <label class="field">Starting Rate
-                  <input name="pricing" required maxlength="35" placeholder="e.g., $35 / video">
-                </label>
-                <label class="field">Experience
-                  <input name="experience" required maxlength="35" placeholder="e.g., 2 Years">
-                </label>
-              </div>
-            ` : ""}
-          ` : ""}
-
-          <label class="field">Email
-            <input name="email" type="email" required placeholder="you@example.com">
-          </label>
-
-          <label class="field">Password
-            <input name="password" type="password" required minlength="4" placeholder="At least 4 characters">
-          </label>
-
-          <button type="submit" class="btn primary" style="width:100%">
-            ${authMode === "in" ? "Sign In" : `Register as ${authRole === "client" ? "Client" : "Editor"}`}
-          </button>
-        </form>
-
-        <p style="margin-top:16px;font-size:.92rem;color:var(--muted);text-align:center">
-          ${authMode === "in"
-            ? `New to EditConnect? <a href="#" style="color:var(--glow)" data-act="toggleAuthMode">Create an account</a>`
-            : `Already registered? <a href="#" style="color:var(--glow)" data-act="toggleAuthMode">Sign in</a>`}
-        </p>
-
-        <div style="margin-top:22px;padding-top:18px;border-top:1px solid var(--line)">
-          <p class="muted" style="font-size:.84rem;text-align:center;margin-bottom:10px">Or test immediately with pre-loaded accounts:</p>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
-            <button type="button" class="btn small" data-act="demoLogin" data-role="client">Demo Client</button>
-            <button type="button" class="btn small" data-act="demoLogin" data-role="editor">Demo Editor</button>
-          </div>
-          <div style="text-align:center;margin-top:12px">
-            <button type="button" class="btn small danger" data-act="resetDemo">Reset Demo Data</button>
-          </div>
-        </div>
-      </div>
-    </div>`;
-  }
-};
-
-// ==========================================
-// ACTIONS & FORM HANDLERS
-// ==========================================
-view.addEventListener("click", e => {
-  const btn = e.target.closest("[data-act]");
-  if (!btn) return;
-  if (btn.tagName === "A") e.preventDefault();
-
-  const act = btn.dataset.act;
-
-  if (act === "setMode") {
-    state.browseMode = btn.dataset.mode;
-    saveState(state);
-    triggerViscousPulse(1.4);
-    render();
-  }
-
-  if (act === "setAuthRole") {
-    authRole = btn.dataset.role;
-    render();
-  }
-
-  if (act === "toggleAuthMode") {
-    authMode = authMode === "in" ? "up" : "in";
-    render();
-  }
-
-  if (act === "demoLogin") {
-    const role = btn.dataset.role;
-    const demoUser = state.users.find(u => u.role === role);
-    if (demoUser) {
-      state.currentUserId = demoUser.id;
-      state.browseMode = role;
-      saveState(state);
-      triggerViscousPulse(1.5);
-      toast(`Signed in as Demo ${role === "client" ? "Client" : "Editor"}: ${demoUser.name}`);
-      location.hash = role === "client" ? "#/explore" : "#/studio";
-    }
-  }
-
-  if (act === "resetDemo") {
-    localStorage.removeItem(STORAGE_KEY);
-    state = loadState();
-    toast("Demo profiles and CONNECTS restored to defaults.");
-    render();
-  }
-
-  if (act === "pickStar") {
-    const val = Number(btn.dataset.val);
-    const form = btn.closest("form");
-    form.querySelector('[name="stars"]').value = val;
-    btn.closest("[data-star-group]").querySelectorAll(".star-btn").forEach(b => {
-      b.classList.toggle("active", Number(b.dataset.val) === val);
-    });
-  }
-
-  if (act === "toggleBranch") {
-    const u = currentUser();
-    if (!u || u.role !== "editor") return;
-    const b = btn.dataset.branch;
-    u.branches = u.branches || [];
-    if (u.branches.includes(b)) {
-      u.branches = u.branches.filter(x => x !== b);
-    } else {
-      u.branches.push(b);
-    }
-    saveState(state);
-    render();
-  }
-
-  if (act === "delPortfolio") {
-    const u = currentUser();
-    if (!u || u.role !== "editor") return;
-    u.portfolio = (u.portfolio || []).filter(p => p.id !== btn.dataset.id);
-    saveState(state);
-    toast("Portfolio item removed.");
-    render();
-  }
-});
-
-view.addEventListener("input", e => {
-  if (e.target.id === "searchInput") {
-    searchTerm = e.target.value;
-    const pos = e.target.selectionStart;
-    render();
-    const inp = $("#searchInput");
-    if (inp) { inp.focus(); inp.setSelectionRange(pos, pos); }
-  }
-});
-
-view.addEventListener("change", e => {
-  if (e.target.id === "branchSelect") {
-    branchFilter = e.target.value;
-    render();
-  }
-  if (e.target.id === "sortSelect") {
-    sortBy = e.target.value;
-    render();
-  }
-});
-
-view.addEventListener("submit", e => {
-  e.preventDefault();
-  const form = e.target;
-  const type = form.dataset.form;
-  const fd = Object.fromEntries(new FormData(form));
-
-  if (type === "auth") {
-    const email = (fd.email || "").trim().toLowerCase();
-    const password = fd.password || "";
-
-    if (authMode === "in") {
-      const found = state.users.find(u => u.email.toLowerCase() === email && u.password === password);
-      if (!found) {
-        toast("Invalid email or password. Try Demo Client / Demo Editor below!");
-        return;
-      }
-      state.currentUserId = found.id;
-      state.browseMode = found.role;
-      saveState(state);
-      toast(`Welcome back, ${found.name}!`);
-      location.hash = found.role === "client" ? "#/explore" : "#/studio";
-    } else {
-      if (state.users.some(u => u.email.toLowerCase() === email)) {
-        toast("An account with this email already exists.");
-        return;
-      }
-      const newUser = {
-        id: "u_" + Date.now(),
-        name: (fd.name || "").trim(),
-        email,
-        password,
-        role: authRole,
-        bio: "",
-        ...(authRole === "editor" ? {
-          pricing: (fd.pricing || "$30 / video").trim(),
-          experience: (fd.experience || "1 Year").trim(),
-          availability: "Available Now",
-          branches: [],
-          connects: 0,
-          projectsCompleted: 0,
-          portfolio: [],
-          reviews: []
-        } : {
-          history: []
-        })
-      };
-      state.users.push(newUser);
-      state.currentUserId = newUser.id;
-      state.browseMode = newUser.role;
-      saveState(state);
-      toast(`Account created as ${newUser.role === "client" ? "Client" : "Editor"}!`);
-      location.hash = newUser.role === "client" ? "#/explore" : "#/studio";
-    }
-  }
-
-  if (type === "rateEditor") {
-    const u = currentUser();
-    if (!u || u.role !== "client") {
-      toast("Please sign in as a Client first.");
-      return;
-    }
-    const ed = state.users.find(x => x.id === form.dataset.editorId);
-    if (!ed) return;
-
-    const projectConnects = Math.min(10, Math.max(0, Number(fd.projectConnects || 0)));
-    const stars = Math.min(5, Math.max(0, Number(fd.stars || 0)));
-    const starConnects = stars * 2;
-    const totalAdded = projectConnects + starConnects;
-    const projectTitle = (fd.projectTitle || "Completed Project").trim();
-
-    ed.connects = (ed.connects || 0) + totalAdded;
-    if (projectConnects > 0) {
-      ed.projectsCompleted = (ed.projectsCompleted || 0) + 1;
-    }
-    ed.reviews = ed.reviews || [];
-    ed.reviews.unshift({
-      clientName: u.name,
-      projectTitle,
-      stars,
-      projectConnects,
-      starConnects,
-      comment: (fd.comment || "").trim()
-    });
-
-    u.history = u.history || [];
-    u.history.unshift({
-      editorName: ed.name,
-      projectTitle,
-      stars,
-      connectsAwarded: totalAdded
-    });
-
-    saveState(state);
-    toast(`Awarded +${totalAdded} CONNECTS to ${ed.name} (${projectConnects} project + ${starConnects} stars)!`);
-    render();
-  }
-
-  if (type === "addPortfolio") {
-    const u = currentUser();
-    if (!u || u.role !== "editor") return;
-    const branch = (fd.branch || "").trim();
-    const item = {
-      id: "port_" + Date.now(),
-      title: (fd.title || "").trim(),
-      branch,
-      url: (fd.url || "").trim(),
-      notes: (fd.notes || "").trim()
-    };
-    u.portfolio = u.portfolio || [];
-    u.portfolio.unshift(item);
-
-    u.branches = u.branches || [];
-    if (branch && !u.branches.includes(branch)) {
-      u.branches.push(branch);
-    }
-
-    saveState(state);
-    toast(`Portfolio added & tagged under #${branch}!`);
-    render();
-  }
-
-  if (type === "saveEditorProfile") {
-    const u = currentUser();
-    if (!u || u.role !== "editor") return;
-    u.name = (fd.name || u.name).trim();
-    u.pricing = (fd.pricing || "").trim();
-    u.experience = (fd.experience || "").trim();
-    u.availability = fd.availability || "Available Now";
-    u.bio = (fd.bio || "").trim();
-    saveState(state);
-    toast("Editor profile saved!");
-    render();
-  }
-});
-
-// ==========================================
-// ROUTER
-// ==========================================
-function render() {
-  let route = location.hash.replace("#/", "").split("?")[0] || "home";
-
-  if (route === "logout") {
-    state.currentUserId = null;
-    saveState(state);
-    toast("Signed out.");
-    location.hash = "#/home";
-    return;
-  }
-
-  if (route === "join") {
-    authMode = "up";
-    route = "auth";
-  }
-
-  syncTheme();
-  menu.classList.remove("open");
-  burger.setAttribute("aria-expanded", "false");
-  renderNav();
-
-  const fn = Views[route] || Views.home;
-  view.innerHTML = fn();
-
-  initFluidLogo();
-}
-
-burger.addEventListener("click", () => {
-  const open = menu.classList.toggle("open");
-  burger.setAttribute("aria-expanded", String(open));
-});
-
-window.addEventListener("hashchange", () => {
-  window.scrollTo(0, 0);
-  render();
-});
-
-initNavFluidLogo();
-render();
+})();
 </script>
 </body>
-</html>
+  </html>
