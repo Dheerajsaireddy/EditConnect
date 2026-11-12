@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -167,7 +166,7 @@ h1{font-size:clamp(2.4rem,7vw,4.6rem);line-height:1.1;max-width:14ch}
 // ==========================================
 
 import { initializeApp }
-from "https://www.gstatic.com/firebasejs/13.3.0/firebase-app.js";
+from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
 
 import {
  getAuth,
@@ -178,7 +177,7 @@ import {
  sendPasswordResetEmail,
  GoogleAuthProvider,
  signInWithPopup
-} from "https://www.gstatic.com/firebasejs/13.3.0/firebase-auth.js";
+} from "https://www.gstatic.com/firebasejs/11.0.0/firebase-auth.js";
 
 import {
  getFirestore,
@@ -194,7 +193,7 @@ import {
  limit,
  getDocs,
  serverTimestamp
-} from "https://www.gstatic.com/firebasejs/13.3.0/firebase-firestore.js";
+} from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
 
 const firebaseConfig = {
  apiKey: "AIzaSyDl8rk3KAYc4-AiNAUvAkeoAPopfRI8tm4",
@@ -657,57 +656,55 @@ auth:()=>`
 // ==========================================
 
 async function googleLogin(){
-
- const result=await signInWithPopup(auth,googleProvider);
- const user=result.user;
- const ref=doc(db,"users",user.uid);
- const snap=await getDoc(ref);
+ const result = await signInWithPopup(auth, googleProvider);
+ const user = result.user;
+ const ref = doc(db, "users", user.uid);
+ const snap = await getDoc(ref);
 
  if(!snap.exists()){
-  await setDoc(ref,{
-   name:user.displayName||"New User",
-   role:"Student / Beginner Freelancer",
-   bio:"",
-   skills:[],
-   link:"",
-   programme:false,
-   created:serverTimestamp()
+  await setDoc(ref, {
+   name: user.displayName || "New User",
+   role: "Student / Beginner Freelancer",
+   bio: "",
+   skills: [],
+   link: "",
+   programme: false,
+   created: serverTimestamp()
   });
  }
 
  await load(user);
- location.hash="#/progress";
+ location.hash = "#/progress";
 }
 
 async function load(user){
-
- me=null;
+ me = null;
 
  if(user){
-  me={
-   uid:user.uid,
-   email:user.email||"",
-   name:user.displayName||"",
-   role:"Student / Beginner Freelancer",
-   bio:"",
-   skills:[],
-   link:"",
-   programme:false
+  me = {
+   uid: user.uid,
+   email: user.email || "",
+   name: user.displayName || "",
+   role: "Student / Beginner Freelancer",
+   bio: "",
+   skills: [],
+   link: "",
+   programme: false
   };
 
-  const snap=await getDoc(doc(db,"users",user.uid));
+  const snap = await getDoc(doc(db, "users", user.uid));
 
   if(snap.exists()){
-   Object.assign(me,snap.data());
+   Object.assign(me, snap.data());
   }else{
-   await setDoc(doc(db,"users",user.uid),{
-    name:me.name,
-    role:me.role,
-    bio:"",
-    skills:[],
-    link:"",
-    programme:false,
-    created:serverTimestamp()
+   await setDoc(doc(db, "users", user.uid), {
+    name: me.name,
+    role: me.role,
+    bio: "",
+    skills: [],
+    link: "",
+    programme: false,
+    created: serverTimestamp()
    });
   }
  }
@@ -719,43 +716,43 @@ async function load(user){
 // BUTTON ACTIONS
 // ==========================================
 
-const A={
+const A = {
 
-mode:()=>{
- mode=mode==="in"?"up":"in";
- view.innerHTML=V.auth();
+mode: () => {
+ mode = mode === "in" ? "up" : "in";
+ view.innerHTML = V.auth();
 },
 
-google:async()=>{
+google: async () => {
  await googleLogin();
 },
 
-reset:async()=>{
- const email=view.querySelector('[name="email"]').value;
+reset: async () => {
+ const email = view.querySelector('[name="email"]').value;
 
  if(!email){
   toast("Enter your email address first.");
   return;
  }
 
- await sendPasswordResetEmail(auth,email);
+ await sendPasswordResetEmail(auth, email);
  toast("Password reset email sent.");
 },
 
-del:async b=>{
- if(!confirm("Delete this project?"))return;
+del: async b => {
+ if(!confirm("Delete this project?")) return;
 
- await deleteDoc(doc(db,"projects",b.dataset.id));
+ await deleteDoc(doc(db, "projects", b.dataset.id));
  toast("Project deleted.");
  go();
 },
 
-join:async()=>{
- await setDoc(doc(db,"users",me.uid),{
-  programme:true
- },{merge:true});
+join: async () => {
+ await setDoc(doc(db, "users", me.uid), {
+  programme: true
+ }, { merge: true });
 
- me.programme=true;
+ me.programme = true;
  toast("You joined the programme.");
  go();
 }
@@ -766,102 +763,101 @@ join:async()=>{
 // FORM ACTIONS
 // ==========================================
 
-const F={
+const F = {
 
-auth:async f=>{
- const d=Object.fromEntries(new FormData(f));
+auth: async f => {
+ const d = Object.fromEntries(new FormData(f));
 
- if(mode==="in"){
-  await signInWithEmailAndPassword(auth,d.email,d.password);
+ if(mode === "in"){
+  await signInWithEmailAndPassword(auth, d.email, d.password);
  }else{
-
-  busy=true;
+  busy = true;
 
   try{
-   const c=await createUserWithEmailAndPassword(
-    auth,d.email,d.password
+   const c = await createUserWithEmailAndPassword(
+    auth, d.email, d.password
    );
 
-   const p={
-    name:d.name.trim(),
-    role:d.role,
-    bio:"",
-    skills:[],
-    link:"",
-    programme:false,
-    created:serverTimestamp()
+   const p = {
+    name: d.name.trim(),
+    role: d.role,
+    bio: "",
+    skills: [],
+    link: "",
+    programme: false,
+    created: serverTimestamp()
    };
 
-   await setDoc(doc(db,"users",c.user.uid),p);
+   await setDoc(doc(db, "users", c.user.uid), p);
    await load(c.user);
 
-   location.hash="#/progress";
+   location.hash = "#/progress";
 
   }finally{
-   busy=false;
+   busy = false;
   }
  }
 },
 
-post:async f=>{
- const d=Object.fromEntries(new FormData(f));
+post: async f => {
+ const d = Object.fromEntries(new FormData(f));
 
- await addDoc(collection(db,"projects"),{
-  owner:me.uid,
-  ownerName:me.name||"Client",
-  title:d.title.trim(),
-  desc:d.desc.trim(),
-  skills:list(d.skills),
-  budget:d.budget.trim(),
-  beginner:!!d.beginner,
-  created:serverTimestamp()
+ await addDoc(collection(db, "projects"), {
+  owner: me.uid,
+  ownerName: me.name || "Client",
+  title: d.title.trim(),
+  desc: d.desc.trim(),
+  skills: list(d.skills),
+  budget: d.budget.trim(),
+  beginner: !!d.beginner,
+  created: serverTimestamp()
  });
 
  toast("Project published successfully.");
  go();
 },
 
-apply:async f=>{
- const d=f.dataset;
+apply: async f => {
+ const d = f.dataset;
 
- await setDoc(doc(db,"applications",d.id+"_"+me.uid),{
-  project:d.id,
-  projectTitle:d.title,
-  owner:d.owner,
-  applicant:me.uid,
-  applicantName:me.name||"",
-  note:new FormData(f).get("note").trim(),
-  created:serverTimestamp()
+ await setDoc(doc(db, "applications", d.id + "_" + me.uid), {
+  project: d.id,
+  projectTitle: d.title,
+  owner: d.owner,
+  applicant: me.uid,
+  applicantName: me.name || "",
+  note: new FormData(f).get("note").trim(),
+  created: serverTimestamp()
  });
 
  toast("Application sent successfully.");
- f.closest("details").open=false;
+ f.closest("details").open = false;
 },
 
-cert:async f=>{
- await addDoc(collection(db,"requests"),{
-  uid:me.uid,
-  skill:new FormData(f).get("skill").trim(),
-  created:serverTimestamp()
+cert: async f => {
+ await addDoc(collection(db, "requests"), {
+  uid: me.uid,
+  skill: new FormData(f).get("skill").trim(),
+  created: serverTimestamp()
  });
 
  toast("Added to the waitlist.");
  go();
 },
 
-profile:async f=>{
- const d=Object.fromEntries(new FormData(f));
+profile: async f => {
+ const d = Object.fromEntries(new FormData(f));
 
- const p={
-  name:d.name.trim(),
-  role:d.role,
-  bio:d.bio.trim(),
-  skills:list(d.skills),
-  link:safe(d.link.trim())
+ const p = {
+  name: d.name.trim(),
+  role: d.role,
+  bio: d.bio.trim(),
+  skills: list(d.skills),
+  link: safe(d.link.trim())
  };
 
- await setDoc(doc(db,"users",me.uid),p,{merge:true});
- Object.assign(me,p);
+ await setDoc(doc(db, "users", me.uid), p, { merge: true });
+ Object.assign(me, p);
 
  toast("Profile saved successfully.");
 }
@@ -872,38 +868,34 @@ profile:async f=>{
 // EVENT HANDLERS
 // ==========================================
 
-view.addEventListener("click",async e=>{
+view.addEventListener("click", async e => {
+ const b = e.target.closest("[data-a]");
+ if(!b) return;
 
- const b=e.target.closest("[data-a]");
- if(!b)return;
-
- if(b.tagName==="A")e.preventDefault();
+ if(b.tagName === "A") e.preventDefault();
 
  try{
   await A[b.dataset.a](b);
  }catch(x){
   toast(why(x));
  }
-
 });
 
-view.addEventListener("submit",async e=>{
-
+view.addEventListener("submit", async e => {
  e.preventDefault();
 
- const f=e.target;
- const b=f.querySelector('[type="submit"]');
+ const f = e.target;
+ const b = f.querySelector('[type="submit"]');
 
- if(b)b.disabled=true;
+ if(b) b.disabled = true;
 
  try{
   await F[f.dataset.f](f);
  }catch(x){
   toast(why(x));
  }finally{
-  if(b)b.disabled=false;
+  if(b) b.disabled = false;
  }
-
 });
 
 // ==========================================
@@ -911,69 +903,68 @@ view.addEventListener("submit",async e=>{
 // ==========================================
 
 async function go(){
+ let r = location.hash.replace("#/", "") || "home";
 
- let r=location.hash.replace("#/","")||"home";
-
- if(r==="out"){
+ if(r === "out"){
   await signOut(auth);
-  location.hash="#/home";
+  location.hash = "#/home";
   return;
  }
 
- if(r==="join"){
-  mode="up";
-  r="auth";
- }else if(r==="auth"){
-  mode="in";
+ if(r === "join"){
+  mode = "up";
+  r = "auth";
+ }else if(r === "auth"){
+  mode = "in";
  }
 
- document.querySelectorAll("#menu a").forEach(a=>{
-  if(a.id!=="acct"){
+ document.querySelectorAll("#menu a").forEach(a => {
+  if(a.id !== "acct"){
    a.toggleAttribute(
     "aria-current",
-    a.getAttribute("href")==="#/"+r
+    a.getAttribute("href") === "#/" + r
    );
   }
  });
 
  menu.classList.remove("open");
- burger.setAttribute("aria-expanded","false");
+ burger.setAttribute("aria-expanded", "false");
 
- view.innerHTML='<p class="muted wrap pg">Loading...</p>';
+ view.innerHTML = '<p class="muted wrap pg">Loading...</p>';
 
  try{
-  view.innerHTML=await(V[r]||V.home)();
+  const viewFn = V[r] || V.home;
+  view.innerHTML = typeof viewFn === 'function' ? await viewFn() : viewFn;
  }catch(e){
-  view.innerHTML=page(
+  view.innerHTML = page(
    "Something went wrong",
    esc(why(e)),
    '<a class="btn" href="#/home">GO HOME</a>'
   );
  }
 
- window.scrollTo(0,0);
+ window.scrollTo(0, 0);
 }
 
 // ==========================================
 // START WEBSITE
 // ==========================================
 
-burger.addEventListener("click",()=>{
- const open=menu.classList.toggle("open");
- burger.setAttribute("aria-expanded",String(open));
+burger.addEventListener("click", () => {
+ const open = menu.classList.toggle("open");
+ burger.setAttribute("aria-expanded", String(open));
 });
 
-window.addEventListener("hashchange",go);
+window.addEventListener("hashchange", go);
 
-onAuthStateChanged(auth,async user=>{
-
- if(busy)return;
+onAuthStateChanged(auth, async user => {
+ if(busy) return;
 
  try{
   await load(user);
 
-  if(me&&location.hash==="#/auth"){
-   location.hash="#/progress";
+  if(me && location.hash === "#/auth"){
+   location.hash = "#/progress";
   }else{
    await go();
   }
@@ -982,7 +973,6 @@ onAuthStateChanged(auth,async user=>{
   toast(why(e));
   await go();
  }
-
 });
 
 paint();
