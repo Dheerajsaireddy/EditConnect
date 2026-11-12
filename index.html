@@ -68,13 +68,13 @@ h1{font-size:clamp(2.4rem,7vw,4.6rem);font-weight:700;letter-spacing:-.03em;max-
 .btn.danger:hover{border-color:#ef4444;background:rgba(239,68,68,.12)}
 
 /* Google Sign-In Button */
-.google-box{margin:18px 0 20px;display:flex;flex-direction:column;align-items:center;gap:10px}
+.google-box{margin:10px 0 6px;display:flex;flex-direction:column;align-items:center;gap:10px}
 .btn-google{width:100%;display:inline-flex;align-items:center;justify-content:center;gap:12px;padding:13px 20px;border-radius:999px;border:1px solid rgba(255,255,255,.18);background:#fff;color:#0f172a;font-family:inherit;font-size:.95rem;font-weight:600;cursor:pointer;transition:transform .2s,box-shadow .2s}
 .btn-google:hover{transform:translateY(-1px);box-shadow:0 6px 24px rgba(255,255,255,.22)}
-.divider{display:flex;align-items:center;gap:12px;width:100%;margin:6px 0 18px;color:var(--muted);font-size:.8rem;text-transform:uppercase;letter-spacing:.08em}
+.divider{display:flex;align-items:center;gap:12px;width:100%;margin:20px 0 14px;color:var(--muted);font-size:.8rem;text-transform:uppercase;letter-spacing:.08em}
 .divider::before,.divider::after{content:"";flex:1;height:1px;background:var(--line)}
 
-/* features */
+/* features & members */
 .features{padding:90px 0 60px}
 .wrap{max-width:1040px;margin:0 auto;padding:0 24px}
 .feature{padding:28px;border:1px solid var(--line);border-radius:20px;background:var(--glass);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);transition:border-color .3s,box-shadow .3s}
@@ -93,6 +93,27 @@ h1{font-size:clamp(2.4rem,7vw,4.6rem);font-weight:700;letter-spacing:-.03em;max-
 .grid .reveal:nth-child(3){transition-delay:.24s}
 .flash{animation:flash 1.4s ease}
 @keyframes flash{30%{border-color:var(--neon);box-shadow:0 0 44px rgba(22,139,255,.5)}}
+
+/* Registered Profiles Showcase */
+.members-sec{padding:40px 0 90px}
+.sec-head{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:14px;margin-bottom:26px}
+.sec-head h2{font-size:clamp(1.6rem,4vw,2.3rem);letter-spacing:-.02em;margin-top:8px}
+.sec-head p{color:var(--muted);font-size:.95rem}
+.members-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:18px}
+.member-card{padding:22px;border:1px solid var(--line);border-radius:18px;background:var(--glass);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);display:flex;flex-direction:column;gap:14px;transition:border-color .3s,transform .25s,box-shadow .3s}
+.member-card:hover{transform:translateY(-3px);border-color:var(--neon);box-shadow:0 0 28px rgba(22,139,255,.2)}
+.member-card.is-you{border-color:rgba(16,185,129,.55);box-shadow:0 0 26px rgba(16,185,129,.14)}
+.mc-top{display:flex;align-items:center;gap:12px}
+.mc-avatar{width:46px;height:46px;border-radius:50%;object-fit:cover;border:1.5px solid var(--neon);background:linear-gradient(135deg,var(--blue),var(--cyan));color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:1.1rem;flex-shrink:0}
+.mc-name{font-weight:700;font-size:1.05rem;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.mc-role{color:var(--cyan);font-size:.8rem;font-weight:500}
+.mc-skill{color:#dbe9ff;font-size:.88rem;line-height:1.45}
+.mc-skill.empty{color:var(--muted);font-style:italic}
+.mc-foot{margin-top:auto;padding-top:12px;border-top:1px solid rgba(22,139,255,.14);display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:.8rem;color:var(--muted)}
+.mc-link{color:var(--neon);font-weight:600}
+.mc-link:hover{text-decoration:underline}
+.empty-members{padding:36px 24px;text-align:center;border:1px dashed var(--line);border-radius:20px;background:rgba(10,20,38,.35);color:var(--muted)}
+.empty-members p{margin-bottom:16px}
 
 /* onboarding & profile */
 .onboard{min-height:100svh;display:flex;align-items:center;justify-content:center;padding:110px 20px 60px}
@@ -152,7 +173,7 @@ legend{margin-bottom:10px;color:var(--muted);font-size:.85rem}
   <button class="burger" type="button" aria-label="Toggle menu" aria-expanded="false" aria-controls="menu"><span></span><span></span></button>
   <nav class="menu" id="menu" aria-label="Main">
     <a href="#features">Explore</a>
-    <a href="#certification">Certification</a>
+    <a href="#community">Profiles</a>
     <a href="#first-client">Opportunities</a>
     <a href="#signin" class="signin" id="nav-auth-link">Sign in</a>
   </nav>
@@ -168,9 +189,9 @@ legend{margin-bottom:10px;color:var(--muted);font-size:.85rem}
     <p class="sub">Prove your skills. Earn recognition. Discover your first professional opportunity.</p>
     <div class="actions">
       <a href="#start" class="btn primary" id="hero-primary-btn">START NOW <span aria-hidden="true">→</span></a>
-      <a href="#features" class="btn">EXPLORE</a>
+      <a href="#community" class="btn">VIEW PROFILES</a>
     </div>
-    <p class="status-pill" id="hero-status"><i></i><span>Google OAuth &amp; Member Accounts Active</span></p>
+    <p class="status-pill" id="hero-status"><i></i><span>Early Access Member Profiles Live</span></p>
   </section>
 
   <section class="features" id="features">
@@ -200,6 +221,21 @@ legend{margin-bottom:10px;color:var(--muted);font-size:.85rem}
       </div>
     </div>
   </section>
+
+  <!-- Live Registered Member Profiles Section -->
+  <section class="members-sec" id="community">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <span class="tag live" id="members-count-tag">0 Registered Profiles</span>
+          <h2>Registered Member Profiles</h2>
+          <p>Creators, video editors, and clients who have joined EditConnect.</p>
+        </div>
+        <a href="#start" class="btn small" id="members-join-btn">+ Create Your Profile</a>
+      </div>
+      <div id="members-list"></div>
+    </div>
+  </section>
 </main>
 
 <!-- Auth View (#start / #signin) -->
@@ -207,31 +243,7 @@ legend{margin-bottom:10px;color:var(--muted);font-size:.85rem}
   <div class="panel">
     <a href="#top" class="back">← Back to home</a>
     <h2 id="ob-title">Join EditConnect</h2>
-    <p class="panel-sub" id="ob-sub">Sign in instantly with your Google account or email.</p>
-
-    <div class="google-box">
-      <div id="g-btn-slot"></div>
-      <button type="button" class="btn-google" id="g-fallback-btn" hidden>
-        <svg width="18" height="18" viewBox="0 0 48 48" aria-hidden="true">
-          <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
-          <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
-          <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
-          <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
-        </svg>
-        <span>Continue with Google</span>
-      </button>
-
-      <div class="setup-note" id="g-config-box" hidden>
-        <strong>Activate Live Google OAuth Popup:</strong><br>
-        Paste your Google Cloud OAuth 2.0 Web Client ID below (Authorized origin: <code>https://dheerajisaireddy.github.io</code>):
-        <div style="display:flex;gap:8px;margin-top:8px">
-          <input type="text" id="g-client-input" placeholder="1234567890-abc.apps.googleusercontent.com" style="flex:1;padding:9px 12px;border-radius:10px;border:1px solid var(--line);background:#030508;color:#fff;font-size:.82rem">
-          <button type="button" class="btn primary small" id="g-save-client" style="padding:9px 14px">Save</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="divider">or continue with email</div>
+    <p class="panel-sub" id="ob-sub">Create your profile to appear on the EditConnect member directory.</p>
 
     <form id="ob-form">
       <fieldset class="roles" id="ob-roles">
@@ -242,9 +254,34 @@ legend{margin-bottom:10px;color:var(--muted);font-size:.85rem}
       </fieldset>
       <label class="field" id="f-name">Full name<input name="name" autocomplete="name" required></label>
       <label class="field">Email<input type="email" name="email" autocomplete="email" required></label>
+      <label class="field" id="f-skill">Primary Skill / Niche (Optional)<input name="skill" placeholder="e.g., Premiere Pro, After Effects, Reels Editing"></label>
       <label class="field">Password<input type="password" name="password" autocomplete="current-password" minlength="4" required></label>
       <button class="btn primary" type="submit" id="ob-submit" style="width:100%">Create account</button>
     </form>
+
+    <div class="divider">or</div>
+
+    <div class="google-box">
+      <div id="g-btn-slot"></div>
+      <button type="button" class="btn-google" id="g-fallback-btn" hidden>
+        <svg width="18" height="18" viewBox="0 0 48 48" aria-hidden="true">
+          <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
+          <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
+          <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
+          <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+        </svg>
+        <span>Continue with Google (Coming Soon)</span>
+      </button>
+
+      <div class="setup-note" id="g-config-box" hidden>
+        <strong>Google OAuth Setup (Optional):</strong><br>
+        Paste your Google Cloud OAuth 2.0 Web Client ID below once ready (Origin: <code>https://dheerajisaireddy.github.io</code>):
+        <div style="display:flex;gap:8px;margin-top:8px">
+          <input type="text" id="g-client-input" placeholder="1234567890-abc.apps.googleusercontent.com" style="flex:1;padding:9px 12px;border-radius:10px;border:1px solid var(--line);background:#030508;color:#fff;font-size:.82rem">
+          <button type="button" class="btn primary small" id="g-save-client" style="padding:9px 14px">Save</button>
+        </div>
+      </div>
+    </div>
 
     <p class="switch-link" id="ob-switch"></p>
     <p class="result" id="ob-result" role="status" hidden></p>
@@ -254,7 +291,7 @@ legend{margin-bottom:10px;color:var(--muted);font-size:.85rem}
 <!-- Signed-In Member Dashboard (#profile) -->
 <section class="onboard" id="profile-view" hidden>
   <div class="panel">
-    <a href="#top" class="back">← Back to home</a>
+    <a href="#community" class="back">← View all registered profiles</a>
     <div class="profile-head" id="profile-header"></div>
 
     <form id="profile-form">
@@ -282,12 +319,11 @@ legend{margin-bottom:10px;color:var(--muted);font-size:.85rem}
 
 <footer class="foot">
   <span>© 2026 EditConnect by Dheeraj</span>
-  <span>Skills Meet Opportunities • Powered by Google Sign-In</span>
+  <span>Skills Meet Opportunities • Early Access Community</span>
 </footer>
 
 <script>
 (() => {
-  // Paste your Google Cloud OAuth 2.0 Web Client ID below (or save it directly on the Sign-in screen)
   const DEFAULT_GOOGLE_CLIENT_ID = "YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com";
   const CID_STORAGE_KEY = "editconnect_google_client_id";
   const USERS_KEY = "editconnect_users_v1";
@@ -302,7 +338,7 @@ legend{margin-bottom:10px;color:var(--muted);font-size:.85rem}
   const home = $("#home"), ob = $("#onboarding"), profView = $("#profile-view");
   const menu = $("#menu"), burger = $(".burger");
   const form = $("#ob-form"), result = $("#ob-result");
-  const roles = $("#ob-roles"), nameField = $("#f-name");
+  const roles = $("#ob-roles"), nameField = $("#f-name"), skillField = $("#f-skill");
 
   let users = [];
   let currentUser = null;
@@ -334,7 +370,7 @@ legend{margin-bottom:10px;color:var(--muted);font-size:.85rem}
     return JSON.parse(jsonPayload);
   }
 
-  // Handle Real Google Sign-In Callback
+  // Handle Google Sign-In Callback (when Client ID is configured)
   window.handleGoogleCredential = response => {
     try {
       const payload = decodeJwtPayload(response.credential);
@@ -352,9 +388,10 @@ legend{margin-bottom:10px;color:var(--muted);font-size:.85rem}
           role: selectedRole || "Student / Beginner Freelancer",
           skill: "",
           portfolio: "",
-          firstClientRegistered: false
+          firstClientRegistered: false,
+          joinedAt: new Date().toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" })
         };
-        users.push(user);
+        users.unshift(user);
       } else {
         user.provider = "google";
         user.name = payload.name || user.name;
@@ -364,14 +401,13 @@ legend{margin-bottom:10px;color:var(--muted);font-size:.85rem}
       currentUser = user;
       persist();
       syncUI();
-      location.hash = "#profile";
+      location.hash = "#community";
     } catch (err) {
-      result.textContent = "Google Sign-In could not verify token. Please try again.";
+      result.textContent = "Google Sign-In could not verify token. Please use email registration above.";
       result.hidden = false;
     }
   };
 
-  // Initialize Google Identity Services Button
   function initGoogleAuth() {
     const cid = getClientId();
     const slot = $("#g-btn-slot");
@@ -417,7 +453,64 @@ legend{margin-bottom:10px;color:var(--muted);font-size:.85rem}
     initGoogleAuth();
   });
 
-  // Sync Navbar, Hero, and Programme State
+  // Render All Registered Member Profiles on the Homepage
+  function renderMemberProfiles() {
+    const container = $("#members-list");
+    const countTag = $("#members-count-tag");
+    const joinBtn = $("#members-join-btn");
+    if (!container) return;
+
+    const total = users.length;
+    countTag.textContent = total === 1 ? "1 Registered Profile" : `${total} Registered Profiles`;
+    joinBtn.href = currentUser ? "#profile" : "#start";
+    joinBtn.textContent = currentUser ? "Edit Your Profile" : "+ Create Your Profile";
+
+    if (total === 0) {
+      container.innerHTML = `
+        <div class="empty-members">
+          <p>No profiles registered yet. Be the first creator or client to appear here!</p>
+          <a href="#start" class="btn primary small">Create First Profile →</a>
+        </div>
+      `;
+      return;
+    }
+
+    container.innerHTML = `<div class="members-grid">${users.map(u => {
+      const initial = esc((u.name || "U")[0].toUpperCase());
+      const isYou = currentUser && currentUser.email === u.email;
+      const avatar = u.picture
+        ? `<img class="mc-avatar" src="${esc(u.picture)}" alt="" referrerpolicy="no-referrer">`
+        : `<div class="mc-avatar">${initial}</div>`;
+      const skillText = u.skill
+        ? `<p class="mc-skill"><strong>Focus:</strong> ${esc(u.skill)}</p>`
+        : `<p class="mc-skill empty">Role: ${esc(u.role || "Member")}</p>`;
+      const portfolioLink = u.portfolio
+        ? `<a class="mc-link" href="${esc(u.portfolio)}" target="_blank" rel="noopener noreferrer">Portfolio ↗</a>`
+        : `<span>${esc(u.joinedAt || "Early Member")}</span>`;
+
+      return `
+        <article class="member-card ${isYou ? "is-you" : ""}">
+          <div class="mc-top">
+            ${avatar}
+            <div>
+              <div class="mc-name">
+                <span>${esc(u.name)}</span>
+                ${isYou ? `<span class="tag live" style="font-size:.7rem;padding:1px 8px">You</span>` : ""}
+              </div>
+              <div class="mc-role">${esc(u.role || "Student / Beginner Freelancer")}</div>
+            </div>
+          </div>
+          ${skillText}
+          <div class="mc-foot">
+            <span>${u.firstClientRegistered ? "✓ First Client Programme" : "Active Member"}</span>
+            ${portfolioLink}
+          </div>
+        </article>
+      `;
+    }).join("")}</div>`;
+  }
+
+  // Sync Navbar, Hero, Programme, and Profiles
   function syncUI() {
     const navLink = $("#nav-auth-link");
     const heroBtn = $("#hero-primary-btn");
@@ -434,7 +527,7 @@ legend{margin-bottom:10px;color:var(--muted);font-size:.85rem}
       navLink.outerHTML = `<a href="#profile" class="user-chip" id="nav-auth-link">${avatarHtml}<span>${esc(currentUser.name.split(" ")[0])}</span></a>`;
       heroBtn.href = "#profile";
       heroBtn.innerHTML = `MY PROFILE <span aria-hidden="true">→</span>`;
-      heroStatus.textContent = `Signed in as ${currentUser.name} (${currentUser.role})`;
+      heroStatus.textContent = `Signed in as ${currentUser.name} • ${users.length} Profile${users.length === 1 ? "" : "s"} Live`;
 
       if (currentUser.firstClientRegistered) {
         fcTag.textContent = "✓ Registered";
@@ -450,10 +543,14 @@ legend{margin-bottom:10px;color:var(--muted);font-size:.85rem}
       }
       heroBtn.href = "#start";
       heroBtn.innerHTML = `START NOW <span aria-hidden="true">→</span>`;
-      heroStatus.textContent = "Google OAuth & Member Accounts Active";
+      heroStatus.textContent = users.length > 0
+        ? `${users.length} Registered Member Profile${users.length === 1 ? "" : "s"} Live`
+        : "Early Access Member Profiles Live";
       fcTag.textContent = "Open for Early Access";
       fcBtn.textContent = "Register interest →";
     }
+
+    renderMemberProfiles();
   }
 
   // First Client Programme Live Registration
@@ -503,7 +600,7 @@ legend{margin-bottom:10px;color:var(--muted);font-size:.85rem}
         ${picHtml}
         <div>
           <h3 style="font-size:1.25rem">${esc(currentUser.name)}</h3>
-          <p style="color:var(--muted);font-size:.88rem">${esc(currentUser.email)} • <span style="color:var(--neon)">${currentUser.provider === "google" ? "Google Verified" : "Email Account"}</span></p>
+          <p style="color:var(--muted);font-size:.88rem">${esc(currentUser.email)} • <span style="color:var(--neon)">${currentUser.provider === "google" ? "Google Verified" : "Registered Member"}</span></p>
         </div>
       `;
       $("#prof-role").value = currentUser.role || "Student / Beginner Freelancer";
@@ -517,15 +614,16 @@ legend{margin-bottom:10px;color:var(--muted);font-size:.85rem}
       const signup = mode === "signup";
       $("#ob-title").textContent = signup ? "Join EditConnect" : "Sign in to EditConnect";
       $("#ob-sub").textContent = signup
-        ? "Create your profile with Google or email to unlock opportunities."
-        : "Welcome back. Sign in with Google or your registered email.";
-      $("#ob-submit").textContent = signup ? "Create account" : "Sign in";
+        ? "Create your account now—your profile will appear immediately on EditConnect."
+        : "Welcome back. Sign in with your registered email.";
+      $("#ob-submit").textContent = signup ? "Create Account & Show Profile" : "Sign in";
       $("#ob-switch").innerHTML = signup
         ? `Already have an account? <a href="#signin">Sign in</a>`
         : `New to EditConnect? <a href="#start">Create an account</a>`;
-      roles.hidden = nameField.hidden = !signup;
+      roles.hidden = nameField.hidden = skillField.hidden = !signup;
       roles.disabled = !signup;
       $("input", nameField).disabled = !signup;
+      $("input", skillField).disabled = !signup;
       initGoogleAuth();
       scrollTo(0, 0);
     } else if (h || !first) {
@@ -544,7 +642,7 @@ legend{margin-bottom:10px;color:var(--muted);font-size:.85rem}
   addEventListener("hashchange", () => route(false));
   window.addEventListener("load", initGoogleAuth);
 
-  // Real Email Registration & Sign-In
+  // Real Local Registration & Sign-In -> Immediately displays profile in #community
   form.addEventListener("submit", e => {
     e.preventDefault();
     const signup = location.hash === "#start";
@@ -564,25 +662,26 @@ legend{margin-bottom:10px;color:var(--muted);font-size:.85rem}
         email,
         password,
         role: form.elements.role.value || "Student / Beginner Freelancer",
-        skill: "",
+        skill: (form.elements.skill ? form.elements.skill.value : "").trim(),
         portfolio: "",
-        firstClientRegistered: false
+        firstClientRegistered: false,
+        joinedAt: new Date().toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" })
       };
-      users.push(newUser);
+      users.unshift(newUser);
       currentUser = newUser;
       persist();
       syncUI();
       form.reset();
-      location.hash = "#profile";
+      location.hash = "#community";
     } else {
       const found = users.find(u => u.email === email);
       if (!found) {
-        result.textContent = "No account found with that email. Create an account or use Continue with Google.";
+        result.textContent = "No account found with that email. Create an account below to appear in the directory.";
         result.hidden = false;
         return;
       }
       if (found.provider === "google" && !found.password) {
-        result.textContent = "This email is linked to Google Sign-In. Click 'Continue with Google' above.";
+        result.textContent = "This email is linked to Google Sign-In.";
         result.hidden = false;
         return;
       }
@@ -595,7 +694,7 @@ legend{margin-bottom:10px;color:var(--muted);font-size:.85rem}
       persist();
       syncUI();
       form.reset();
-      location.hash = "#profile";
+      location.hash = "#community";
     }
   });
 
@@ -611,7 +710,7 @@ legend{margin-bottom:10px;color:var(--muted);font-size:.85rem}
     persist();
     syncUI();
     const pr = $("#prof-result");
-    pr.textContent = "Profile saved!";
+    pr.textContent = "Profile saved and updated in the Registered Member Profiles section!";
     pr.hidden = false;
   });
 
