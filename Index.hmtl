@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EditConnect | Skills Meet Opportunities</title>
+<meta name="description" content="Prove your skills. Earn recognition. Discover your first professional opportunity.">
+<meta name="theme-color" content="#030508">
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<script>document.documentElement.classList.add("js")</script>
+<style>
+:root{--bg:#030508;--blue:#126BFF;--neon:#168BFF;--muted:#8fa3bf;--line:rgba(22,139,255,.28);--glass:rgba(10,20,38,.55)}
+*{box-sizing:border-box;margin:0}
+html{background:var(--bg);color-scheme:dark;scroll-behavior:smooth;scroll-padding-top:84px}
+body{color:#fff;font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;overflow-x:hidden}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+h1,h2,h3{line-height:1.15}
+[hidden]{display:none!important}
+:focus-visible{outline:2px solid var(--neon);outline-offset:3px}
+
+/* floating background light */
+.lights{position:fixed;inset:0;z-index:-1;overflow:hidden;pointer-events:none}
+.lights i{position:absolute;width:60vmax;height:60vmax;border-radius:50%;background:radial-gradient(circle,rgba(18,107,255,.16),transparent 65%);animation:drift 24s ease-in-out infinite alternate}
+.lights i:first-child{top:-25vmax;left:-15vmax}
+.lights i:last-child{bottom:-30vmax;right:-20vmax;animation-delay:-12s}
+@keyframes drift{to{transform:translate(6vmax,4vmax)}}
+
+/* navigation */
+.nav{position:fixed;top:0;left:0;right:0;z-index:20;display:flex;align-items:center;justify-content:space-between;padding:14px clamp(18px,4vw,48px);background:rgba(3,5,8,.72);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid rgba(22,139,255,.14)}
+.brand{display:flex;align-items:center;gap:10px;font-weight:600;letter-spacing:.02em}
+.brand img{height:34px;width:auto}
+.menu{display:flex;align-items:center;gap:28px;color:var(--muted);font-size:.95rem}
+.menu a{transition:color .25s}
+.menu a:hover{color:#fff}
+.menu .signin{color:#fff;border:1px solid var(--line);padding:8px 18px;border-radius:999px;transition:border-color .25s,box-shadow .25s}
+.menu .signin:hover{border-color:var(--neon);box-shadow:0 0 18px rgba(22,139,255,.35)}
+.burger{display:none;width:42px;height:42px;background:none;border:1px solid var(--line);border-radius:10px;cursor:pointer;flex-direction:column;align-items:center;justify-content:center;gap:6px}
+.burger span{width:18px;height:2px;background:#fff;transition:transform .25s}
+.burger[aria-expanded=true] span:first-child{transform:translateY(4px) rotate(45deg)}
+.burger[aria-expanded=true] span:last-child{transform:translateY(-4px) rotate(-45deg)}
+
+/* hero */
+.hero{min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:120px 24px 80px}
+.logo-wrap{position:relative;isolation:isolate;margin-bottom:36px}
+.logo-wrap::before{content:"";position:absolute;inset:-35%;z-index:-1;background:radial-gradient(circle,rgba(22,139,255,.32),transparent 62%);animation:pulse 6s ease-in-out infinite}
+.logo{width:min(240px,56vw);height:auto;filter:drop-shadow(0 0 26px rgba(22,139,255,.55));animation:float 9s ease-in-out infinite}
+@keyframes pulse{50%{opacity:.55;transform:scale(1.06)}}
+@keyframes float{50%{transform:translateY(-8px)}}
+.notice-logo{margin-bottom:24px;padding:10px 14px;border:1px dashed var(--line);border-radius:12px;color:var(--muted);font-size:.85rem}
+h1{font-size:clamp(2.4rem,7vw,4.6rem);font-weight:700;letter-spacing:-.03em;max-width:14ch}
+.sub{max-width:34em;margin:20px 0 36px;color:var(--muted);font-size:clamp(1rem,2.4vw,1.2rem)}
+.actions{display:flex;flex-wrap:wrap;justify-content:center;gap:14px}
+.demo-tag{margin-top:34px;font-size:.8rem;color:var(--muted)}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;gap:10px;padding:15px 30px;border:1px solid var(--line);border-radius:999px;background:transparent;color:#fff;font-family:inherit;font-size:.9rem;font-weight:600;line-height:1;letter-spacing:.12em;cursor:pointer;transition:transform .25s,box-shadow .25s,border-color .25s,background .25s}
+.btn:hover{transform:translateY(-2px);border-color:var(--neon)}
+.btn.primary{background:var(--blue);border-color:transparent;box-shadow:0 0 22px rgba(22,139,255,.45)}
+.btn.primary:hover{background:var(--neon);box-shadow:0 0 40px rgba(22,139,255,.8)}
+.btn.small{padding:13px 24px;letter-spacing:.04em}
+
+/* features */
+.features{padding:90px 0 60px}
+.wrap{max-width:1040px;margin:0 auto;padding:0 24px}
+.feature{padding:28px;border:1px solid var(--line);border-radius:20px;background:var(--glass);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);transition:border-color .3s,box-shadow .3s}
+.feature:hover{border-color:var(--neon);box-shadow:0 0 30px rgba(22,139,255,.18)}
+.feature h2,.feature h3{margin:14px 0 8px;letter-spacing:-.01em}
+.feature p{color:var(--muted)}
+.tag{display:inline-block;padding:3px 12px;border:1px solid var(--line);border-radius:999px;color:var(--neon);font-size:.78rem}
+.lead{margin-bottom:20px;padding:clamp(32px,6vw,64px);border-color:rgba(22,139,255,.6);box-shadow:0 0 60px rgba(18,107,255,.22),inset 0 0 40px rgba(18,107,255,.08)}
+.lead h2{font-size:clamp(1.9rem,5vw,3.1rem);letter-spacing:-.02em}
+.lead p{max-width:30em;margin-bottom:28px;font-size:1.15rem}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.fine{margin-top:28px;text-align:center;color:var(--muted);font-size:.85rem}
+.js .reveal{opacity:0;transform:translateY(18px);transition:opacity .9s ease,transform .9s ease,border-color .3s,box-shadow .3s}
+.js .reveal.in{opacity:1;transform:none}
+.grid .reveal:nth-child(2){transition-delay:.12s}
+.grid .reveal:nth-child(3){transition-delay:.24s}
+.flash{animation:flash 1.4s ease}
+@keyframes flash{30%{border-color:var(--neon);box-shadow:0 0 44px rgba(22,139,255,.5)}}
+
+/* onboarding */
+.onboard{min-height:100svh;display:flex;align-items:center;justify-content:center;padding:110px 20px 60px}
+.panel{width:min(560px,100%);padding:clamp(24px,5vw,44px);border:1px solid var(--line);border-radius:24px;background:var(--glass);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);box-shadow:0 0 60px rgba(18,107,255,.15)}
+.back{color:var(--muted);font-size:.9rem}
+.back:hover{color:#fff}
+.panel h2{margin:18px 0 12px;font-size:1.8rem;letter-spacing:-.02em}
+.demo-banner{margin-bottom:22px;padding:10px 14px;border:1px dashed var(--line);border-radius:12px;color:var(--neon);font-size:.85rem}
+fieldset{min-width:0;margin-bottom:18px;padding:0;border:0}
+legend{margin-bottom:10px;color:var(--muted);font-size:.85rem}
+.roles label{position:relative;display:block;margin-bottom:10px;cursor:pointer}
+.roles input{position:absolute;opacity:0}
+.roles span{display:block;padding:14px 18px;border:1px solid var(--line);border-radius:14px;transition:border-color .25s,background .25s,box-shadow .25s}
+.roles label:hover span{border-color:var(--neon)}
+.roles input:checked+span{border-color:var(--neon);background:rgba(18,107,255,.16);box-shadow:0 0 20px rgba(22,139,255,.25)}
+.roles input:focus-visible+span{outline:2px solid var(--neon);outline-offset:2px}
+.field{display:block;margin-bottom:16px;color:var(--muted);font-size:.85rem}
+.field input{display:block;width:100%;margin-top:6px;padding:13px 16px;border:1px solid var(--line);border-radius:12px;background:rgba(3,5,8,.7);color:#fff;font:inherit}
+.field input:focus{outline:none;border-color:var(--neon);box-shadow:0 0 0 3px rgba(22,139,255,.2)}
+.result{margin-top:20px;padding:14px 16px;border:1px solid var(--neon);border-radius:12px;color:#dbe9ff}
+
+.foot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;padding:28px clamp(18px,4vw,48px);border-top:1px solid rgba(22,139,255,.14);color:var(--muted);font-size:.8rem}
+
+@media (max-width:900px){.grid{grid-template-columns:1fr}}
+@media (max-width:760px){
+  .burger{display:flex}
+  .menu{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;align-items:stretch;gap:0;padding:8px 18px 18px;background:rgba(3,5,8,.97);border-bottom:1px solid var(--line)}
+  .menu.open{display:flex}
+  .menu a{padding:14px 4px;border-bottom:1px solid rgba(22,139,255,.1)}
+  .menu .signin{margin-top:14px;text-align:center}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .js .reveal{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+<div class="lights" aria-hidden="true"><i></i><i></i></div>
+
+<header class="nav">
+  <a class="brand" href="#top" aria-label="EditConnect home">
+    <img src="assets/logo.png" alt="">
+    <span>EditConnect</span>
+  </a>
+  <button class="burger" type="button" aria-label="Toggle menu" aria-expanded="false" aria-controls="menu"><span></span><span></span></button>
+  <nav class="menu" id="menu" aria-label="Main">
+    <a href="#features">Explore</a>
+    <a href="#certification">Certification</a>
+    <a href="#first-client">Opportunities</a>
+    <a href="#signin" class="signin">Sign in</a>
+  </nav>
+</header>
+
+<main id="home">
+  <section class="hero" id="top">
+    <div class="logo-wrap">
+      <img class="logo" src="assets/logo.png" alt="EditConnect logo">
+    </div>
+    <p class="notice-logo" hidden>Logo not found. Upload your logo to the assets folder as logo.png.</p>
+    <h1>Skills Meet Opportunities.</h1>
+    <p class="sub">Prove your skills. Earn recognition. Discover your first professional opportunity.</p>
+    <div class="actions">
+      <a href="#start" class="btn primary">START NOW <span aria-hidden="true">→</span></a>
+      <a href="#features" class="btn">EXPLORE</a>
+    </div>
+    <p class="demo-tag">Early preview. This website is a frontend demonstration.</p>
+  </section>
+
+  <section class="features" id="features">
+    <div class="wrap">
+      <article class="feature lead reveal" id="first-client">
+        <span class="tag">Coming soon</span>
+        <h2>First Client Programme</h2>
+        <p>Help qualified beginners discover genuine client opportunities.</p>
+        <a href="#start" class="btn primary small">Register interest (demo)</a>
+      </article>
+      <div class="grid">
+        <article class="feature reveal" id="certification">
+          <span class="tag">Coming soon</span>
+          <h3>Skill Certification</h3>
+          <p>Practical skill assessments and subject-specific platform certificates.</p>
+        </article>
+        <article class="feature reveal" id="progress">
+          <span class="tag">Coming soon</span>
+          <h3>AI Progress Intelligence</h3>
+          <p>Track learning, assessments, projects and skill development from registration.</p>
+        </article>
+        <article class="feature reveal" id="matching">
+          <span class="tag">Coming soon</span>
+          <h3>AI Project Matching</h3>
+          <p>Recommend suitable projects using demonstrated skills and client requirements.</p>
+        </article>
+      </div>
+      <p class="fine reveal">EditConnect is in early development. These features are previews: no certificates are issued, no clients or projects are listed, and AI matching is not live.</p>
+    </div>
+  </section>
+</main>
+
+<section class="onboard" id="onboarding" hidden>
+  <div class="panel">
+    <a href="#top" class="back">← Back to home</a>
+    <h2 id="ob-title">Join EditConnect</h2>
+    <p class="demo-banner">Frontend demonstration. Nothing you enter is stored, sent or used to create an account.</p>
+    <form id="ob-form">
+      <fieldset class="roles" id="ob-roles">
+        <legend>I am a</legend>
+        <label><input type="radio" name="role" value="Student / Beginner Freelancer" required><span>Student / Beginner Freelancer</span></label>
+        <label><input type="radio" name="role" value="Experienced Freelancer"><span>Experienced Freelancer</span></label>
+        <label><input type="radio" name="role" value="Client"><span>Client</span></label>
+      </fieldset>
+      <label class="field" id="f-name">Full name<input name="name" autocomplete="name" required></label>
+      <label class="field">Email<input type="email" name="email" autocomplete="email" required></label>
+      <button class="btn primary" type="submit" id="ob-submit">Create account (demo)</button>
+    </form>
+    <p class="result" id="ob-result" role="status" hidden></p>
+  </div>
+</section>
+
+<footer class="foot">
+  <span>© 2026 EditConnect</span>
+  <span>Frontend demonstration. No real accounts, clients, projects or certificates yet.</span>
+</footer>
+
+<script>
+(() => {
+  const $ = (s, r = document) => r.querySelector(s);
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const home = $("#home"), ob = $("#onboarding");
+  const menu = $("#menu"), burger = $(".burger");
+  const form = $("#ob-form"), result = $("#ob-result");
+  const roles = $("#ob-roles"), nameField = $("#f-name");
+
+  // Mobile menu
+  const setMenu = open => {
+    menu.classList.toggle("open", open);
+    burger.setAttribute("aria-expanded", open);
+  };
+  burger.addEventListener("click", () => setMenu(!menu.classList.contains("open")));
+  menu.addEventListener("click", e => { if (e.target.closest("a")) setMenu(false); });
+
+  // Page switching: #start and #signin open the onboarding page
+  function route(first) {
+    const h = location.hash;
+    const mode = h === "#start" ? "signup" : h === "#signin" ? "signin" : null;
+    home.hidden = !!mode;
+    ob.hidden = !mode;
+    result.hidden = true;
+    if (mode) {
+      const signup = mode === "signup";
+      $("#ob-title").textContent = signup ? "Join EditConnect" : "Sign in";
+      $("#ob-submit").textContent = signup ? "Create account (demo)" : "Continue (demo)";
+      roles.hidden = nameField.hidden = !signup;
+      roles.disabled = !signup;
+      $("input", nameField).disabled = !signup;
+      scrollTo(0, 0);
+    } else if (h || !first) {
+      let t = null;
+      try { t = h.length > 1 && h !== "#top" ? $(h) : null; } catch (e) {}
+      if (!t) return scrollTo(0, 0);
+      t.scrollIntoView({ behavior: reduce ? "auto" : "smooth" });
+      if (t.classList.contains("feature")) {
+        t.classList.remove("flash");
+        void t.offsetWidth;
+        t.classList.add("flash");
+      }
+    }
+  }
+  addEventListener("hashchange", () => route(false));
+  route(true);
+
+  // Demo form: nothing is stored or sent
+  form.addEventListener("submit", e => {
+    e.preventDefault();
+    const signup = location.hash === "#start";
+    const role = form.elements.role.value;
+    result.textContent = signup
+      ? "Demo only: nothing was saved or sent." + (role ? " You chose “" + role + "”." : "") + " Real registration will open once EditConnect’s backend is ready."
+      : "Demo only: sign in is not connected yet, and nothing was sent.";
+    result.hidden = false;
+    form.reset();
+  });
+
+  // Gentle fade-in on scroll
+  const items = document.querySelectorAll(".reveal");
+  if ("IntersectionObserver" in window && !reduce) {
+    const io = new IntersectionObserver(entries => entries.forEach(en => {
+      if (en.isIntersecting) { en.target.classList.add("in"); io.unobserve(en.target); }
+    }), { threshold: 0.15 });
+    items.forEach(el => io.observe(el));
+  } else {
+    items.forEach(el => el.classList.add("in"));
+  }
+
+  // If the logo file is missing, hide the broken image and show a hint
+  document.querySelectorAll('img[src$="logo.png"]').forEach(img => {
+    const missing = () => { img.hidden = true; $(".notice-logo").hidden = false; };
+    if (img.complete && !img.naturalWidth) missing();
+    else img.addEventListener("error", missing);
+  });
+})();
+</script>
+</body>
+</html>
