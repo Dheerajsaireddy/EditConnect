@@ -3,14 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>EditConnect | Skills Meet Opportunities</title>
+<title>EditConnect by Dheeraj | Skills Meet Opportunities</title>
 <meta name="description" content="Prove your skills. Earn recognition. Discover your first professional opportunity.">
 <meta name="theme-color" content="#030508">
 <link rel="icon" type="image/png" href="assets/favicon.png">
 <script>document.documentElement.classList.add("js")</script>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 <style>
-:root{--bg:#030508;--blue:#126BFF;--neon:#168BFF;--muted:#8fa3bf;--line:rgba(22,139,255,.28);--glass:rgba(10,20,38,.55);--ok:#10b981}
+:root{--bg:#030508;--blue:#126BFF;--neon:#168BFF;--cyan:#38bdf8;--muted:#8fa3bf;--line:rgba(22,139,255,.28);--glass:rgba(10,20,38,.55);--ok:#10b981}
 *{box-sizing:border-box;margin:0}
 html{background:var(--bg);color-scheme:dark;scroll-behavior:smooth;scroll-padding-top:84px}
 body{color:#fff;font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;overflow-x:hidden;min-height:100vh;display:flex;flex-direction:column}
@@ -30,9 +30,10 @@ h1,h2,h3{line-height:1.15}
 
 /* navigation */
 .nav{position:fixed;top:0;left:0;right:0;z-index:20;display:flex;align-items:center;justify-content:space-between;padding:14px clamp(18px,4vw,48px);background:rgba(3,5,8,.78);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid rgba(22,139,255,.14)}
-.brand{display:flex;align-items:center;gap:10px;font-weight:600;letter-spacing:.02em}
-.brand img{height:34px;width:auto}
-.brand-fallback{width:32px;height:32px;border-radius:10px;background:linear-gradient(135deg,var(--blue),#38bdf8);display:inline-flex;align-items:center;justify-content:center;box-shadow:0 0 16px rgba(22,139,255,.5)}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:.02em}
+.brand img{height:34px;width:auto;filter:drop-shadow(0 0 10px rgba(22,139,255,.45))}
+.brand-text{display:inline-flex;align-items:baseline;flex-wrap:wrap;gap:6px}
+.brand-by{font-size:.78rem;font-weight:500;color:var(--cyan)}
 .menu{display:flex;align-items:center;gap:24px;color:var(--muted);font-size:.95rem}
 .menu a{transition:color .25s}
 .menu a:hover{color:#fff}
@@ -45,14 +46,11 @@ h1,h2,h3{line-height:1.15}
 .burger[aria-expanded=true] span:first-child{transform:translateY(4px) rotate(45deg)}
 .burger[aria-expanded=true] span:last-child{transform:translateY(-4px) rotate(-45deg)}
 
-/* hero */
+/* hero - original logo with static illumination only */
 .hero{min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:120px 24px 80px}
 .logo-wrap{position:relative;isolation:isolate;margin-bottom:36px}
-.logo-wrap::before{content:"";position:absolute;inset:-35%;z-index:-1;background:radial-gradient(circle,rgba(22,139,255,.32),transparent 62%);animation:pulse 6s ease-in-out infinite}
-.logo{width:min(240px,56vw);height:auto;filter:drop-shadow(0 0 26px rgba(22,139,255,.55));animation:float 9s ease-in-out infinite}
-.hero-fallback{width:132px;height:132px;border-radius:34px;background:radial-gradient(circle at 30% 25%,#7dd3fc,var(--blue) 55%,#071b4d);display:flex;align-items:center;justify-content:center;box-shadow:0 0 42px rgba(22,139,255,.55);animation:float 9s ease-in-out infinite}
-@keyframes pulse{50%{opacity:.55;transform:scale(1.06)}}
-@keyframes float{50%{transform:translateY(-8px)}}
+.logo-wrap::before{content:"";position:absolute;inset:-32%;z-index:-1;background:radial-gradient(circle,rgba(22,139,255,.38),rgba(56,189,248,.14) 45%,transparent 68%);filter:blur(10px)}
+.logo{width:min(240px,56vw);height:auto;filter:drop-shadow(0 0 28px rgba(22,139,255,.65)) drop-shadow(0 0 54px rgba(56,189,248,.3))}
 h1{font-size:clamp(2.4rem,7vw,4.6rem);font-weight:700;letter-spacing:-.03em;max-width:14ch}
 .sub{max-width:34em;margin:20px 0 36px;color:var(--muted);font-size:clamp(1rem,2.4vw,1.2rem)}
 .actions{display:flex;flex-wrap:wrap;justify-content:center;gap:14px}
@@ -143,12 +141,12 @@ legend{margin-bottom:10px;color:var(--muted);font-size:.85rem}
 <div class="lights" aria-hidden="true"><i></i><i></i></div>
 
 <header class="nav">
-  <a class="brand" href="#top" aria-label="EditConnect home">
-    <img src="assets/logo.png" alt="" data-brand-img>
-    <span class="brand-fallback" hidden aria-hidden="true">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg>
+  <a class="brand" href="#top" aria-label="EditConnect by Dheeraj home">
+    <img src="assets/logo.png" alt="EditConnect logo">
+    <span class="brand-text">
+      <span>EditConnect</span>
+      <span class="brand-by">by Dheeraj</span>
     </span>
-    <span>EditConnect</span>
   </a>
   <button class="burger" type="button" aria-label="Toggle menu" aria-expanded="false" aria-controls="menu"><span></span><span></span></button>
   <nav class="menu" id="menu" aria-label="Main">
@@ -162,10 +160,7 @@ legend{margin-bottom:10px;color:var(--muted);font-size:.85rem}
 <main id="home">
   <section class="hero" id="top">
     <div class="logo-wrap">
-      <img class="logo" src="assets/logo.png" alt="EditConnect logo" data-hero-img>
-      <div class="hero-fallback" hidden aria-hidden="true">
-        <svg width="54" height="54" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg>
-      </div>
+      <img class="logo" src="assets/logo.png" alt="EditConnect logo">
     </div>
     <h1>Skills Meet Opportunities.</h1>
     <p class="sub">Prove your skills. Earn recognition. Discover your first professional opportunity.</p>
@@ -284,7 +279,7 @@ legend{margin-bottom:10px;color:var(--muted);font-size:.85rem}
 </section>
 
 <footer class="foot">
-  <span>© 2026 EditConnect</span>
+  <span>© 2026 EditConnect by Dheeraj</span>
   <span>Skills Meet Opportunities • Powered by Google Sign-In</span>
 </footer>
 
@@ -637,20 +632,6 @@ legend{margin-bottom:10px;color:var(--muted);font-size:.85rem}
     items.forEach(el => io.observe(el));
   } else {
     items.forEach(el => el.classList.add("in"));
-  }
-
-  // Graceful fallback if assets/logo.png is not uploaded yet
-  const brandImg = $("[data-brand-img]");
-  const heroImg = $("[data-hero-img]");
-  if (brandImg) {
-    const hideBrand = () => { brandImg.hidden = true; $(".brand-fallback").hidden = false; };
-    if (brandImg.complete && !brandImg.naturalWidth) hideBrand();
-    else brandImg.addEventListener("error", hideBrand);
-  }
-  if (heroImg) {
-    const hideHero = () => { heroImg.hidden = true; $(".hero-fallback").hidden = false; };
-    if (heroImg.complete && !heroImg.naturalWidth) hideHero();
-    else heroImg.addEventListener("error", hideHero);
   }
 
   syncUI();
