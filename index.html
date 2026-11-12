@@ -46,11 +46,12 @@ h1,h2,h3{line-height:1.15}
 .burger[aria-expanded=true] span:first-child{transform:translateY(4px) rotate(45deg)}
 .burger[aria-expanded=true] span:last-child{transform:translateY(-4px) rotate(-45deg)}
 
-/* hero - original logo with static illumination only */
+/* hero - original logo with static illumination & COMING SOON background layer */
 .hero{min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:120px 24px 80px}
-.logo-wrap{position:relative;isolation:isolate;margin-bottom:36px}
-.logo-wrap::before{content:"";position:absolute;inset:-32%;z-index:-1;background:radial-gradient(circle,rgba(22,139,255,.38),rgba(56,189,248,.14) 45%,transparent 68%);filter:blur(10px)}
-.logo{width:min(240px,56vw);height:auto;filter:drop-shadow(0 0 28px rgba(22,139,255,.65)) drop-shadow(0 0 54px rgba(56,189,248,.3))}
+.logo-wrap{position:relative;isolation:isolate;display:flex;align-items:center;justify-content:center;margin-bottom:36px}
+.logo-wrap::before{content:"";position:absolute;inset:-32%;z-index:-2;background:radial-gradient(circle,rgba(22,139,255,.38),rgba(56,189,248,.14) 45%,transparent 68%);filter:blur(10px)}
+.coming-soon-bg{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:-1;font-size:clamp(2.8rem,12vw,8.5rem);font-weight:900;letter-spacing:.14em;line-height:1;white-space:nowrap;text-transform:uppercase;color:rgba(56,189,248,.1);-webkit-text-stroke:1px rgba(56,189,248,.22);text-shadow:0 0 36px rgba(22,139,255,.22);pointer-events:none;user-select:none}
+.logo{position:relative;z-index:1;width:min(240px,56vw);height:auto;filter:drop-shadow(0 0 28px rgba(22,139,255,.65)) drop-shadow(0 0 54px rgba(56,189,248,.3))}
 h1{font-size:clamp(2.4rem,7vw,4.6rem);font-weight:700;letter-spacing:-.03em;max-width:14ch}
 .sub{max-width:34em;margin:20px 0 36px;color:var(--muted);font-size:clamp(1rem,2.4vw,1.2rem)}
 .actions{display:flex;flex-wrap:wrap;justify-content:center;gap:14px}
@@ -160,6 +161,7 @@ legend{margin-bottom:10px;color:var(--muted);font-size:.85rem}
 <main id="home">
   <section class="hero" id="top">
     <div class="logo-wrap">
+      <span class="coming-soon-bg" aria-hidden="true">COMING SOON</span>
       <img class="logo" src="assets/logo.png" alt="EditConnect logo">
     </div>
     <h1>Skills Meet Opportunities.</h1>
