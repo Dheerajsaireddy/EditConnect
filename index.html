@@ -4,8 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#030508">
-<title>EditConnect | Video Editors &amp; Clients</title>
+<title>EditConnect — Video Editors &amp; Clients</title>
 <meta name="description" content="Find top video editors ranked by CONNECTS, completed projects, and verified portfolio branches.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
 <style>
 :root {
@@ -13,234 +16,281 @@
   --blue: #126BFF;
   --neon: #168BFF;
   --cyan: #38bdf8;
+  --indigo: #818cf8;
   --gold: #fbbf24;
   --green: #10b981;
-  --muted: #8fa3bf;
-  --line: rgba(22, 139, 255, .28);
-  --glass: rgba(10, 20, 38, .72);
+  --muted: #94a3b8;
+  --line: rgba(56, 189, 248, .22);
+  --glass: rgba(10, 19, 36, .72);
+  --font: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 * { box-sizing: border-box; margin: 0; }
 html { background: var(--bg); color-scheme: dark; scroll-behavior: smooth; }
-body { color: #fff; font: 16px/1.6 system-ui, -apple-system, sans-serif; overflow-x: hidden; min-height: 100vh; display: flex; flex-direction: column; }
+body {
+  color: #f8fafc;
+  font-family: var(--font);
+  font-size: 16px;
+  line-height: 1.6;
+  overflow-x: hidden;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
 main { flex: 1; }
 a { color: inherit; text-decoration: none; }
-button, input, textarea, select { font: inherit; }
+button, input, textarea, select { font-family: inherit; font-size: inherit; }
 [hidden] { display: none !important; }
 
 .wrap { max-width: 1080px; margin: auto; padding: 0 22px; }
-.pg { padding-top: 104px; padding-bottom: 60px; }
+.pg { padding-top: 104px; padding-bottom: 64px; }
 .narrow { max-width: 540px; }
 .muted { color: var(--muted); }
-.ptitle { font-size: clamp(1.8rem, 4.5vw, 2.5rem); line-height: 1.15; margin-bottom: 6px; }
-.sec { margin: 28px 0 12px; font-size: 1.25rem; }
+.ptitle { font-size: clamp(1.85rem, 4.5vw, 2.5rem); font-weight: 700; line-height: 1.18; letter-spacing: -0.02em; margin-bottom: 6px; }
+.sec { margin: 28px 0 12px; font-size: 1.25rem; font-weight: 700; }
 
+/* Ambient Glow Background */
 .lights { position: fixed; inset: 0; z-index: -1; pointer-events: none; overflow: hidden; }
 .lights i {
-  position: absolute; width: 62vmax; height: 62vmax; border-radius: 50%;
-  background: radial-gradient(circle, rgba(18, 107, 255, .17), transparent 65%);
-  animation: drift 14s ease-in-out infinite alternate;
+  position: absolute; width: 64vmax; height: 64vmax; border-radius: 50%;
+  background: radial-gradient(circle, rgba(18, 107, 255, .16), rgba(56, 189, 248, .05) 45%, transparent 70%);
+  animation: drift 16s ease-in-out infinite alternate;
 }
-.lights i:first-child { top: -25vmax; left: -15vmax; }
-.lights i:last-child { bottom: -30vmax; right: -20vmax; animation-delay: -7s; }
+.lights i:first-child { top: -26vmax; left: -16vmax; }
+.lights i:last-child { bottom: -30vmax; right: -18vmax; animation-delay: -8s; }
 
 @keyframes drift {
   0% { transform: translate(0, 0) scale(1); }
   100% { transform: translate(4vmax, 3vmax) scale(1.08); }
 }
 
+/* Top Navigation */
 .nav {
   position: fixed; top: 0; left: 0; right: 0; z-index: 30;
   display: flex; align-items: center; justify-content: space-between;
   padding: 14px clamp(18px, 4vw, 48px);
-  background: rgba(3, 5, 8, .92);
-  backdrop-filter: blur(14px);
-  border-bottom: 1px solid rgba(22, 139, 255, .16);
+  background: rgba(3, 5, 8, .85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(56, 189, 248, .14);
 }
-.brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 1.2rem; letter-spacing: .03em; }
-.brand-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--neon); box-shadow: 0 0 12px var(--neon); }
-.menu { display: flex; align-items: center; gap: 20px; color: var(--muted); font-size: .92rem; }
+.brand { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 1.22rem; letter-spacing: -0.01em; }
+.brand-dot {
+  width: 11px; height: 11px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--cyan), var(--blue));
+  box-shadow: 0 0 14px var(--cyan);
+}
+.menu { display: flex; align-items: center; gap: 22px; color: var(--muted); font-size: .94rem; font-weight: 500; }
+.menu a { transition: color .2s; }
 .menu a:hover, .menu a[aria-current="true"] { color: #fff; }
-.menu .signin { color: #fff; border: 1px solid var(--line); padding: 8px 18px; border-radius: 999px; transition: .2s; }
-.menu .signin:hover { border-color: var(--neon); background: rgba(22, 139, 255, .12); }
+.menu .signin {
+  color: #fff; border: 1px solid var(--line); padding: 8px 18px;
+  border-radius: 999px; background: rgba(22, 139, 255, .08); transition: .2s;
+}
+.menu .signin:hover { border-color: var(--cyan); background: rgba(22, 139, 255, .18); }
 .role-pill {
-  font-size: .75rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em;
-  padding: 4px 10px; border-radius: 999px; border: 1px solid var(--line);
+  font-size: .8rem; font-weight: 600;
+  padding: 5px 12px; border-radius: 999px; border: 1px solid var(--line);
   background: rgba(22, 139, 255, .14); color: var(--cyan);
 }
-.burger { display: none; background: none; border: 1px solid var(--line); color: #fff; padding: 8px 12px; border-radius: 9px; cursor: pointer; }
+.burger { display: none; background: none; border: 1px solid var(--line); color: #fff; padding: 8px 12px; border-radius: 10px; cursor: pointer; }
 
+/* Hero & 3D Fluid Logo Stage */
 .hero {
   min-height: 92svh; display: flex; flex-direction: column;
   align-items: center; justify-content: center; text-align: center;
-  padding: 112px 22px 60px;
+  padding: 104px 22px 56px;
 }
-.center-stage {
-  position: relative; width: 148px; height: 148px;
-  display: flex; align-items: center; justify-content: center;
-  margin-bottom: 22px;
+.fluid-stage {
+  position: relative;
+  width: 230px;
+  height: 230px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 14px;
+  cursor: grab;
+  touch-action: pan-y;
 }
-.orbit-ring {
-  position: absolute; inset: 0; border-radius: 50%;
-  border: 1.5px dashed rgba(22, 139, 255, .45);
-  animation: spinSlow 16s linear infinite;
+.fluid-stage:active { cursor: grabbing; }
+.fluid-stage::before {
+  content: "";
+  position: absolute;
+  inset: 24px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(56, 189, 248, .28), rgba(18, 107, 255, .12) 55%, transparent 75%);
+  filter: blur(18px);
+  z-index: 0;
+  pointer-events: none;
 }
-.orbit-ring::after {
-  content: ""; position: absolute; top: -5px; left: 50%; width: 10px; height: 10px;
-  border-radius: 50%; background: var(--cyan); box-shadow: 0 0 14px var(--cyan);
-}
-.orbit-ring.inner {
-  inset: 16px; border-style: solid; border-color: rgba(56, 189, 248, .25);
-  animation: spinRev 10s linear infinite;
-}
-.moving-icon {
-  width: 78px; height: 78px; border-radius: 22px;
-  background: linear-gradient(135deg, #126BFF, #09265c);
-  border: 1px solid rgba(56, 189, 248, .6);
-  box-shadow: 0 0 35px rgba(18, 107, 255, .55);
-  display: flex; align-items: center; justify-content: center;
-  animation: floatIcon 3.2s ease-in-out infinite;
-}
-.moving-icon svg { width: 38px; height: 38px; fill: #fff; }
-
-@keyframes spinSlow { to { transform: rotate(360deg); } }
-@keyframes spinRev { to { transform: rotate(-360deg); } }
-@keyframes floatIcon {
-  0%, 100% { transform: translateY(0) scale(1); box-shadow: 0 0 30px rgba(18, 107, 255, .5); }
-  50% { transform: translateY(-10px) scale(1.05); box-shadow: 0 14px 42px rgba(56, 189, 248, .75); }
+#fluidLogo {
+  position: relative;
+  z-index: 1;
+  width: 230px;
+  height: 230px;
+  display: block;
 }
 
+/* Mode Switcher */
 .mode-switch {
   display: inline-flex; padding: 5px; border-radius: 999px;
-  background: rgba(10, 20, 38, .9); border: 1px solid var(--line);
+  background: rgba(10, 19, 36, .9); border: 1px solid var(--line);
   margin-bottom: 20px; gap: 4px;
 }
 .mode-btn {
   padding: 9px 22px; border-radius: 999px; border: none; background: transparent;
-  color: var(--muted); font-weight: 650; font-size: .9rem; cursor: pointer; transition: .2s;
+  color: var(--muted); font-weight: 600; font-size: .92rem; cursor: pointer; transition: .22s;
 }
-.mode-btn.active { background: var(--blue); color: #fff; box-shadow: 0 0 18px rgba(22, 139, 255, .45); }
+.mode-btn.active {
+  background: linear-gradient(135deg, var(--blue), #0ea5e9);
+  color: #fff;
+  box-shadow: 0 4px 18px rgba(22, 139, 255, .42);
+}
 
 .explore-zone {
   min-height: 64px; display: flex; flex-direction: column; align-items: center; justify-content: center;
-  margin-bottom: 24px;
+  margin-bottom: 22px;
 }
 
-h1 { font-size: clamp(2.1rem, 6vw, 4rem); line-height: 1.1; max-width: 16ch; }
-.sub { max-width: 36em; margin: 16px 0 28px; color: var(--muted); font-size: 1.05rem; }
-.actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; }
+h1 {
+  font-size: clamp(2.15rem, 5.8vw, 3.85rem);
+  font-weight: 800;
+  line-height: 1.12;
+  letter-spacing: -0.025em;
+  max-width: 17ch;
+}
+.sub { max-width: 36em; margin: 14px 0 28px; color: var(--muted); font-size: 1.05rem; font-weight: 400; }
+.actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
 
+/* Casual Friendly Buttons */
 .btn {
   display: inline-flex; align-items: center; justify-content: center; gap: 8px;
   padding: 13px 26px; border: 1px solid var(--line);
-  border-radius: 999px; background: rgba(10, 20, 38, .65); color: #fff;
-  font-size: .9rem; font-weight: 650; letter-spacing: .03em;
-  cursor: pointer; transition: .2s;
+  border-radius: 999px; background: rgba(10, 19, 36, .75); color: #fff;
+  font-size: .94rem; font-weight: 600;
+  cursor: pointer; transition: transform .2s, border-color .2s, background .2s, box-shadow .2s;
 }
-.btn:hover { transform: translateY(-2px); border-color: var(--neon); }
-.btn.primary { background: var(--blue); border-color: transparent; box-shadow: 0 0 24px rgba(22, 139, 255, .4); }
-.btn.primary:hover { background: var(--neon); }
+.btn:hover { transform: translateY(-2px); border-color: var(--cyan); background: rgba(22, 139, 255, .14); }
+.btn.primary {
+  background: linear-gradient(135deg, #126BFF, #0ea5e9);
+  border-color: transparent;
+  box-shadow: 0 6px 24px rgba(18, 107, 255, .38);
+}
+.btn.primary:hover { box-shadow: 0 8px 30px rgba(56, 189, 248, .5); }
 .btn.explore-hero {
-  padding: 15px 36px; font-size: 1rem;
-  background: linear-gradient(90deg, #126BFF, #0ea5e9);
-  border: none; box-shadow: 0 0 30px rgba(14, 165, 233, .45);
+  padding: 15px 34px; font-size: 1.02rem; font-weight: 700;
+  background: linear-gradient(135deg, #126BFF, #38bdf8);
+  border: none; box-shadow: 0 8px 30px rgba(14, 165, 233, .42);
 }
-.btn.small { padding: 9px 18px; font-size: .82rem; }
+.btn.small { padding: 9px 18px; font-size: .86rem; }
 .btn.danger { border-color: rgba(239, 68, 68, .45); color: #fca5a5; }
 .btn.danger:hover { border-color: #ef4444; background: rgba(239, 68, 68, .12); }
 
+/* Cards & Panels */
 .panel {
   width: 100%; margin: 16px 0; padding: clamp(20px, 3.5vw, 32px);
-  border: 1px solid var(--line); border-radius: 20px;
-  background: var(--glass); backdrop-filter: blur(14px);
+  border: 1px solid var(--line); border-radius: 22px;
+  background: var(--glass);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
 }
-.grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 24px; }
+.grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 20px; }
 .feature {
   display: block; padding: 24px; border: 1px solid var(--line);
-  border-radius: 20px; background: var(--glass); transition: .22s;
+  border-radius: 22px; background: var(--glass); transition: .22s;
 }
-.feature:hover { border-color: var(--neon); box-shadow: 0 0 24px rgba(22, 139, 255, .14); }
+.feature:hover { transform: translateY(-3px); border-color: var(--cyan); box-shadow: 0 10px 28px rgba(22, 139, 255, .14); }
 
+/* Editor Leaderboard Card */
 .editor-card {
   margin-top: 18px; padding: 24px; border: 1px solid var(--line);
-  border-radius: 20px; background: var(--glass); transition: .22s;
+  border-radius: 22px; background: var(--glass); transition: .22s;
 }
-.editor-card:hover { border-color: var(--neon); }
+.editor-card:hover { border-color: var(--cyan); }
 .ed-top { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start; gap: 14px; }
 .ed-rank {
   display: inline-flex; align-items: center; justify-content: center;
   width: 32px; height: 32px; border-radius: 50%;
-  background: rgba(22, 139, 255, .2); border: 1px solid var(--neon);
-  font-weight: 800; font-size: .85rem; color: var(--cyan); margin-right: 10px;
+  background: rgba(22, 139, 255, .2); border: 1px solid var(--cyan);
+  font-weight: 700; font-size: .88rem; color: var(--cyan);
 }
 .connects-pill {
   display: inline-flex; align-items: center; gap: 8px;
   padding: 8px 16px; border-radius: 999px;
-  background: linear-gradient(135deg, rgba(18, 107, 255, .28), rgba(56, 189, 248, .18));
-  border: 1px solid var(--cyan); color: #fff; font-weight: 800; font-size: .95rem;
+  background: linear-gradient(135deg, rgba(18, 107, 255, .26), rgba(56, 189, 248, .16));
+  border: 1px solid rgba(56, 189, 248, .5); color: #fff; font-weight: 700; font-size: .95rem;
 }
 .connects-pill span { color: var(--cyan); }
 .ed-metrics {
-  display: flex; flex-wrap: wrap; gap: 14px; margin: 14px 0;
-  font-size: .88rem; color: var(--muted);
+  display: flex; flex-wrap: wrap; gap: 12px; margin: 14px 0;
+  font-size: .9rem; color: var(--muted);
 }
-.ed-metrics b { color: #fff; }
-.stars-display { color: var(--gold); font-weight: 700; letter-spacing: 1px; }
+.ed-metrics b { color: #fff; font-weight: 600; }
+.stars-display { color: var(--gold); font-weight: 700; }
 
 .tag {
-  display: inline-block; margin: 0 6px 6px 0; padding: 4px 12px;
+  display: inline-block; margin: 0 6px 6px 0; padding: 5px 12px;
   border: 1px solid var(--line); border-radius: 999px;
-  color: var(--cyan); background: rgba(22, 139, 255, .08); font-size: .78rem; font-weight: 600;
+  color: var(--cyan); background: rgba(22, 139, 255, .09); font-size: .8rem; font-weight: 600;
 }
-.tag.branch { border-color: rgba(56, 189, 248, .45); color: #e0f2fe; }
-.tag.hot { background: var(--blue); color: #fff; border-color: transparent; }
+.tag.branch { border-color: rgba(56, 189, 248, .38); color: #e0f2fe; }
+.tag.hot { background: linear-gradient(135deg, var(--blue), #0ea5e9); color: #fff; border-color: transparent; }
 
+/* Portfolio Grid */
 .port-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 12px; margin-top: 12px; }
 .port-item {
-  padding: 14px; border-radius: 14px; border: 1px solid rgba(22, 139, 255, .22);
+  padding: 16px; border-radius: 16px; border: 1px solid rgba(56, 189, 248, .2);
   background: rgba(3, 5, 8, .65);
 }
-.port-item h4 { font-size: .96rem; margin: 6px 0 4px; }
-.port-item p { font-size: .83rem; color: var(--muted); margin-bottom: 8px; }
+.port-item h4 { font-size: .98rem; font-weight: 600; margin: 6px 0 4px; }
+.port-item p { font-size: .85rem; color: var(--muted); margin-bottom: 10px; }
 
-.field { display: block; margin-bottom: 15px; color: var(--muted); font-size: .86rem; }
+/* Forms & Inputs */
+.field { display: block; margin-bottom: 15px; color: var(--muted); font-size: .88rem; font-weight: 500; }
 .field input, .field textarea, .field select {
   display: block; width: 100%; margin-top: 6px; padding: 12px 14px;
-  border: 1px solid var(--line); border-radius: 12px;
+  border: 1px solid var(--line); border-radius: 14px;
   background: rgba(3, 5, 8, .85); color: #fff;
 }
-.field textarea { min-height: 82px; resize: vertical; }
-.field input:focus, .field textarea:focus, .field select:focus { outline: 1px solid var(--neon); }
+.field textarea { min-height: 84px; resize: vertical; }
+.field input:focus, .field textarea:focus, .field select:focus { outline: none; border-color: var(--cyan); }
 
 .filter-bar { display: flex; flex-wrap: wrap; gap: 12px; margin: 18px 0; }
 .filter-bar input, .filter-bar select {
-  padding: 11px 15px; border-radius: 12px; border: 1px solid var(--line);
-  background: rgba(10, 20, 38, .85); color: #fff;
+  padding: 12px 16px; border-radius: 14px; border: 1px solid var(--line);
+  background: rgba(10, 19, 36, .85); color: #fff;
 }
 .filter-bar input { flex: 1; min-width: 210px; }
 
-.star-picker { display: flex; gap: 6px; margin: 8px 0; }
+/* Star Picker */
+.star-picker { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0; }
 .star-btn {
-  padding: 7px 13px; border-radius: 10px; border: 1px solid var(--line);
-  background: rgba(3, 5, 8, .8); color: var(--muted); cursor: pointer; font-weight: 700;
+  padding: 8px 13px; border-radius: 12px; border: 1px solid var(--line);
+  background: rgba(3, 5, 8, .8); color: var(--muted); cursor: pointer; font-weight: 600;
 }
 .star-btn.active { border-color: var(--gold); color: var(--gold); background: rgba(251, 191, 36, .12); }
 
+/* Branch Checkboxes */
 .branch-picks { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
 .branch-chip {
-  padding: 6px 13px; border-radius: 999px; border: 1px solid var(--line);
-  background: rgba(3, 5, 8, .75); color: var(--muted); font-size: .8rem; cursor: pointer;
+  padding: 7px 14px; border-radius: 999px; border: 1px solid var(--line);
+  background: rgba(3, 5, 8, .75); color: var(--muted); font-size: .84rem; cursor: pointer;
 }
-.branch-chip.selected { border-color: var(--cyan); color: #fff; background: rgba(22, 139, 255, .25); }
+.branch-chip.selected { border-color: var(--cyan); color: #fff; background: rgba(22, 139, 255, .24); }
 
 .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 14px; margin: 18px 0; }
-.stats div { padding: 18px; border: 1px solid var(--line); border-radius: 16px; background: var(--glass); }
-.stats b { display: block; font-size: 1.7rem; color: #fff; }
+.stats div { padding: 18px; border: 1px solid var(--line); border-radius: 18px; background: var(--glass); }
+.stats b { display: block; font-size: 1.75rem; font-weight: 700; color: #fff; }
 .bar { height: 8px; margin: 12px 0; border-radius: 99px; background: rgba(22, 139, 255, .15); overflow: hidden; }
-.bar i { display: block; height: 100%; background: var(--neon); }
+.bar i { display: block; height: 100%; background: linear-gradient(90deg, var(--blue), var(--cyan)); }
 
-.row { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid rgba(22, 139, 255, .14); }
-.foot { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; padding: 24px 28px; border-top: 1px solid var(--line); color: var(--muted); font-size: .82rem; }
-#toast { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%); z-index: 60; max-width: 92vw; padding: 13px 22px; border: 1px solid var(--cyan); border-radius: 12px; background: #071224; box-shadow: 0 10px 30px rgba(0,0,0,.6); }
+.row { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid rgba(56, 189, 248, .12); }
+.foot { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; padding: 24px 28px; border-top: 1px solid rgba(56, 189, 248, .14); color: var(--muted); font-size: .85rem; }
+#toast {
+  position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%); z-index: 60;
+  max-width: 92vw; padding: 13px 22px; border: 1px solid var(--cyan);
+  border-radius: 14px; background: #071224; font-weight: 500;
+  box-shadow: 0 10px 30px rgba(0,0,0,.6);
+}
 
 @media (max-width: 860px) {
   .grid { grid-template-columns: 1fr; }
@@ -248,10 +298,10 @@ h1 { font-size: clamp(2.1rem, 6vw, 4rem); line-height: 1.1; max-width: 16ch; }
   .menu {
     display: none; position: absolute; top: 100%; left: 0; right: 0;
     flex-direction: column; align-items: stretch; gap: 0;
-    padding: 12px 20px; background: #030508; border-bottom: 1px solid var(--line);
+    padding: 12px 20px; background: rgba(3, 5, 8, .98); border-bottom: 1px solid var(--line);
   }
   .menu.open { display: flex; }
-  .menu a { padding: 12px; border-bottom: 1px solid rgba(22, 139, 255, .1); }
+  .menu a { padding: 12px; border-bottom: 1px solid rgba(56, 189, 248, .1); }
   .menu .signin { text-align: center; margin-top: 10px; }
 }
 @media (prefers-reduced-motion: reduce) {
@@ -510,6 +560,199 @@ function toast(msg) {
   toast._t = setTimeout(() => { el.hidden = true; }, 4000);
 }
 
+// ==========================================
+// 3D INTERACTIVE FLUID LOGO ENGINE
+// ==========================================
+let fluidRaf = null;
+
+function initFluidLogo() {
+  if (fluidRaf) {
+    cancelAnimationFrame(fluidRaf);
+    fluidRaf = null;
+  }
+  const canvas = document.getElementById("fluidLogo");
+  if (!canvas) return;
+
+  const ctx = canvas.getContext("2d");
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+  const size = 230;
+  canvas.width = size * dpr;
+  canvas.height = size * dpr;
+  ctx.scale(dpr, dpr);
+
+  const cx = size / 2;
+  const cy = size / 2;
+  let pointerX = 0;
+  let pointerY = 0;
+  let smoothX = 0;
+  let smoothY = 0;
+  let energy = 1;
+
+  const onMove = e => {
+    const rect = canvas.getBoundingClientRect();
+    const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+    const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+    pointerX = Math.max(-1, Math.min(1, ((clientX - rect.left) / rect.width - 0.5) * 2));
+    pointerY = Math.max(-1, Math.min(1, ((clientY - rect.top) / rect.height - 0.5) * 2));
+    energy = 1.65;
+  };
+
+  const onLeave = () => {
+    pointerX = 0;
+    pointerY = 0;
+  };
+
+  canvas.addEventListener("pointermove", onMove);
+  canvas.addEventListener("touchmove", onMove, { passive: true });
+  canvas.addEventListener("pointerleave", onLeave);
+
+  function drawFluidLayer(t, baseRadius, freqA, freqB, amp, phase, fillStyle, strokeStyle) {
+    const steps = 96;
+    ctx.beginPath();
+    for (let i = 0; i <= steps; i++) {
+      const theta = (i / steps) * Math.PI * 2;
+      const w1 = Math.sin(theta * freqA + t * 2.1 + phase) * amp;
+      const w2 = Math.cos(theta * freqB - t * 1.6 + phase * 1.3) * (amp * 0.65);
+      const w3 = Math.sin(theta * 2 + t * 3.0) * (amp * 0.35);
+      const tiltOffset = (Math.cos(theta) * smoothX + Math.sin(theta) * smoothY) * 6;
+      const r = baseRadius + (w1 + w2 + w3) * energy + tiltOffset;
+      const x = cx + Math.cos(theta) * r;
+      const y = cy + Math.sin(theta) * r;
+      if (i === 0) ctx.moveTo(x, y);
+      else ctx.lineTo(x, y);
+    }
+    ctx.closePath();
+    ctx.fillStyle = fillStyle;
+    ctx.fill();
+    if (strokeStyle) {
+      ctx.strokeStyle = strokeStyle;
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+    }
+  }
+
+  function frame(now) {
+    if (!document.body.contains(canvas)) {
+      fluidRaf = null;
+      return;
+    }
+    const t = now * 0.001;
+    smoothX += (pointerX - smoothX) * 0.08;
+    smoothY += (pointerY - smoothY) * 0.08;
+    energy += (1 - energy) * 0.04;
+
+    ctx.clearRect(0, 0, size, size);
+
+    // 3D Orbiting Liquid Droplets (Back Z-layer)
+    const droplets = [
+      { angle: t * 1.15, dist: 86, z: Math.sin(t * 1.15), r: 7.5, color: "#38bdf8" },
+      { angle: t * 0.85 + 2.1, dist: 92, z: Math.sin(t * 0.85 + 2.1), r: 5.5, color: "#818cf8" },
+      { angle: -t * 1.35 + 4.2, dist: 82, z: Math.sin(-t * 1.35 + 4.2), r: 6.5, color: "#168BFF" }
+    ];
+
+    droplets.filter(d => d.z < 0).forEach(d => {
+      const dx = cx + Math.cos(d.angle) * d.dist + smoothX * 8;
+      const dy = cy + Math.sin(d.angle) * (d.dist * 0.42) + smoothY * 8;
+      const rad = d.r * (0.75 + (d.z + 1) * 0.25);
+      const dg = ctx.createRadialGradient(dx - rad * 0.3, dy - rad * 0.3, 1, dx, dy, rad);
+      dg.addColorStop(0, "#ffffff");
+      dg.addColorStop(0.4, d.color);
+      dg.addColorStop(1, "rgba(18, 107, 255, 0.1)");
+      ctx.beginPath();
+      ctx.arc(dx, dy, rad, 0, Math.PI * 2);
+      ctx.fillStyle = dg;
+      ctx.fill();
+    });
+
+    // Outer Iridescent Fluid Aura
+    const outerGrad = ctx.createRadialGradient(
+      cx - 24 + smoothX * 16,
+      cy - 24 + smoothY * 16,
+      10,
+      cx,
+      cy,
+      82
+    );
+    outerGrad.addColorStop(0, "rgba(56, 189, 248, 0.48)");
+    outerGrad.addColorStop(0.55, "rgba(18, 107, 255, 0.32)");
+    outerGrad.addColorStop(1, "rgba(129, 140, 248, 0.08)");
+    drawFluidLayer(t, 68, 3, 5, 5.5, 0, outerGrad, "rgba(56, 189, 248, 0.35)");
+
+    // Main 3D Morphing Liquid Core
+    const coreGrad = ctx.createRadialGradient(
+      cx - 22 + smoothX * 18,
+      cy - 26 + smoothY * 18,
+      6,
+      cx + 10,
+      cy + 14,
+      74
+    );
+    coreGrad.addColorStop(0, "#7dd3fc");
+    coreGrad.addColorStop(0.28, "#168BFF");
+    coreGrad.addColorStop(0.72, "#0b3b9c");
+    coreGrad.addColorStop(1, "#05153d");
+    drawFluidLayer(t * 1.15, 58, 4, 3, 4.8, 1.4, coreGrad, "rgba(125, 211, 252, 0.55)");
+
+    // Inner Subsurface Liquid Wave
+    const innerGrad = ctx.createLinearGradient(cx - 45, cy - 45, cx + 45, cy + 45);
+    innerGrad.addColorStop(0, "rgba(255, 255, 255, 0.34)");
+    innerGrad.addColorStop(0.5, "rgba(56, 189, 248, 0.14)");
+    innerGrad.addColorStop(1, "rgba(129, 140, 248, 0.28)");
+    drawFluidLayer(-t * 1.3, 46, 3, 4, 3.6, 2.7, innerGrad, null);
+
+    // Glossy 3D Top-Left Specular Liquid Highlight
+    ctx.save();
+    ctx.translate(cx - 20 + smoothX * 12, cy - 22 + smoothY * 12);
+    ctx.rotate(-0.55);
+    const specGrad = ctx.createRadialGradient(0, 0, 1, 0, 0, 22);
+    specGrad.addColorStop(0, "rgba(255, 255, 255, 0.85)");
+    specGrad.addColorStop(0.5, "rgba(186, 230, 253, 0.35)");
+    specGrad.addColorStop(1, "rgba(255, 255, 255, 0)");
+    ctx.fillStyle = specGrad;
+    ctx.beginPath();
+    ctx.ellipse(0, 0, 20, 10, 0, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+
+    // Floating 3D Glass Play Emblem in Center
+    ctx.save();
+    ctx.translate(cx + smoothX * 9, cy + smoothY * 9);
+    ctx.shadowColor = "rgba(3, 5, 8, 0.45)";
+    ctx.shadowBlur = 12;
+    ctx.shadowOffsetY = 4;
+    ctx.beginPath();
+    ctx.moveTo(-11, -15);
+    ctx.lineTo(16, 0);
+    ctx.lineTo(-11, 15);
+    ctx.closePath();
+    ctx.fillStyle = "rgba(255, 255, 255, 0.94)";
+    ctx.fill();
+    ctx.restore();
+
+    // 3D Orbiting Liquid Droplets (Front Z-layer)
+    droplets.filter(d => d.z >= 0).forEach(d => {
+      const dx = cx + Math.cos(d.angle) * d.dist + smoothX * 12;
+      const dy = cy + Math.sin(d.angle) * (d.dist * 0.42) + smoothY * 12;
+      const rad = d.r * (0.85 + d.z * 0.35);
+      const dg = ctx.createRadialGradient(dx - rad * 0.35, dy - rad * 0.35, 1, dx, dy, rad);
+      dg.addColorStop(0, "#ffffff");
+      dg.addColorStop(0.45, d.color);
+      dg.addColorStop(1, "rgba(18, 107, 255, 0.15)");
+      ctx.beginPath();
+      ctx.arc(dx, dy, rad, 0, Math.PI * 2);
+      ctx.fillStyle = dg;
+      ctx.fill();
+    });
+
+    fluidRaf = requestAnimationFrame(frame);
+  }
+
+  fluidRaf = requestAnimationFrame(frame);
+}
+
+// ==========================================
+// NAVIGATION RENDERER
+// ==========================================
 function renderNav() {
   const u = currentUser();
   const mode = activeMode();
@@ -540,6 +783,9 @@ function renderNav() {
   });
 }
 
+// ==========================================
+// VIEWS
+// ==========================================
 const Views = {
   home() {
     const u = currentUser();
@@ -548,12 +794,8 @@ const Views = {
 
     return `
     <section class="hero">
-      <div class="center-stage" aria-hidden="true">
-        <div class="orbit-ring"></div>
-        <div class="orbit-ring inner"></div>
-        <div class="moving-icon">
-          <svg viewBox="0 0 24 24"><path d="M4 5a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5zm6 4.2v5.6a.8.8 0 0 0 1.24.67l4.4-2.8a.8.8 0 0 0 0-1.34l-4.4-2.8A.8.8 0 0 0 10 9.2z"/></svg>
-        </div>
+      <div class="fluid-stage" title="Move or touch to ripple the 3D fluid logo">
+        <canvas id="fluidLogo" width="230" height="230"></canvas>
       </div>
 
       ${!u ? `
@@ -569,11 +811,11 @@ const Views = {
 
       <div class="explore-zone">
         ${mode === "client" ? `
-          <a class="btn explore-hero" href="#/explore">EXPLORE EDITORS →</a>
-          <span class="muted" style="font-size:.82rem;margin-top:8px">Compare ${editors.length} editors by CONNECTS, completed projects &amp; pricing</span>
+          <a class="btn explore-hero" href="#/explore">Explore Editors →</a>
+          <span class="muted" style="font-size:.85rem;margin-top:8px">Compare ${editors.length} editors by CONNECTS, completed projects &amp; pricing</span>
         ` : `
-          <a class="btn primary" href="${u ? "#/studio" : "#/auth"}">${u ? "OPEN PORTFOLIO STUDIO →" : "REGISTER AS EDITOR →"}</a>
-          <span class="muted" style="font-size:.82rem;margin-top:8px">Editor Mode: Build your portfolio &amp; branch tags to get discovered by clients</span>
+          <a class="btn primary" href="${u ? "#/studio" : "#/auth"}">${u ? "Open Portfolio Studio →" : "Register as Editor →"}</a>
+          <span class="muted" style="font-size:.85rem;margin-top:8px">Editor Mode: Build your portfolio &amp; branch tags to get discovered by clients</span>
         `}
       </div>
 
@@ -586,12 +828,12 @@ const Views = {
 
       <div class="actions">
         ${!u ? `
-          <a class="btn" href="#/join">CREATE FREE PROFILE</a>
-          <button type="button" class="btn small" data-act="demoLogin" data-role="${mode}">INSTANT DEMO (${mode.toUpperCase()})</button>
+          <a class="btn" href="#/join">Create Free Profile</a>
+          <button type="button" class="btn small" data-act="demoLogin" data-role="${mode}">Instant Demo (${mode === "client" ? "Client" : "Editor"})</button>
         ` : mode === "client" ? `
-          <a class="btn" href="#/activity">VIEW MY RATINGS &amp; PROJECTS</a>
+          <a class="btn" href="#/activity">View My Ratings &amp; Projects</a>
         ` : `
-          <a class="btn" href="#/studio">MANAGE PORTFOLIO &amp; BRANCHES</a>
+          <a class="btn" href="#/studio">Manage Portfolio &amp; Branches</a>
         `}
       </div>
     </section>
@@ -600,17 +842,17 @@ const Views = {
       <div class="grid">
         <div class="feature">
           <span class="tag hot">CONNECTS Engine</span>
-          <h3 style="margin:10px 0 6px">Earned Reputation</h3>
+          <h3 style="margin:10px 0 6px;font-weight:700">Earned Reputation</h3>
           <p class="muted">Every completed project awards up to <b>10 CONNECTS</b>, and every client star (0–5 ★) converts into <b>2 CONNECTS</b>.</p>
         </div>
         <div class="feature">
           <span class="tag">Client-First Discovery</span>
-          <h3 style="margin:10px 0 6px">Zero Cold Spam</h3>
+          <h3 style="margin:10px 0 6px;font-weight:700">Zero Cold Spam</h3>
           <p class="muted">Editors cannot pester clients. Clients explore ranked editors with clear pricing, experience, and project counts.</p>
         </div>
         <div class="feature">
           <span class="tag">Branch Portfolios</span>
-          <h3 style="margin:10px 0 6px">Skill-Tagged Work</h3>
+          <h3 style="margin:10px 0 6px;font-weight:700">Skill-Tagged Work</h3>
           <p class="muted">Editors upload portfolio pieces under editing branches so clients immediately see proven work in their niche.</p>
         </div>
       </div>
@@ -630,7 +872,7 @@ const Views = {
           <p class="muted" style="margin-bottom:20px">
             On EditConnect, editors cannot browse or approach clients directly. Instead, build your portfolio and branch tags so clients can discover and hire you.
           </p>
-          <a class="btn primary" href="${u ? "#/studio" : "#/home"}">${u ? "GO TO PORTFOLIO STUDIO →" : "BACK TO HOME"}</a>
+          <a class="btn primary" href="${u ? "#/studio" : "#/home"}">${u ? "Go to Portfolio Studio →" : "Back to Home"}</a>
         </div>
       </div>`;
     }
@@ -694,9 +936,9 @@ const Views = {
         <article class="editor-card">
           <div class="ed-top">
             <div>
-              <div style="display:flex;align-items:center;flex-wrap:wrap;gap:8px">
+              <div style="display:flex;align-items:center;flex-wrap:wrap;gap:10px">
                 <span class="ed-rank">#${idx + 1}</span>
-                <h3 style="font-size:1.35rem">${esc(ed.name)}</h3>
+                <h3 style="font-size:1.35rem;font-weight:700">${esc(ed.name)}</h3>
                 <span class="tag">${esc(ed.availability || "Available Now")}</span>
               </div>
               <p class="muted" style="margin-top:8px;max-width:62ch">${esc(ed.bio || "Video editor ready for new projects.")}</p>
@@ -719,13 +961,13 @@ const Views = {
           <div style="margin:10px 0 14px">
             ${ed.allBranches.length
               ? ed.allBranches.map(b => `<span class="tag branch"># ${esc(b)}</span>`).join("")
-              : `<span class="muted" style="font-size:.82rem">No branch tags added yet</span>`}
+              : `<span class="muted" style="font-size:.84rem">No branch tags added yet</span>`}
           </div>
 
           <details>
-            <summary class="btn small">VIEW PORTFOLIO (${(ed.portfolio || []).length}) &amp; AWARD CONNECTS</summary>
-            <div style="margin-top:16px;padding-top:16px;border-top:1px solid rgba(22,139,255,.16)">
-              <h4 style="margin-bottom:8px;color:var(--cyan)">Portfolio Showcase</h4>
+            <summary class="btn small">View Portfolio (${(ed.portfolio || []).length}) &amp; Award CONNECTS</summary>
+            <div style="margin-top:16px;padding-top:16px;border-top:1px solid rgba(56,189,248,.16)">
+              <h4 style="margin-bottom:8px;color:var(--cyan);font-weight:600">Portfolio Showcase</h4>
               ${(ed.portfolio || []).length ? `
                 <div class="port-grid">
                   ${ed.portfolio.map(item => `
@@ -739,9 +981,9 @@ const Views = {
                 </div>
               ` : `<p class="muted" style="font-size:.9rem">No portfolio samples uploaded yet.</p>`}
 
-              <div style="margin-top:22px;padding:18px;border-radius:16px;background:rgba(3,5,8,.7);border:1px solid var(--line)">
-                <h4 style="margin-bottom:4px">Complete Project &amp; Rate ${esc(ed.name)}</h4>
-                <p class="muted" style="font-size:.84rem;margin-bottom:14px">
+              <div style="margin-top:22px;padding:18px;border-radius:18px;background:rgba(3,5,8,.7);border:1px solid var(--line)">
+                <h4 style="margin-bottom:4px;font-weight:600">Complete Project &amp; Rate ${esc(ed.name)}</h4>
+                <p class="muted" style="font-size:.85rem;margin-bottom:14px">
                   Completing a project awards up to <b>10 CONNECTS</b>. Each star (0–5 ★) adds <b>2 CONNECTS</b>.
                 </p>
 
@@ -779,7 +1021,7 @@ const Views = {
                       <input name="comment" maxlength="160" placeholder="Great communication and crisp cuts!">
                     </label>
 
-                    <button type="submit" class="btn primary small">CONFIRM PROJECT &amp; AWARD CONNECTS</button>
+                    <button type="submit" class="btn primary small">Confirm Project &amp; Award CONNECTS</button>
                   </form>
                 ` : `
                   <div style="display:flex;flex-wrap:wrap;gap:10px;align-items:center">
@@ -790,16 +1032,16 @@ const Views = {
               </div>
 
               ${(ed.reviews || []).length ? `
-                <h4 style="margin:18px 0 8px">Recent Client Reviews</h4>
+                <h4 style="margin:18px 0 8px;font-weight:600">Recent Client Reviews</h4>
                 ${ed.reviews.map(r => `
-                  <div class="row" style="font-size:.88rem">
+                  <div class="row" style="font-size:.9rem">
                     <div>
                       <b>${esc(r.clientName)}</b> • <span class="muted">${esc(r.projectTitle)}</span>
                       ${r.comment ? `<div class="muted">"${esc(r.comment)}"</div>` : ""}
                     </div>
                     <div style="text-align:right;white-space:nowrap">
                       <span class="stars-display">${r.stars} ★</span>
-                      <div style="color:var(--cyan);font-weight:700;font-size:.8rem">+${(r.projectConnects || 0) + (r.starConnects || 0)} CONNECTS</div>
+                      <div style="color:var(--cyan);font-weight:600;font-size:.82rem">+${(r.projectConnects || 0) + (r.starConnects || 0)} CONNECTS</div>
                     </div>
                   </div>
                 `).join("")}
@@ -820,7 +1062,7 @@ const Views = {
         <div class="panel">
           <h2>Client Account Active</h2>
           <p class="muted" style="margin:10px 0 18px">Portfolio Studio is for Video Editors. Head to Explore to find editors.</p>
-          <a class="btn primary" href="#/explore">EXPLORE EDITORS →</a>
+          <a class="btn primary" href="#/explore">Explore Editors →</a>
         </div>
       </div>`;
     }
@@ -856,13 +1098,13 @@ const Views = {
       <div class="panel">
         <div style="display:flex;justify-content:space-between;align-items:center">
           <b>Profile Strength: ${pct}%</b>
-          <span class="muted" style="font-size:.84rem">Explore button is disabled in Editor Mode</span>
+          <span class="muted" style="font-size:.85rem">Explore button is disabled in Editor Mode</span>
         </div>
         <div class="bar"><i style="width:${pct}%"></i></div>
       </div>
 
       <div class="panel">
-        <h3 style="margin-bottom:14px">1. Upload Portfolio Work (Auto-Tags Your Branch)</h3>
+        <h3 style="margin-bottom:14px;font-weight:700">1. Upload Portfolio Work (Auto-Tags Your Branch)</h3>
         <form data-form="addPortfolio">
           <label class="field">Project Title
             <input name="title" required maxlength="80" placeholder="e.g., High-Retention Finance YouTube Video">
@@ -879,11 +1121,11 @@ const Views = {
           <label class="field">Software &amp; Project Highlights
             <input name="notes" maxlength="120" placeholder="e.g., Premiere Pro + After Effects • Sound Design &amp; Color">
           </label>
-          <button type="submit" class="btn primary">ADD TO PORTFOLIO &amp; TAG BRANCH</button>
+          <button type="submit" class="btn primary">Add to Portfolio &amp; Tag Branch</button>
         </form>
 
         ${portfolio.length ? `
-          <h4 style="margin:22px 0 10px;color:var(--cyan)">Your Uploaded Portfolio (${portfolio.length})</h4>
+          <h4 style="margin:22px 0 10px;color:var(--cyan);font-weight:600">Your Uploaded Portfolio (${portfolio.length})</h4>
           <div class="port-grid">
             ${portfolio.map(item => `
               <div class="port-item">
@@ -901,7 +1143,7 @@ const Views = {
       </div>
 
       <div class="panel">
-        <h3 style="margin-bottom:14px">2. Rates, Experience &amp; Branch Tags</h3>
+        <h3 style="margin-bottom:14px;font-weight:700">2. Rates, Experience &amp; Branch Tags</h3>
         <form data-form="saveEditorProfile">
           <label class="field">Display Name
             <input name="name" required maxlength="60" value="${esc(u.name)}">
@@ -934,7 +1176,7 @@ const Views = {
               `).join("")}
             </div>
           </div>
-          <button type="submit" class="btn primary">SAVE EDITOR PROFILE</button>
+          <button type="submit" class="btn primary">Save Editor Profile</button>
         </form>
       </div>
     </div>`;
@@ -957,8 +1199,8 @@ const Views = {
 
       <div class="panel">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
-          <h3>Completed Project History</h3>
-          <a class="btn primary small" href="#/explore">EXPLORE MORE EDITORS →</a>
+          <h3 style="font-weight:700">Completed Project History</h3>
+          <a class="btn primary small" href="#/explore">Explore More Editors →</a>
         </div>
         ${hist.length ? hist.map(h => `
           <div class="row">
@@ -979,8 +1221,8 @@ const Views = {
     return `
     <div class="wrap pg narrow">
       <div class="panel">
-        <h2 style="margin-bottom:6px">${authMode === "in" ? "Sign in to EditConnect" : "Create your profile"}</h2>
-        <p class="muted" style="margin-bottom:18px;font-size:.9rem">
+        <h2 style="margin-bottom:6px;font-weight:700">${authMode === "in" ? "Sign in to EditConnect" : "Create your profile"}</h2>
+        <p class="muted" style="margin-bottom:18px;font-size:.92rem">
           ${authMode === "in" ? "Access your Client or Editor account." : "Register as a Client to explore editors, or as an Editor to showcase your portfolio."}
         </p>
 
@@ -1019,18 +1261,18 @@ const Views = {
           </label>
 
           <button type="submit" class="btn primary" style="width:100%">
-            ${authMode === "in" ? "SIGN IN" : `REGISTER AS ${authRole.toUpperCase()}`}
+            ${authMode === "in" ? "Sign In" : `Register as ${authRole === "client" ? "Client" : "Editor"}`}
           </button>
         </form>
 
-        <p style="margin-top:16px;font-size:.9rem;color:var(--muted);text-align:center">
+        <p style="margin-top:16px;font-size:.92rem;color:var(--muted);text-align:center">
           ${authMode === "in"
             ? `New to EditConnect? <a href="#" style="color:var(--cyan)" data-act="toggleAuthMode">Create an account</a>`
             : `Already registered? <a href="#" style="color:var(--cyan)" data-act="toggleAuthMode">Sign in</a>`}
         </p>
 
         <div style="margin-top:22px;padding-top:18px;border-top:1px solid var(--line)">
-          <p class="muted" style="font-size:.82rem;text-align:center;margin-bottom:10px">Or test immediately with pre-loaded accounts:</p>
+          <p class="muted" style="font-size:.84rem;text-align:center;margin-bottom:10px">Or test immediately with pre-loaded accounts:</p>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
             <button type="button" class="btn small" data-act="demoLogin" data-role="client">Demo Client</button>
             <button type="button" class="btn small" data-act="demoLogin" data-role="editor">Demo Editor</button>
@@ -1044,6 +1286,9 @@ const Views = {
   }
 };
 
+// ==========================================
+// ACTIONS & FORM HANDLERS
+// ==========================================
 view.addEventListener("click", e => {
   const btn = e.target.closest("[data-act]");
   if (!btn) return;
@@ -1275,6 +1520,9 @@ view.addEventListener("submit", e => {
   }
 });
 
+// ==========================================
+// ROUTER
+// ==========================================
 function render() {
   let route = location.hash.replace("#/", "").split("?")[0] || "home";
 
@@ -1297,6 +1545,8 @@ function render() {
 
   const fn = Views[route] || Views.home;
   view.innerHTML = fn();
+
+  initFluidLogo();
 }
 
 burger.addEventListener("click", () => {
