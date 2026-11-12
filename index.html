@@ -13,21 +13,56 @@
 <style>
 :root {
   --bg: #030508;
-  --blue: #126BFF;
-  --neon: #168BFF;
-  --cyan: #38bdf8;
-  --indigo: #818cf8;
+  --primary: #126BFF;
+  --secondary: #168BFF;
+  --glow: #38bdf8;
+  --soft-glow: #7dd3fc;
   --gold: #fbbf24;
-  --green: #10b981;
   --muted: #94a3b8;
-  --line: rgba(56, 189, 248, .22);
-  --glass: rgba(10, 19, 36, .72);
+  --line: rgba(56, 189, 248, .24);
+  --glass: rgba(10, 19, 36, .74);
+  --nav-bg: rgba(3, 5, 8, .86);
+  --btn-shadow: rgba(18, 107, 255, .42);
+  --btn-hover-bg: rgba(22, 139, 255, .15);
+  --pill-bg: rgba(22, 139, 255, .14);
+  --tag-bg: rgba(22, 139, 255, .10);
+  --tag-text: #e0f2fe;
+  --grad-btn: linear-gradient(135deg, #126BFF, #0ea5e9);
+  --grad-hero: linear-gradient(135deg, #126BFF, #38bdf8);
+  --grad-brand: linear-gradient(135deg, #ffffff 22%, #7dd3fc 72%, #38bdf8 100%);
+  --grad-pill: linear-gradient(135deg, rgba(18, 107, 255, .26), rgba(56, 189, 248, .16));
+  --toast-bg: #071224;
   --font: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --brand-font: 'Syne', sans-serif;
 }
+
+/* Editor Mode: Diffused Orange & Red Scenery Theme */
+body[data-mode="editor"] {
+  --bg: #070303;
+  --primary: #dc2626;
+  --secondary: #f97316;
+  --glow: #fb923c;
+  --soft-glow: #fed7aa;
+  --muted: #b8a39e;
+  --line: rgba(249, 115, 22, .28);
+  --glass: rgba(26, 10, 8, .76);
+  --nav-bg: rgba(8, 3, 3, .88);
+  --btn-shadow: rgba(239, 68, 68, .44);
+  --btn-hover-bg: rgba(249, 115, 22, .16);
+  --pill-bg: rgba(239, 68, 68, .16);
+  --tag-bg: rgba(249, 115, 22, .12);
+  --tag-text: #ffedd5;
+  --grad-btn: linear-gradient(135deg, #dc2626, #f97316);
+  --grad-hero: linear-gradient(135deg, #ef4444, #fb923c);
+  --grad-brand: linear-gradient(135deg, #ffffff 22%, #fed7aa 72%, #fb923c 100%);
+  --grad-pill: linear-gradient(135deg, rgba(220, 38, 38, .28), rgba(249, 115, 22, .18));
+  --toast-bg: #220a07;
+}
+
 * { box-sizing: border-box; margin: 0; }
 html { background: var(--bg); color-scheme: dark; scroll-behavior: smooth; }
 body {
+  background: var(--bg);
   color: #f8fafc;
   font-family: var(--font);
   font-size: 16px;
@@ -36,6 +71,7 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  transition: background-color .65s ease, color .4s ease;
 }
 main { flex: 1; }
 a { color: inherit; text-decoration: none; }
@@ -45,23 +81,59 @@ button, input, textarea, select { font-family: inherit; font-size: inherit; }
 .wrap { max-width: 1080px; margin: auto; padding: 0 22px; }
 .pg { padding-top: 104px; padding-bottom: 64px; }
 .narrow { max-width: 540px; }
-.muted { color: var(--muted); }
+.muted { color: var(--muted); transition: color .5s ease; }
 .ptitle { font-size: clamp(1.85rem, 4.5vw, 2.5rem); font-weight: 700; line-height: 1.18; letter-spacing: -0.02em; margin-bottom: 6px; }
 .sec { margin: 28px 0 12px; font-size: 1.25rem; font-weight: 700; }
 
-/* Ambient Glow Background */
+/* Diffused Ambient Scenery Lights */
 .lights { position: fixed; inset: 0; z-index: -1; pointer-events: none; overflow: hidden; }
 .lights i {
-  position: absolute; width: 64vmax; height: 64vmax; border-radius: 50%;
-  background: radial-gradient(circle, rgba(18, 107, 255, .16), rgba(56, 189, 248, .05) 45%, transparent 70%);
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(28px);
+  transition: opacity .75s ease;
   animation: drift 16s ease-in-out infinite alternate;
 }
-.lights i:first-child { top: -26vmax; left: -16vmax; }
-.lights i:last-child { bottom: -30vmax; right: -18vmax; animation-delay: -8s; }
+/* Client Mode Cool Blue/Cyan Diffused Scenery */
+.lights i.c1 {
+  width: 66vmax; height: 66vmax; top: -26vmax; left: -16vmax;
+  background: radial-gradient(circle, rgba(18, 107, 255, .22), rgba(56, 189, 248, .08) 48%, transparent 72%);
+}
+.lights i.c2 {
+  width: 64vmax; height: 64vmax; bottom: -28vmax; right: -18vmax; animation-delay: -8s;
+  background: radial-gradient(circle, rgba(56, 189, 248, .18), rgba(18, 107, 255, .07) 48%, transparent 72%);
+}
+/* Editor Mode Warm Orange & Crimson Red Diffused Scenery */
+.lights i.e1 {
+  width: 72vmax; height: 72vmax; top: -26vmax; left: -14vmax;
+  background: radial-gradient(circle, rgba(239, 68, 68, .28), rgba(249, 115, 22, .14) 46%, transparent 72%);
+  opacity: 0;
+}
+.lights i.e2 {
+  width: 70vmax; height: 70vmax; bottom: -26vmax; right: -16vmax; animation-delay: -6s;
+  background: radial-gradient(circle, rgba(249, 115, 22, .26), rgba(220, 38, 38, .12) 48%, transparent 72%);
+  opacity: 0;
+}
+.lights i.e3 {
+  width: 56vmax; height: 56vmax; top: 24%; left: 50%; transform: translateX(-50%);
+  background: radial-gradient(circle, rgba(251, 146, 60, .14), rgba(220, 38, 38, .06) 50%, transparent 74%);
+  opacity: 0;
+  animation: pulseDiffused 10s ease-in-out infinite alternate;
+}
+
+body[data-mode="editor"] .lights i.c1,
+body[data-mode="editor"] .lights i.c2 { opacity: 0; }
+body[data-mode="editor"] .lights i.e1,
+body[data-mode="editor"] .lights i.e2,
+body[data-mode="editor"] .lights i.e3 { opacity: 1; }
 
 @keyframes drift {
   0% { transform: translate(0, 0) scale(1); }
   100% { transform: translate(4vmax, 3vmax) scale(1.08); }
+}
+@keyframes pulseDiffused {
+  0% { transform: translateX(-50%) scale(0.95); }
+  100% { transform: translateX(-50%) scale(1.12); }
 }
 
 /* Top Navigation & Custom Brand Lockup */
@@ -69,10 +141,11 @@ button, input, textarea, select { font-family: inherit; font-size: inherit; }
   position: fixed; top: 0; left: 0; right: 0; z-index: 30;
   display: flex; align-items: center; justify-content: space-between;
   padding: 12px clamp(16px, 4vw, 48px);
-  background: rgba(3, 5, 8, .86);
+  background: var(--nav-bg);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border-bottom: 1px solid rgba(56, 189, 248, .14);
+  border-bottom: 1px solid var(--line);
+  transition: background .6s ease, border-color .6s ease;
 }
 .brand {
   display: inline-flex;
@@ -80,11 +153,10 @@ button, input, textarea, select { font-family: inherit; font-size: inherit; }
   gap: 10px;
 }
 #navFluidLogo {
-  width: 36px;
-  height: 36px;
+  width: 38px;
+  height: 38px;
   flex-shrink: 0;
   display: block;
-  filter: drop-shadow(0 0 10px rgba(56, 189, 248, .45));
 }
 .brand-text {
   display: inline-flex;
@@ -97,7 +169,7 @@ button, input, textarea, select { font-family: inherit; font-size: inherit; }
   font-weight: 800;
   font-size: clamp(1.18rem, 2.6vw, 1.38rem);
   letter-spacing: -0.02em;
-  background: linear-gradient(135deg, #ffffff 25%, #7dd3fc 75%, #38bdf8 100%);
+  background: var(--grad-brand);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -106,9 +178,9 @@ button, input, textarea, select { font-family: inherit; font-size: inherit; }
   font-family: var(--font);
   font-size: .78rem;
   font-weight: 600;
-  color: var(--cyan);
-  opacity: .88;
-  letter-spacing: .01em;
+  color: var(--glow);
+  opacity: .92;
+  transition: color .5s ease;
 }
 
 .menu { display: flex; align-items: center; gap: 22px; color: var(--muted); font-size: .94rem; font-weight: 500; }
@@ -116,30 +188,31 @@ button, input, textarea, select { font-family: inherit; font-size: inherit; }
 .menu a:hover, .menu a[aria-current="true"] { color: #fff; }
 .menu .signin {
   color: #fff; border: 1px solid var(--line); padding: 8px 18px;
-  border-radius: 999px; background: rgba(22, 139, 255, .08); transition: .2s;
+  border-radius: 999px; background: var(--tag-bg); transition: .25s;
 }
-.menu .signin:hover { border-color: var(--cyan); background: rgba(22, 139, 255, .18); }
+.menu .signin:hover { border-color: var(--glow); background: var(--btn-hover-bg); }
 .role-pill {
   font-size: .8rem; font-weight: 600;
   padding: 5px 12px; border-radius: 999px; border: 1px solid var(--line);
-  background: rgba(22, 139, 255, .14); color: var(--cyan);
+  background: var(--pill-bg); color: var(--glow);
+  transition: all .5s ease;
 }
 .burger { display: none; background: none; border: 1px solid var(--line); color: #fff; padding: 8px 12px; border-radius: 10px; cursor: pointer; }
 
-/* Hero & 3D Fluid Logo Stage */
+/* Hero & High-Viscosity 3D Droplet Stage */
 .hero {
   min-height: 92svh; display: flex; flex-direction: column;
   align-items: center; justify-content: center; text-align: center;
-  padding: 104px 22px 56px;
+  padding: 100px 22px 56px;
 }
 .fluid-stage {
   position: relative;
-  width: 230px;
-  height: 230px;
+  width: 250px;
+  height: 250px;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 14px;
+  margin-bottom: 10px;
   cursor: grab;
   touch-action: pan-y;
 }
@@ -147,35 +220,38 @@ button, input, textarea, select { font-family: inherit; font-size: inherit; }
 .fluid-stage::before {
   content: "";
   position: absolute;
-  inset: 24px;
+  inset: 28px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(56, 189, 248, .28), rgba(18, 107, 255, .12) 55%, transparent 75%);
-  filter: blur(18px);
+  background: radial-gradient(circle, var(--glow), var(--primary) 55%, transparent 76%);
+  opacity: .26;
+  filter: blur(24px);
   z-index: 0;
   pointer-events: none;
+  transition: background .65s ease;
 }
 #fluidLogo {
   position: relative;
   z-index: 1;
-  width: 230px;
-  height: 230px;
+  width: 250px;
+  height: 250px;
   display: block;
 }
 
 /* Mode Switcher */
 .mode-switch {
   display: inline-flex; padding: 5px; border-radius: 999px;
-  background: rgba(10, 19, 36, .9); border: 1px solid var(--line);
+  background: var(--glass); border: 1px solid var(--line);
   margin-bottom: 20px; gap: 4px;
+  transition: background .6s ease, border-color .6s ease;
 }
 .mode-btn {
   padding: 9px 22px; border-radius: 999px; border: none; background: transparent;
-  color: var(--muted); font-weight: 600; font-size: .92rem; cursor: pointer; transition: .22s;
+  color: var(--muted); font-weight: 600; font-size: .92rem; cursor: pointer; transition: .25s;
 }
 .mode-btn.active {
-  background: linear-gradient(135deg, var(--blue), #0ea5e9);
+  background: var(--grad-btn);
   color: #fff;
-  box-shadow: 0 4px 18px rgba(22, 139, 255, .42);
+  box-shadow: 0 4px 18px var(--btn-shadow);
 }
 
 .explore-zone {
@@ -193,29 +269,29 @@ h1 {
 .sub { max-width: 36em; margin: 14px 0 28px; color: var(--muted); font-size: 1.05rem; font-weight: 400; }
 .actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
 
-/* Casual Friendly Buttons */
+/* Buttons */
 .btn {
   display: inline-flex; align-items: center; justify-content: center; gap: 8px;
   padding: 13px 26px; border: 1px solid var(--line);
-  border-radius: 999px; background: rgba(10, 19, 36, .75); color: #fff;
+  border-radius: 999px; background: var(--glass); color: #fff;
   font-size: .94rem; font-weight: 600;
-  cursor: pointer; transition: transform .2s, border-color .2s, background .2s, box-shadow .2s;
+  cursor: pointer; transition: transform .2s, border-color .3s, background .3s, box-shadow .3s;
 }
-.btn:hover { transform: translateY(-2px); border-color: var(--cyan); background: rgba(22, 139, 255, .14); }
+.btn:hover { transform: translateY(-2px); border-color: var(--glow); background: var(--btn-hover-bg); }
 .btn.primary {
-  background: linear-gradient(135deg, #126BFF, #0ea5e9);
+  background: var(--grad-btn);
   border-color: transparent;
-  box-shadow: 0 6px 24px rgba(18, 107, 255, .38);
+  box-shadow: 0 6px 24px var(--btn-shadow);
 }
-.btn.primary:hover { box-shadow: 0 8px 30px rgba(56, 189, 248, .5); }
+.btn.primary:hover { box-shadow: 0 8px 30px var(--btn-shadow); filter: brightness(1.06); }
 .btn.explore-hero {
   padding: 15px 34px; font-size: 1.02rem; font-weight: 700;
-  background: linear-gradient(135deg, #126BFF, #38bdf8);
-  border: none; box-shadow: 0 8px 30px rgba(14, 165, 233, .42);
+  background: var(--grad-hero);
+  border: none; box-shadow: 0 8px 30px var(--btn-shadow);
 }
 .btn.small { padding: 9px 18px; font-size: .86rem; }
 .btn.danger { border-color: rgba(239, 68, 68, .45); color: #fca5a5; }
-.btn.danger:hover { border-color: #ef4444; background: rgba(239, 68, 68, .12); }
+.btn.danger:hover { border-color: #ef4444; background: rgba(239, 68, 68, .14); }
 
 /* Cards & Panels */
 .panel {
@@ -224,34 +300,37 @@ h1 {
   background: var(--glass);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
+  transition: background .6s ease, border-color .6s ease;
 }
 .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 20px; }
 .feature {
   display: block; padding: 24px; border: 1px solid var(--line);
-  border-radius: 22px; background: var(--glass); transition: .22s;
+  border-radius: 22px; background: var(--glass);
+  transition: transform .22s, border-color .5s, background .6s, box-shadow .3s;
 }
-.feature:hover { transform: translateY(-3px); border-color: var(--cyan); box-shadow: 0 10px 28px rgba(22, 139, 255, .14); }
+.feature:hover { transform: translateY(-3px); border-color: var(--glow); box-shadow: 0 10px 28px rgba(0, 0, 0, .25); }
 
 /* Editor Leaderboard Card */
 .editor-card {
   margin-top: 18px; padding: 24px; border: 1px solid var(--line);
-  border-radius: 22px; background: var(--glass); transition: .22s;
+  border-radius: 22px; background: var(--glass);
+  transition: border-color .4s, background .6s;
 }
-.editor-card:hover { border-color: var(--cyan); }
+.editor-card:hover { border-color: var(--glow); }
 .ed-top { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start; gap: 14px; }
 .ed-rank {
   display: inline-flex; align-items: center; justify-content: center;
   width: 32px; height: 32px; border-radius: 50%;
-  background: rgba(22, 139, 255, .2); border: 1px solid var(--cyan);
-  font-weight: 700; font-size: .88rem; color: var(--cyan);
+  background: var(--pill-bg); border: 1px solid var(--glow);
+  font-weight: 700; font-size: .88rem; color: var(--glow);
 }
 .connects-pill {
   display: inline-flex; align-items: center; gap: 8px;
   padding: 8px 16px; border-radius: 999px;
-  background: linear-gradient(135deg, rgba(18, 107, 255, .26), rgba(56, 189, 248, .16));
-  border: 1px solid rgba(56, 189, 248, .5); color: #fff; font-weight: 700; font-size: .95rem;
+  background: var(--grad-pill);
+  border: 1px solid var(--line); color: #fff; font-weight: 700; font-size: .95rem;
 }
-.connects-pill span { color: var(--cyan); }
+.connects-pill span { color: var(--glow); }
 .ed-metrics {
   display: flex; flex-wrap: wrap; gap: 12px; margin: 14px 0;
   font-size: .9rem; color: var(--muted);
@@ -262,16 +341,17 @@ h1 {
 .tag {
   display: inline-block; margin: 0 6px 6px 0; padding: 5px 12px;
   border: 1px solid var(--line); border-radius: 999px;
-  color: var(--cyan); background: rgba(22, 139, 255, .09); font-size: .8rem; font-weight: 600;
+  color: var(--glow); background: var(--tag-bg); font-size: .8rem; font-weight: 600;
+  transition: all .45s ease;
 }
-.tag.branch { border-color: rgba(56, 189, 248, .38); color: #e0f2fe; }
-.tag.hot { background: linear-gradient(135deg, var(--blue), #0ea5e9); color: #fff; border-color: transparent; }
+.tag.branch { border-color: var(--line); color: var(--tag-text); }
+.tag.hot { background: var(--grad-btn); color: #fff; border-color: transparent; }
 
 /* Portfolio Grid */
 .port-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 12px; margin-top: 12px; }
 .port-item {
-  padding: 16px; border-radius: 16px; border: 1px solid rgba(56, 189, 248, .2);
-  background: rgba(3, 5, 8, .65);
+  padding: 16px; border-radius: 16px; border: 1px solid var(--line);
+  background: rgba(5, 3, 3, .55);
 }
 .port-item h4 { font-size: .98rem; font-weight: 600; margin: 6px 0 4px; }
 .port-item p { font-size: .85rem; color: var(--muted); margin-bottom: 10px; }
@@ -281,15 +361,16 @@ h1 {
 .field input, .field textarea, .field select {
   display: block; width: 100%; margin-top: 6px; padding: 12px 14px;
   border: 1px solid var(--line); border-radius: 14px;
-  background: rgba(3, 5, 8, .85); color: #fff;
+  background: rgba(5, 4, 6, .85); color: #fff;
+  transition: border-color .3s ease;
 }
 .field textarea { min-height: 84px; resize: vertical; }
-.field input:focus, .field textarea:focus, .field select:focus { outline: none; border-color: var(--cyan); }
+.field input:focus, .field textarea:focus, .field select:focus { outline: none; border-color: var(--glow); }
 
 .filter-bar { display: flex; flex-wrap: wrap; gap: 12px; margin: 18px 0; }
 .filter-bar input, .filter-bar select {
   padding: 12px 16px; border-radius: 14px; border: 1px solid var(--line);
-  background: rgba(10, 19, 36, .85); color: #fff;
+  background: var(--glass); color: #fff;
 }
 .filter-bar input { flex: 1; min-width: 210px; }
 
@@ -297,7 +378,7 @@ h1 {
 .star-picker { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0; }
 .star-btn {
   padding: 8px 13px; border-radius: 12px; border: 1px solid var(--line);
-  background: rgba(3, 5, 8, .8); color: var(--muted); cursor: pointer; font-weight: 600;
+  background: rgba(5, 4, 6, .8); color: var(--muted); cursor: pointer; font-weight: 600;
 }
 .star-btn.active { border-color: var(--gold); color: var(--gold); background: rgba(251, 191, 36, .12); }
 
@@ -305,23 +386,28 @@ h1 {
 .branch-picks { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
 .branch-chip {
   padding: 7px 14px; border-radius: 999px; border: 1px solid var(--line);
-  background: rgba(3, 5, 8, .75); color: var(--muted); font-size: .84rem; cursor: pointer;
+  background: rgba(5, 4, 6, .75); color: var(--muted); font-size: .84rem; cursor: pointer;
+  transition: all .25s ease;
 }
-.branch-chip.selected { border-color: var(--cyan); color: #fff; background: rgba(22, 139, 255, .24); }
+.branch-chip.selected { border-color: var(--glow); color: #fff; background: var(--pill-bg); }
 
 .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 14px; margin: 18px 0; }
-.stats div { padding: 18px; border: 1px solid var(--line); border-radius: 18px; background: var(--glass); }
+.stats div { padding: 18px; border: 1px solid var(--line); border-radius: 18px; background: var(--glass); transition: background .6s, border-color .6s; }
 .stats b { display: block; font-size: 1.75rem; font-weight: 700; color: #fff; }
-.bar { height: 8px; margin: 12px 0; border-radius: 99px; background: rgba(22, 139, 255, .15); overflow: hidden; }
-.bar i { display: block; height: 100%; background: linear-gradient(90deg, var(--blue), var(--cyan)); }
+.bar { height: 8px; margin: 12px 0; border-radius: 99px; background: var(--tag-bg); overflow: hidden; }
+.bar i { display: block; height: 100%; background: var(--grad-btn); transition: width .35s ease, background .6s ease; }
 
-.row { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid rgba(56, 189, 248, .12); }
-.foot { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; padding: 24px 28px; border-top: 1px solid rgba(56, 189, 248, .14); color: var(--muted); font-size: .85rem; }
+.row { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--line); }
+.foot {
+  display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px;
+  padding: 24px 28px; border-top: 1px solid var(--line); color: var(--muted); font-size: .85rem;
+  transition: border-color .6s ease, color .5s ease;
+}
 #toast {
   position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%); z-index: 60;
-  max-width: 92vw; padding: 13px 22px; border: 1px solid var(--cyan);
-  border-radius: 14px; background: #071224; font-weight: 500;
-  box-shadow: 0 10px 30px rgba(0,0,0,.6);
+  max-width: 92vw; padding: 13px 22px; border: 1px solid var(--glow);
+  border-radius: 14px; background: var(--toast-bg); font-weight: 500;
+  box-shadow: 0 10px 30px rgba(0,0,0,.65);
 }
 
 @media (max-width: 860px) {
@@ -330,10 +416,10 @@ h1 {
   .menu {
     display: none; position: absolute; top: 100%; left: 0; right: 0;
     flex-direction: column; align-items: stretch; gap: 0;
-    padding: 12px 20px; background: rgba(3, 5, 8, .98); border-bottom: 1px solid var(--line);
+    padding: 12px 20px; background: var(--nav-bg); border-bottom: 1px solid var(--line);
   }
   .menu.open { display: flex; }
-  .menu a { padding: 12px; border-bottom: 1px solid rgba(56, 189, 248, .1); }
+  .menu a { padding: 12px; border-bottom: 1px solid var(--line); }
   .menu .signin { text-align: center; margin-top: 10px; }
 }
 @media (prefers-reduced-motion: reduce) {
@@ -342,12 +428,18 @@ h1 {
 </style>
 </head>
 
-<body>
-<div class="lights"><i></i><i></i></div>
+<body data-mode="client">
+<div class="lights" aria-hidden="true">
+  <i class="c1"></i>
+  <i class="c2"></i>
+  <i class="e1"></i>
+  <i class="e2"></i>
+  <i class="e3"></i>
+</div>
 
 <header class="nav">
   <a class="brand" href="#/home">
-    <canvas id="navFluidLogo" width="36" height="36" aria-hidden="true"></canvas>
+    <canvas id="navFluidLogo" width="38" height="38" aria-hidden="true"></canvas>
     <span class="brand-text">
       <span class="brand-name">EditConnect</span>
       <span class="brand-by">by Dheeraj</span>
@@ -599,14 +691,36 @@ function toast(msg) {
 }
 
 // ==========================================
-// 3D FLUID LOGO ENGINES (NAVBAR + HERO)
+// COLOR INTERPOLATION HELPER (CLIENT BLUE <-> EDITOR ORANGE/RED)
 // ==========================================
+let themeMix = activeMode() === "editor" ? 1 : 0;
+
+function lerp(a, b, t) {
+  return a + (b - a) * t;
+}
+
+function mixRgb(c1, c2, t, alpha = 1) {
+  const r = Math.round(lerp(c1[0], c2[0], t));
+  const g = Math.round(lerp(c1[1], c2[1], t));
+  const b = Math.round(lerp(c1[2], c2[2], t));
+  return alpha < 1 ? `rgba(${r},${g},${b},${alpha})` : `rgb(${r},${g},${b})`;
+}
+
+// ==========================================
+// HIGH-VISCOSITY 3D LIQUID DROPLET ENGINES
+// ==========================================
+let dropletImpulse = 0;
+
+function triggerViscousPulse(amount = 1) {
+  dropletImpulse = Math.min(2.5, dropletImpulse + amount);
+}
+
 function initNavFluidLogo() {
   const canvas = document.getElementById("navFluidLogo");
   if (!canvas) return;
   const ctx = canvas.getContext("2d");
   const dpr = Math.min(window.devicePixelRatio || 1, 2);
-  const size = 36;
+  const size = 38;
   canvas.width = size * dpr;
   canvas.height = size * dpr;
   ctx.scale(dpr, dpr);
@@ -614,12 +728,15 @@ function initNavFluidLogo() {
   const cx = size / 2;
   const cy = size / 2;
 
-  function drawMiniBlob(t, baseR, f1, f2, amp, phase, fill) {
-    const steps = 48;
+  function drawViscousMini(t, baseR, phase, fill) {
+    const steps = 60;
     ctx.beginPath();
     for (let i = 0; i <= steps; i++) {
       const th = (i / steps) * Math.PI * 2;
-      const r = baseR + Math.sin(th * f1 + t * 2.4 + phase) * amp + Math.cos(th * f2 - t * 1.9) * (amp * 0.6);
+      // Heavy viscous surface tension wave (slow, thick, cohesive)
+      const w1 = Math.sin(th * 2 + t * 1.1 + phase) * 1.25;
+      const w2 = Math.cos(th * 3 - t * 0.85 + phase) * 0.75;
+      const r = baseR + w1 + w2;
       const x = cx + Math.cos(th) * r;
       const y = cy + Math.sin(th) * r;
       if (i === 0) ctx.moveTo(x, y);
@@ -632,32 +749,48 @@ function initNavFluidLogo() {
 
   function loop(now) {
     const t = now * 0.001;
+    const m = themeMix;
     ctx.clearRect(0, 0, size, size);
 
-    const outer = ctx.createRadialGradient(cx - 5, cy - 5, 2, cx, cy, 17);
-    outer.addColorStop(0, "rgba(125, 211, 252, 0.55)");
-    outer.addColorStop(1, "rgba(18, 107, 255, 0.12)");
-    drawMiniBlob(t, 14.5, 3, 4, 1.4, 0, outer);
-
-    const core = ctx.createRadialGradient(cx - 5, cy - 6, 1, cx + 3, cy + 3, 15);
-    core.addColorStop(0, "#bae6fd");
-    core.addColorStop(0.35, "#168BFF");
-    core.addColorStop(1, "#072163");
-    drawMiniBlob(t * 1.2, 12.2, 4, 3, 1.1, 1.2, core);
-
-    // Gloss highlight
+    // Outer diffused liquid halo
+    const halo = ctx.createRadialGradient(cx, cy, 4, cx, cy, 18);
+    halo.addColorStop(0, mixRgb([56, 189, 248], [249, 115, 22], m, 0.45));
+    halo.addColorStop(1, mixRgb([18, 107, 255], [220, 38, 38], m, 0));
+    ctx.fillStyle = halo;
     ctx.beginPath();
-    ctx.ellipse(cx - 4, cy - 5, 4.2, 2.2, -0.5, 0, Math.PI * 2);
-    ctx.fillStyle = "rgba(255, 255, 255, 0.8)";
+    ctx.arc(cx, cy, 18, 0, Math.PI * 2);
     ctx.fill();
 
-    // Mini Play Icon
+    // Thick 3D droplet body
+    const bodyGrad = ctx.createRadialGradient(cx - 5, cy - 6, 1.5, cx + 3, cy + 4, 15);
+    bodyGrad.addColorStop(0, mixRgb([224, 242, 254], [255, 237, 213], m));
+    bodyGrad.addColorStop(0.32, mixRgb([22, 139, 255], [249, 115, 22], m));
+    bodyGrad.addColorStop(0.78, mixRgb([11, 59, 156], [185, 28, 28], m));
+    bodyGrad.addColorStop(1, mixRgb([5, 20, 56], [69, 10, 10], m));
+    drawViscousMini(t, 13.2, 0.5, bodyGrad);
+
+    // Warm/cool bottom rim refraction
+    ctx.save();
     ctx.beginPath();
-    ctx.moveTo(cx - 2.4, cy - 3.6);
-    ctx.lineTo(cx + 4.2, cy);
-    ctx.lineTo(cx - 2.4, cy + 3.6);
+    ctx.arc(cx + 2, cy + 3, 10.5, 0.15 * Math.PI, 0.85 * Math.PI);
+    ctx.strokeStyle = mixRgb([125, 211, 252], [253, 186, 116], m, 0.55);
+    ctx.lineWidth = 1.4;
+    ctx.stroke();
+    ctx.restore();
+
+    // Wet specular highlight
+    ctx.beginPath();
+    ctx.ellipse(cx - 4.2, cy - 5.2, 4.4, 2.1, -0.55, 0, Math.PI * 2);
+    ctx.fillStyle = "rgba(255, 255, 255, 0.85)";
+    ctx.fill();
+
+    // Center Play Emblem
+    ctx.beginPath();
+    ctx.moveTo(cx - 2.3, cy - 3.6);
+    ctx.lineTo(cx + 4.3, cy);
+    ctx.lineTo(cx - 2.3, cy + 3.6);
     ctx.closePath();
-    ctx.fillStyle = "#ffffff";
+    ctx.fillStyle = "rgba(255, 255, 255, 0.95)";
     ctx.fill();
 
     requestAnimationFrame(loop);
@@ -677,60 +810,80 @@ function initFluidLogo() {
 
   const ctx = canvas.getContext("2d");
   const dpr = Math.min(window.devicePixelRatio || 1, 2);
-  const size = 230;
+  const size = 250;
   canvas.width = size * dpr;
   canvas.height = size * dpr;
   ctx.scale(dpr, dpr);
 
   const cx = size / 2;
   const cy = size / 2;
+
+  // 36-Node High-Viscosity Spring-Mass Liquid Contour
+  const N = 36;
+  const radii = new Float32Array(N);
+  const velocities = new Float32Array(N);
+  const baseRadius = 72;
+
+  for (let i = 0; i < N; i++) {
+    radii[i] = baseRadius;
+    velocities[i] = 0;
+  }
+
   let pointerX = 0;
   let pointerY = 0;
   let smoothX = 0;
   let smoothY = 0;
-  let energy = 1;
+  let isDragging = false;
 
-  const onMove = e => {
+  const applyViscousTouch = (clientX, clientY, strength) => {
     const rect = canvas.getBoundingClientRect();
-    const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-    const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-    pointerX = Math.max(-1, Math.min(1, ((clientX - rect.left) / rect.width - 0.5) * 2));
-    pointerY = Math.max(-1, Math.min(1, ((clientY - rect.top) / rect.height - 0.5) * 2));
-    energy = 1.65;
+    const nx = ((clientX - rect.left) / rect.width - 0.5) * 2;
+    const ny = ((clientY - rect.top) / rect.height - 0.5) * 2;
+    pointerX = Math.max(-1, Math.min(1, nx));
+    pointerY = Math.max(-1, Math.min(1, ny));
+
+    const touchAngle = Math.atan2(ny, nx);
+    for (let i = 0; i < N; i++) {
+      const nodeAngle = (i / N) * Math.PI * 2;
+      let diff = Math.atan2(Math.sin(nodeAngle - touchAngle), Math.cos(nodeAngle - touchAngle));
+      // Broad, heavy viscous pull around touch point
+      const influence = Math.exp(-(diff * diff) / 0.55);
+      velocities[i] += influence * strength;
+    }
   };
 
-  const onLeave = () => {
+  canvas.addEventListener("pointerdown", e => {
+    isDragging = true;
+    applyViscousTouch(e.clientX, e.clientY, 2.2);
+  });
+  canvas.addEventListener("pointermove", e => {
+    applyViscousTouch(e.clientX, e.clientY, isDragging ? 1.4 : 0.45);
+  });
+  canvas.addEventListener("touchmove", e => {
+    if (e.touches[0]) applyViscousTouch(e.touches[0].clientX, e.touches[0].clientY, 1.1);
+  }, { passive: true });
+  window.addEventListener("pointerup", () => { isDragging = false; });
+  canvas.addEventListener("pointerleave", () => {
+    isDragging = false;
     pointerX = 0;
     pointerY = 0;
-  };
+  });
 
-  canvas.addEventListener("pointermove", onMove);
-  canvas.addEventListener("touchmove", onMove, { passive: true });
-  canvas.addEventListener("pointerleave", onLeave);
-
-  function drawFluidLayer(t, baseRadius, freqA, freqB, amp, phase, fillStyle, strokeStyle) {
-    const steps = 96;
+  function drawSmoothClosedCurve(points) {
     ctx.beginPath();
-    for (let i = 0; i <= steps; i++) {
-      const theta = (i / steps) * Math.PI * 2;
-      const w1 = Math.sin(theta * freqA + t * 2.1 + phase) * amp;
-      const w2 = Math.cos(theta * freqB - t * 1.6 + phase * 1.3) * (amp * 0.65);
-      const w3 = Math.sin(theta * 2 + t * 3.0) * (amp * 0.35);
-      const tiltOffset = (Math.cos(theta) * smoothX + Math.sin(theta) * smoothY) * 6;
-      const r = baseRadius + (w1 + w2 + w3) * energy + tiltOffset;
-      const x = cx + Math.cos(theta) * r;
-      const y = cy + Math.sin(theta) * r;
-      if (i === 0) ctx.moveTo(x, y);
-      else ctx.lineTo(x, y);
+    const len = points.length;
+    for (let i = 0; i < len; i++) {
+      const p0 = points[(i - 1 + len) % len];
+      const p1 = points[i];
+      const p2 = points[(i + 1) % len];
+      const mid1x = (p0.x + p1.x) * 0.5;
+      const mid1y = (p0.y + p1.y) * 0.5;
+      const mid2x = (p1.x + p2.x) * 0.5;
+      const mid2y = (p1.y + p2.y) * 0.5;
+      if (i === 0) ctx.moveTo(mid1x, mid1y);
+      ctx.quadraticCurveTo(p1.x, p1.y, mid2x, mid2y);
     }
     ctx.closePath();
-    ctx.fillStyle = fillStyle;
-    ctx.fill();
-    if (strokeStyle) {
-      ctx.strokeStyle = strokeStyle;
-      ctx.lineWidth = 1.5;
-      ctx.stroke();
-    }
   }
 
   function frame(now) {
@@ -739,105 +892,176 @@ function initFluidLogo() {
       return;
     }
     const t = now * 0.001;
-    smoothX += (pointerX - smoothX) * 0.08;
-    smoothY += (pointerY - smoothY) * 0.08;
-    energy += (1 - energy) * 0.04;
+    const targetMix = activeMode() === "editor" ? 1 : 0;
+    themeMix += (targetMix - themeMix) * 0.055;
+    const m = themeMix;
+
+    smoothX += (pointerX - smoothX) * 0.06;
+    smoothY += (pointerY - smoothY) * 0.06;
+
+    // If mode switched or pulse triggered, impart a slow heavy viscous wave
+    if (dropletImpulse > 0.01) {
+      for (let i = 0; i < N; i++) {
+        const th = (i / N) * Math.PI * 2;
+        velocities[i] += Math.sin(th * 3 + t * 4) * dropletImpulse * 0.55;
+      }
+      dropletImpulse *= 0.78;
+    }
+
+    // Physics update: High viscosity = strong neighbor cohesion + heavy damping + slow spring
+    const stiffness = 0.022;      // Slow viscous recovery
+    const neighborPull = 0.14;    // High surface tension cohesion
+    const damping = 0.915;        // Thick, syrupy damping
+
+    for (let i = 0; i < N; i++) {
+      const th = (i / N) * Math.PI * 2;
+      // Slow organic heavy gravity/surface-tension tide
+      const slowTide =
+        Math.sin(th * 2 + t * 0.95) * 4.2 +
+        Math.cos(th * 3 - t * 0.72) * 2.6 +
+        Math.sin(th * 4 + t * 1.15) * 1.1;
+
+      const targetR = baseRadius + slowTide;
+      const prev = radii[(i - 1 + N) % N];
+      const next = radii[(i + 1) % N];
+
+      const springForce = (targetR - radii[i]) * stiffness;
+      const cohesionForce = ((prev + next) * 0.5 - radii[i]) * neighborPull;
+
+      velocities[i] = (velocities[i] + springForce + cohesionForce) * damping;
+    }
+
+    const outerPts = [];
+    const innerPts = [];
+
+    for (let i = 0; i < N; i++) {
+      radii[i] += velocities[i];
+      // Clamp deformation so droplet stays cohesive & thick
+      radii[i] = Math.max(baseRadius - 15, Math.min(baseRadius + 18, radii[i]));
+      const th = (i / N) * Math.PI * 2;
+      const r = radii[i];
+      outerPts.push({
+        x: cx + Math.cos(th) * r + smoothX * 8,
+        y: cy + Math.sin(th) * r + smoothY * 8
+      });
+      innerPts.push({
+        x: cx + Math.cos(th) * (r * 0.76) + smoothX * 4,
+        y: cy + Math.sin(th) * (r * 0.76) + smoothY * 4
+      });
+    }
 
     ctx.clearRect(0, 0, size, size);
 
-    const droplets = [
-      { angle: t * 1.15, dist: 86, z: Math.sin(t * 1.15), r: 7.5, color: "#38bdf8" },
-      { angle: t * 0.85 + 2.1, dist: 92, z: Math.sin(t * 0.85 + 2.1), r: 5.5, color: "#818cf8" },
-      { angle: -t * 1.35 + 4.2, dist: 82, z: Math.sin(-t * 1.35 + 4.2), r: 6.5, color: "#168BFF" }
-    ];
+    // 1. Diffused Volumetric Backdrop Glow
+    const aura = ctx.createRadialGradient(cx, cy, 18, cx, cy, 112);
+    aura.addColorStop(0, mixRgb([56, 189, 248], [249, 115, 22], m, 0.34));
+    aura.addColorStop(0.55, mixRgb([18, 107, 255], [220, 38, 38], m, 0.16));
+    aura.addColorStop(1, mixRgb([18, 107, 255], [220, 38, 38], m, 0));
+    ctx.fillStyle = aura;
+    ctx.beginPath();
+    ctx.arc(cx, cy, 112, 0, Math.PI * 2);
+    ctx.fill();
 
-    droplets.filter(d => d.z < 0).forEach(d => {
-      const dx = cx + Math.cos(d.angle) * d.dist + smoothX * 8;
-      const dy = cy + Math.sin(d.angle) * (d.dist * 0.42) + smoothY * 8;
-      const rad = d.r * (0.75 + (d.z + 1) * 0.25);
-      const dg = ctx.createRadialGradient(dx - rad * 0.3, dy - rad * 0.3, 1, dx, dy, rad);
-      dg.addColorStop(0, "#ffffff");
-      dg.addColorStop(0.4, d.color);
-      dg.addColorStop(1, "rgba(18, 107, 255, 0.1)");
+    // 2. Heavy Viscous Satellite Micro-Droplets (slowly orbiting & coalescing)
+    const sats = [
+      { a: t * 0.65, dist: 92, r: 7.5, phase: 0.4 },
+      { a: -t * 0.52 + 2.3, dist: 96, r: 5.8, phase: 1.9 }
+    ];
+    sats.forEach(s => {
+      const wobble = Math.sin(t * 1.4 + s.phase) * 4;
+      const sx = cx + Math.cos(s.a) * (s.dist + wobble) + smoothX * 11;
+      const sy = cy + Math.sin(s.a) * ((s.dist + wobble) * 0.72) + smoothY * 11;
+      const sg = ctx.createRadialGradient(sx - s.r * 0.35, sy - s.r * 0.35, 1, sx, sy, s.r);
+      sg.addColorStop(0, "#ffffff");
+      sg.addColorStop(0.38, mixRgb([56, 189, 248], [251, 146, 60], m));
+      sg.addColorStop(0.85, mixRgb([18, 107, 255], [220, 38, 38], m));
+      sg.addColorStop(1, mixRgb([6, 24, 68], [80, 12, 12], m));
       ctx.beginPath();
-      ctx.arc(dx, dy, rad, 0, Math.PI * 2);
-      ctx.fillStyle = dg;
+      ctx.arc(sx, sy, s.r, 0, Math.PI * 2);
+      ctx.fillStyle = sg;
       ctx.fill();
     });
 
-    const outerGrad = ctx.createRadialGradient(
-      cx - 24 + smoothX * 16,
-      cy - 24 + smoothY * 16,
-      10,
-      cx,
-      cy,
-      82
+    // 3. Main 3D Viscous Liquid Droplet Body
+    drawSmoothClosedCurve(outerPts);
+    const bodyGrad = ctx.createRadialGradient(
+      cx - 26 + smoothX * 18,
+      cy - 30 + smoothY * 18,
+      8,
+      cx + 14,
+      cy + 18,
+      92
     );
-    outerGrad.addColorStop(0, "rgba(56, 189, 248, 0.48)");
-    outerGrad.addColorStop(0.55, "rgba(18, 107, 255, 0.32)");
-    outerGrad.addColorStop(1, "rgba(129, 140, 248, 0.08)");
-    drawFluidLayer(t, 68, 3, 5, 5.5, 0, outerGrad, "rgba(56, 189, 248, 0.35)");
+    bodyGrad.addColorStop(0, mixRgb([224, 242, 254], [255, 237, 213], m));
+    bodyGrad.addColorStop(0.24, mixRgb([56, 189, 248], [251, 146, 60], m));
+    bodyGrad.addColorStop(0.58, mixRgb([18, 107, 255], [239, 68, 68], m));
+    bodyGrad.addColorStop(0.86, mixRgb([9, 42, 117], [153, 27, 27], m));
+    bodyGrad.addColorStop(1, mixRgb([4, 14, 42], [58, 8, 8], m));
+    ctx.fillStyle = bodyGrad;
+    ctx.fill();
 
-    const coreGrad = ctx.createRadialGradient(
-      cx - 22 + smoothX * 18,
-      cy - 26 + smoothY * 18,
-      6,
-      cx + 10,
-      cy + 14,
-      74
-    );
-    coreGrad.addColorStop(0, "#7dd3fc");
-    coreGrad.addColorStop(0.28, "#168BFF");
-    coreGrad.addColorStop(0.72, "#0b3b9c");
-    coreGrad.addColorStop(1, "#05153d");
-    drawFluidLayer(t * 1.15, 58, 4, 3, 4.8, 1.4, coreGrad, "rgba(125, 211, 252, 0.55)");
+    // Thick surface-tension edge rim
+    ctx.lineWidth = 1.8;
+    ctx.strokeStyle = mixRgb([125, 211, 252], [253, 186, 116], m, 0.55);
+    ctx.stroke();
 
-    const innerGrad = ctx.createLinearGradient(cx - 45, cy - 45, cx + 45, cy + 45);
-    innerGrad.addColorStop(0, "rgba(255, 255, 255, 0.34)");
-    innerGrad.addColorStop(0.5, "rgba(56, 189, 248, 0.14)");
-    innerGrad.addColorStop(1, "rgba(129, 140, 248, 0.28)");
-    drawFluidLayer(-t * 1.3, 46, 3, 4, 3.6, 2.7, innerGrad, null);
+    // 4. Internal Subsurface Liquid Depth Layer
+    drawSmoothClosedCurve(innerPts);
+    const subGrad = ctx.createLinearGradient(cx - 55, cy - 55, cx + 55, cy + 55);
+    subGrad.addColorStop(0, "rgba(255, 255, 255, 0.22)");
+    subGrad.addColorStop(0.5, mixRgb([56, 189, 248], [249, 115, 22], m, 0.12));
+    subGrad.addColorStop(1, mixRgb([18, 107, 255], [220, 38, 38], m, 0.32));
+    ctx.fillStyle = subGrad;
+    ctx.fill();
 
+    // 5. Bottom-Right Internal Caustic Refraction Crescent (makes it look like thick 3D liquid!)
     ctx.save();
-    ctx.translate(cx - 20 + smoothX * 12, cy - 22 + smoothY * 12);
-    ctx.rotate(-0.55);
-    const specGrad = ctx.createRadialGradient(0, 0, 1, 0, 0, 22);
-    specGrad.addColorStop(0, "rgba(255, 255, 255, 0.85)");
-    specGrad.addColorStop(0.5, "rgba(186, 230, 253, 0.35)");
+    ctx.translate(cx + 16 + smoothX * 6, cy + 20 + smoothY * 6);
+    ctx.rotate(-0.68);
+    const causticGrad = ctx.createRadialGradient(0, 0, 2, 0, 0, 34);
+    causticGrad.addColorStop(0, mixRgb([125, 211, 252], [254, 215, 170], m, 0.52));
+    causticGrad.addColorStop(0.6, mixRgb([56, 189, 248], [249, 115, 22], m, 0.18));
+    causticGrad.addColorStop(1, "rgba(255, 255, 255, 0)");
+    ctx.fillStyle = causticGrad;
+    ctx.beginPath();
+    ctx.ellipse(0, 0, 32, 11, 0, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+
+    // 6. Primary Wet Gloss Specular Highlight (Top-Left)
+    ctx.save();
+    ctx.translate(cx - 25 + smoothX * 12, cy - 28 + smoothY * 12);
+    ctx.rotate(-0.62);
+    const specGrad = ctx.createRadialGradient(0, 0, 1, 0, 0, 26);
+    specGrad.addColorStop(0, "rgba(255, 255, 255, 0.92)");
+    specGrad.addColorStop(0.45, "rgba(255, 255, 255, 0.36)");
     specGrad.addColorStop(1, "rgba(255, 255, 255, 0)");
     ctx.fillStyle = specGrad;
     ctx.beginPath();
-    ctx.ellipse(0, 0, 20, 10, 0, 0, Math.PI * 2);
+    ctx.ellipse(0, 0, 24, 10.5, 0, 0, Math.PI * 2);
     ctx.fill();
-    ctx.restore();
 
-    ctx.save();
-    ctx.translate(cx + smoothX * 9, cy + smoothY * 9);
-    ctx.shadowColor = "rgba(3, 5, 8, 0.45)";
-    ctx.shadowBlur = 12;
-    ctx.shadowOffsetY = 4;
+    // Secondary sharp droplet pinpoint gleam
     ctx.beginPath();
-    ctx.moveTo(-11, -15);
-    ctx.lineTo(16, 0);
-    ctx.lineTo(-11, 15);
-    ctx.closePath();
-    ctx.fillStyle = "rgba(255, 255, 255, 0.94)";
+    ctx.arc(24, 6, 3.2, 0, Math.PI * 2);
+    ctx.fillStyle = "rgba(255, 255, 255, 0.78)";
     ctx.fill();
     ctx.restore();
 
-    droplets.filter(d => d.z >= 0).forEach(d => {
-      const dx = cx + Math.cos(d.angle) * d.dist + smoothX * 12;
-      const dy = cy + Math.sin(d.angle) * (d.dist * 0.42) + smoothY * 12;
-      const rad = d.r * (0.85 + d.z * 0.35);
-      const dg = ctx.createRadialGradient(dx - rad * 0.35, dy - rad * 0.35, 1, dx, dy, rad);
-      dg.addColorStop(0, "#ffffff");
-      dg.addColorStop(0.45, d.color);
-      dg.addColorStop(1, "rgba(18, 107, 255, 0.15)");
-      ctx.beginPath();
-      ctx.arc(dx, dy, rad, 0, Math.PI * 2);
-      ctx.fillStyle = dg;
-      ctx.fill();
-    });
+    // 7. Suspended 3D Play Emblem inside the Liquid Core
+    ctx.save();
+    ctx.translate(cx + 2 + smoothX * 9, cy + smoothY * 9);
+    ctx.shadowColor = "rgba(0, 0, 0, 0.42)";
+    ctx.shadowBlur = 14;
+    ctx.shadowOffsetY = 5;
+    ctx.beginPath();
+    ctx.moveTo(-12, -16);
+    ctx.lineTo(17, 0);
+    ctx.lineTo(-12, 16);
+    ctx.closePath();
+    ctx.fillStyle = "rgba(255, 255, 255, 0.95)";
+    ctx.fill();
+    ctx.restore();
 
     fluidRaf = requestAnimationFrame(frame);
   }
@@ -846,8 +1070,17 @@ function initFluidLogo() {
 }
 
 // ==========================================
-// NAVIGATION RENDERER
+// THEME & NAVIGATION SYNC
 // ==========================================
+function syncTheme() {
+  const mode = activeMode();
+  document.body.setAttribute("data-mode", mode);
+  const metaTheme = document.querySelector('meta[name="theme-color"]');
+  if (metaTheme) {
+    metaTheme.setAttribute("content", mode === "editor" ? "#070303" : "#030508");
+  }
+}
+
 function renderNav() {
   const u = currentUser();
   const mode = activeMode();
@@ -889,8 +1122,8 @@ const Views = {
 
     return `
     <section class="hero">
-      <div class="fluid-stage" title="Move or touch to ripple the 3D fluid logo">
-        <canvas id="fluidLogo" width="230" height="230"></canvas>
+      <div class="fluid-stage" title="Touch or drag to ripple the viscous liquid droplet">
+        <canvas id="fluidLogo" width="250" height="250"></canvas>
       </div>
 
       ${!u ? `
@@ -900,7 +1133,7 @@ const Views = {
       </div>
       ` : `
       <div style="margin-bottom:14px">
-        <span class="role-pill">Signed in as ${esc(u.name)} (${u.role})</span>
+        <span class="role-pill">Signed in as ${esc(u.name)} (${u.role === "client" ? "Client" : "Editor"})</span>
       </div>
       `}
 
@@ -1061,8 +1294,8 @@ const Views = {
 
           <details>
             <summary class="btn small">View Portfolio (${(ed.portfolio || []).length}) &amp; Award CONNECTS</summary>
-            <div style="margin-top:16px;padding-top:16px;border-top:1px solid rgba(56,189,248,.16)">
-              <h4 style="margin-bottom:8px;color:var(--cyan);font-weight:600">Portfolio Showcase</h4>
+            <div style="margin-top:16px;padding-top:16px;border-top:1px solid var(--line)">
+              <h4 style="margin-bottom:8px;color:var(--glow);font-weight:600">Portfolio Showcase</h4>
               ${(ed.portfolio || []).length ? `
                 <div class="port-grid">
                   ${ed.portfolio.map(item => `
@@ -1076,7 +1309,7 @@ const Views = {
                 </div>
               ` : `<p class="muted" style="font-size:.9rem">No portfolio samples uploaded yet.</p>`}
 
-              <div style="margin-top:22px;padding:18px;border-radius:18px;background:rgba(3,5,8,.7);border:1px solid var(--line)">
+              <div style="margin-top:22px;padding:18px;border-radius:18px;background:rgba(5,4,6,.72);border:1px solid var(--line)">
                 <h4 style="margin-bottom:4px;font-weight:600">Complete Project &amp; Rate ${esc(ed.name)}</h4>
                 <p class="muted" style="font-size:.85rem;margin-bottom:14px">
                   Completing a project awards up to <b>10 CONNECTS</b>. Each star (0–5 ★) adds <b>2 CONNECTS</b>.
@@ -1136,7 +1369,7 @@ const Views = {
                     </div>
                     <div style="text-align:right;white-space:nowrap">
                       <span class="stars-display">${r.stars} ★</span>
-                      <div style="color:var(--cyan);font-weight:600;font-size:.82rem">+${(r.projectConnects || 0) + (r.starConnects || 0)} CONNECTS</div>
+                      <div style="color:var(--glow);font-weight:600;font-size:.82rem">+${(r.projectConnects || 0) + (r.starConnects || 0)} CONNECTS</div>
                     </div>
                   </div>
                 `).join("")}
@@ -1220,7 +1453,7 @@ const Views = {
         </form>
 
         ${portfolio.length ? `
-          <h4 style="margin:22px 0 10px;color:var(--cyan);font-weight:600">Your Uploaded Portfolio (${portfolio.length})</h4>
+          <h4 style="margin:22px 0 10px;color:var(--glow);font-weight:600">Your Uploaded Portfolio (${portfolio.length})</h4>
           <div class="port-grid">
             ${portfolio.map(item => `
               <div class="port-item">
@@ -1362,8 +1595,8 @@ const Views = {
 
         <p style="margin-top:16px;font-size:.92rem;color:var(--muted);text-align:center">
           ${authMode === "in"
-            ? `New to EditConnect? <a href="#" style="color:var(--cyan)" data-act="toggleAuthMode">Create an account</a>`
-            : `Already registered? <a href="#" style="color:var(--cyan)" data-act="toggleAuthMode">Sign in</a>`}
+            ? `New to EditConnect? <a href="#" style="color:var(--glow)" data-act="toggleAuthMode">Create an account</a>`
+            : `Already registered? <a href="#" style="color:var(--glow)" data-act="toggleAuthMode">Sign in</a>`}
         </p>
 
         <div style="margin-top:22px;padding-top:18px;border-top:1px solid var(--line)">
@@ -1394,6 +1627,7 @@ view.addEventListener("click", e => {
   if (act === "setMode") {
     state.browseMode = btn.dataset.mode;
     saveState(state);
+    triggerViscousPulse(1.4);
     render();
   }
 
@@ -1414,6 +1648,7 @@ view.addEventListener("click", e => {
       state.currentUserId = demoUser.id;
       state.browseMode = role;
       saveState(state);
+      triggerViscousPulse(1.5);
       toast(`Signed in as Demo ${role === "client" ? "Client" : "Editor"}: ${demoUser.name}`);
       location.hash = role === "client" ? "#/explore" : "#/studio";
     }
@@ -1634,6 +1869,7 @@ function render() {
     route = "auth";
   }
 
+  syncTheme();
   menu.classList.remove("open");
   burger.setAttribute("aria-expanded", "false");
   renderNav();
