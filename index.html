@@ -1,224 +1,353 @@
 <!DOCTYPE html>
-<html lang="en" data-side="client">
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#030303">
-<title>EditConnect | Skills Meet Opportunities</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EditConnect by Dheeraj | Skills Meet Opportunities</title>
+<meta name="description" content="Prove your skills. Earn recognition. Discover your first professional opportunity.">
+<meta name="theme-color" content="#030508">
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
-@property --a{syntax:"<color>";inherits:true;initial-value:#168bff}
-@property --b{syntax:"<color>";inherits:true;initial-value:#126bff}
-@property --hue{syntax:"<angle>";inherits:true;initial-value:0deg}
-:root{--a:#168bff;--b:#126bff;--hue:0deg;--muted:#8fa3bf;transition:--a .8s,--b .8s,--hue .8s;color-scheme:dark}
-[data-side=editor]{--a:#ff7a22;--b:#e8381a;--hue:165deg}
+:root{--bg:#030508;--blue:#126BFF;--neon:#168BFF;--cyan:#38bdf8;--muted:#8fa3bf;--line:rgba(22,139,255,.28);--glass:rgba(10,20,38,.55);--ok:#10b981}
 *{box-sizing:border-box;margin:0}
-html{background:#030303}
-body{color:#fff;font:16px/1.6 system-ui,sans-serif;overflow-x:hidden}
+html{background:var(--bg);color-scheme:dark;scroll-behavior:smooth;scroll-padding-top:84px}
+body{color:#fff;font:16px/1.6 "Poppins",system-ui,sans-serif;overflow-x:hidden;min-height:100vh;display:flex;flex-direction:column}
+main,.onboard{flex:1}
+img{display:block;max-width:100%}
 a{color:inherit;text-decoration:none}
-button,input,textarea,select{font:inherit}
+h1,h2,h3{line-height:1.15}
+button,input,select{font:inherit}
 [hidden]{display:none!important}
-[data-side=client] .ed,[data-side=editor] .cl{display:none}
-.lights{position:fixed;inset:0;z-index:-1;overflow:hidden}
-.lights i{position:absolute;width:70vmax;height:70vmax;border-radius:50%;background:radial-gradient(circle,color-mix(in srgb,var(--b) 22%,transparent),transparent 65%)}
-.lights i:first-child{top:-30vmax;left:-20vmax}.lights i:last-child{bottom:-35vmax;right:-25vmax}
-.nav{position:fixed;top:0;left:0;right:0;z-index:20;background:rgba(3,3,3,.92);backdrop-filter:blur(12px);border-bottom:1px solid color-mix(in srgb,var(--a) 20%,transparent)}
-.top{display:flex;align-items:center;justify-content:space-between;padding:10px 16px}
-.brand{display:flex;align-items:center;gap:8px;font-weight:700;font-size:.95rem;letter-spacing:.03em}
-.brand img{width:26px;height:26px;object-fit:contain;filter:hue-rotate(var(--hue))}
-.tabs{display:flex;gap:4px;overflow-x:auto;padding:0 12px 8px;scrollbar-width:none}
-.tabs a{white-space:nowrap;padding:5px 13px;border-radius:99px;font-size:.85rem;color:var(--muted)}
-.tabs a.on{color:#fff;background:color-mix(in srgb,var(--a) 22%,transparent)}
-.btn{display:inline-flex;align-items:center;justify-content:center;padding:12px 24px;border:1px solid color-mix(in srgb,var(--a) 45%,transparent);border-radius:99px;background:none;color:#fff;font-weight:650;font-size:.85rem;letter-spacing:.04em;cursor:pointer;transition:.2s}
-.btn:hover{border-color:var(--a)}
-.btn.p{background:var(--b);border-color:transparent;box-shadow:0 0 22px color-mix(in srgb,var(--a) 45%,transparent)}
-.btn.s{padding:6px 16px;font-size:.78rem}
-.btn:disabled{opacity:.5}
-.wrap{max-width:900px;margin:auto;padding:104px 18px 40px}
-.narrow{max-width:520px}
-.pt{font-size:clamp(1.7rem,5vw,2.4rem)}
-.muted{color:var(--muted)}
-.hero{min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:110px 20px 60px}
-.tog{display:inline-flex;padding:4px;border:1px solid color-mix(in srgb,var(--a) 35%,transparent);border-radius:99px;background:rgba(255,255,255,.04)}
-.tog button{border:0;background:none;color:var(--muted);padding:8px 22px;border-radius:99px;font-weight:650;cursor:pointer;transition:.4s}
-.tog button.on{background:var(--b);color:#fff;box-shadow:0 0 18px color-mix(in srgb,var(--a) 55%,transparent)}
-.orb{position:relative;width:min(78vw,360px);aspect-ratio:1;margin:10px 0}
-.orb canvas{position:relative;width:100%;height:100%;filter:hue-rotate(var(--hue)) drop-shadow(0 0 24px color-mix(in srgb,var(--a) 75%,transparent))}
-.halo{position:absolute;inset:14%;border-radius:50%;background:radial-gradient(circle,color-mix(in srgb,var(--a) 55%,transparent),transparent 70%);filter:blur(30px);animation:pulse 5s ease-in-out infinite}
-@keyframes pulse{50%{transform:scale(1.18);opacity:.55}}
-h1{font-size:clamp(2rem,6.5vw,3.6rem);line-height:1.1;max-width:15ch;text-shadow:0 0 28px color-mix(in srgb,var(--a) 45%,transparent)}
-.sub{max-width:32em;margin:14px 0 26px;color:var(--muted)}
-.card,.panel,.stats div{border:1px solid color-mix(in srgb,var(--a) 28%,transparent);border-radius:18px;background:rgba(10,14,22,.65);padding:20px;margin-top:14px}
-.card p{margin:6px 0;color:#cfd8e6}
-.tag{display:inline-block;margin:0 4px 4px 0;padding:2px 11px;border:1px solid color-mix(in srgb,var(--a) 40%,transparent);border-radius:99px;color:var(--a);font-size:.76rem}
-.tag.hot{background:var(--b);color:#fff;border-color:transparent}
-.cn{font-size:2rem;font-weight:800;color:var(--a);line-height:1.1}.cn small{font-size:.8rem;font-weight:500;color:var(--muted)}
-.field{display:block;margin-bottom:14px;color:var(--muted);font-size:.85rem}
-.field input,.field textarea,.field select{display:block;width:100%;margin-top:5px;padding:12px 14px;border:1px solid color-mix(in srgb,var(--a) 30%,transparent);border-radius:12px;background:rgba(3,3,3,.8);color:#fff}
-.field textarea{min-height:80px;resize:vertical}
-.roles{display:grid;gap:8px;margin-bottom:14px}
-.roles label{display:block;padding:12px 14px;border:1px solid color-mix(in srgb,var(--a) 30%,transparent);border-radius:12px;cursor:pointer}
-.roles small{display:block;color:var(--muted)}
-.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px}
-.stats div{margin:0}.stats b{display:block;font-size:1.7rem}
-.row{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 0;border-bottom:1px solid color-mix(in srgb,var(--a) 15%,transparent)}
-summary{list-style:none;cursor:pointer;width:fit-content}summary::-webkit-details-marker{display:none}
-details form{margin-top:12px}
-.sw{margin-top:16px;font-size:.9rem;color:var(--muted)}.sw a{color:var(--a)}
-.foot{text-align:center;padding:26px 16px;border-top:1px solid color-mix(in srgb,var(--a) 20%,transparent);color:var(--muted);font-size:.8rem}
-#toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);z-index:50;max-width:90vw;padding:12px 18px;border:1px solid var(--a);border-radius:12px;background:#07101f}
+.muted{color:var(--muted);font-size:.88rem}
+.lights{position:fixed;inset:0;z-index:-1;overflow:hidden;pointer-events:none}
+.lights i{position:absolute;width:60vmax;height:60vmax;border-radius:50%;background:radial-gradient(circle,rgba(18,107,255,.16),transparent 65%)}
+.lights i:first-child{top:-25vmax;left:-15vmax}
+.lights i:last-child{bottom:-30vmax;right:-20vmax}
+.nav{position:fixed;top:0;left:0;right:0;z-index:20;display:flex;align-items:center;justify-content:space-between;padding:12px clamp(18px,4vw,48px);background:rgba(3,5,8,.78);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid rgba(22,139,255,.14)}
+.brand{display:flex;align-items:center;gap:10px}
+.brand img{height:34px;width:auto;filter:drop-shadow(0 0 10px rgba(22,139,255,.45))}
+.brand b{display:block;font-size:1.2rem;font-weight:700;letter-spacing:-.01em;line-height:1.1}
+.brand small{display:block;font-size:.68rem;font-weight:500;letter-spacing:.1em;color:var(--cyan)}
+.menu{display:flex;align-items:center;gap:24px;color:var(--muted);font-size:.92rem}
+.menu a:hover{color:#fff}
+.menu .signin{color:#fff;border:1px solid var(--line);padding:8px 18px;border-radius:999px}
+.user-chip{display:inline-flex;align-items:center;gap:8px;color:#fff;border:1px solid var(--neon);background:rgba(18,107,255,.16);padding:5px 14px 5px 6px;border-radius:999px;font-size:.88rem}
+.av{--s:26px;width:var(--s);height:var(--s);border-radius:50%;object-fit:cover;background:linear-gradient(135deg,var(--blue),var(--cyan));display:inline-flex;align-items:center;justify-content:center;font-size:calc(var(--s)*.42);font-weight:700;flex-shrink:0}
+.av.big{--s:46px;border:1.5px solid var(--neon)}
+.av.huge{--s:56px;border:2px solid var(--neon)}
+.burger{display:none;width:42px;height:42px;background:none;border:1px solid var(--line);border-radius:10px;cursor:pointer;flex-direction:column;align-items:center;justify-content:center;gap:6px}
+.burger span{width:18px;height:2px;background:#fff}
+.hero{min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:120px 24px 80px}
+.logo-wrap{position:relative;isolation:isolate;display:flex;align-items:center;justify-content:center;margin-bottom:36px}
+.logo-wrap::before{content:"";position:absolute;inset:-32%;z-index:-2;background:radial-gradient(circle,rgba(22,139,255,.38),rgba(56,189,248,.14) 45%,transparent 68%);filter:blur(10px)}
+.soon{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:-1;font-size:clamp(2.8rem,12vw,8.5rem);font-weight:900;letter-spacing:.14em;line-height:1;white-space:nowrap;color:rgba(56,189,248,.1);-webkit-text-stroke:1px rgba(56,189,248,.22);text-shadow:0 0 36px rgba(22,139,255,.22);pointer-events:none;user-select:none}
+.logo{width:min(240px,56vw);height:auto;filter:drop-shadow(0 0 28px rgba(22,139,255,.65)) drop-shadow(0 0 54px rgba(56,189,248,.3))}
+h1{font-size:clamp(2.4rem,7vw,4.6rem);font-weight:700;letter-spacing:-.03em;max-width:14ch}
+.sub{max-width:34em;margin:20px 0 36px;color:var(--muted);font-size:clamp(1rem,2.4vw,1.2rem)}
+.actions{display:flex;flex-wrap:wrap;justify-content:center;gap:14px}
+.pill{margin-top:28px;display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border-radius:999px;border:1px solid var(--line);background:rgba(10,20,38,.7);font-size:.82rem;color:var(--muted)}
+.pill i{width:8px;height:8px;border-radius:50%;background:var(--ok);box-shadow:0 0 10px var(--ok)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:15px 30px;border:1px solid var(--line);border-radius:999px;background:none;color:#fff;font-size:.9rem;font-weight:600;line-height:1;letter-spacing:.12em;cursor:pointer;transition:transform .25s,box-shadow .25s,border-color .25s}
+.btn:hover{transform:translateY(-2px);border-color:var(--neon)}
+.btn.primary{background:var(--blue);border-color:transparent;box-shadow:0 0 22px rgba(22,139,255,.45)}
+.btn.small{padding:13px 24px;letter-spacing:.04em}
+.btn.danger{border-color:rgba(239,68,68,.45);color:#fca5a5}
+.btn-google{width:100%;display:flex;align-items:center;justify-content:center;gap:12px;padding:13px 20px;border-radius:999px;border:0;background:#fff;color:#0f172a;font-weight:600;cursor:pointer}
+.btn-google b{color:#4285F4;font-size:1.15rem}
+.divider{display:flex;align-items:center;gap:12px;margin:20px 0 14px;color:var(--muted);font-size:.8rem;text-transform:uppercase;letter-spacing:.08em}
+.divider::before,.divider::after{content:"";flex:1;height:1px;background:var(--line)}
+.wrap{max-width:1040px;margin:0 auto;padding:0 24px}
+.features{padding:90px 0 60px}
+.feature,.member-card,.panel{border:1px solid var(--line);border-radius:20px;background:var(--glass);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.feature{padding:28px;transition:border-color .3s,box-shadow .3s}
+.feature:hover{border-color:var(--neon);box-shadow:0 0 30px rgba(22,139,255,.18)}
+.feature h2,.feature h3{margin:14px 0 8px}
+.feature p{color:var(--muted)}
+.tag{display:inline-block;padding:3px 12px;border:1px solid var(--line);border-radius:999px;color:var(--neon);font-size:.78rem}
+.tag.live{border-color:rgba(16,185,129,.45);color:#6ee7b7;background:rgba(16,185,129,.12)}
+.lead{margin-bottom:20px;padding:clamp(32px,6vw,64px);border-color:rgba(22,139,255,.6);box-shadow:0 0 60px rgba(18,107,255,.22),inset 0 0 40px rgba(18,107,255,.08)}
+.lead h2{font-size:clamp(1.9rem,5vw,3.1rem);letter-spacing:-.02em}
+.lead p{max-width:30em;margin-bottom:28px;font-size:1.1rem}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.members-sec{padding:40px 0 90px}
+.sec-head{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:14px;margin-bottom:26px}
+.sec-head h2{font-size:clamp(1.6rem,4vw,2.3rem);letter-spacing:-.02em;margin-top:8px}
+.sec-head p{color:var(--muted);font-size:.95rem}
+.members-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:18px}
+.member-card{padding:22px;display:flex;flex-direction:column;gap:14px;border-radius:18px}
+.member-card.is-you{border-color:rgba(16,185,129,.55)}
+.mc-top{display:flex;align-items:center;gap:12px}
+.mc-name{font-weight:700;font-size:1.05rem}
+.mc-role{color:var(--cyan);font-size:.8rem}
+.mc-skill{color:#dbe9ff;font-size:.88rem}
+.mc-skill.empty{color:var(--muted);font-style:italic}
+.mc-foot{margin-top:auto;padding-top:12px;border-top:1px solid rgba(22,139,255,.14);display:flex;justify-content:space-between;gap:8px;font-size:.8rem;color:var(--muted)}
+.mc-link{color:var(--neon);font-weight:600}
+.empty-members{padding:36px 24px;text-align:center;border:1px dashed var(--line);border-radius:20px;color:var(--muted)}
+.empty-members p{margin-bottom:16px}
+.onboard{min-height:100svh;display:flex;align-items:center;justify-content:center;padding:110px 20px 60px}
+.panel{width:min(560px,100%);padding:clamp(24px,5vw,44px);border-radius:24px;box-shadow:0 0 60px rgba(18,107,255,.15)}
+.back{color:var(--muted);font-size:.9rem}
+.panel h2{margin:16px 0 8px;font-size:1.8rem}
+.panel-sub{color:var(--muted);font-size:.92rem;margin-bottom:18px}
+fieldset{min-width:0;margin-bottom:18px;border:0}
+legend{margin-bottom:10px;color:var(--muted);font-size:.85rem}
+.roles label{position:relative;display:block;margin-bottom:10px;cursor:pointer}
+.roles input{position:absolute;opacity:0}
+.roles span{display:block;padding:14px 18px;border:1px solid var(--line);border-radius:14px}
+.roles input:checked+span{border-color:var(--neon);background:rgba(18,107,255,.16);box-shadow:0 0 20px rgba(22,139,255,.25)}
+.field{display:block;margin-bottom:16px;color:var(--muted);font-size:.85rem}
+.field input,.field select{display:block;width:100%;margin-top:6px;padding:13px 16px;border:1px solid var(--line);border-radius:12px;background:rgba(3,5,8,.78);color:#fff}
+.field input:focus,.field select:focus{outline:none;border-color:var(--neon)}
+.result{margin-top:18px;padding:14px 16px;border:1px solid var(--neon);border-radius:12px;background:rgba(18,107,255,.12);color:#dbe9ff;font-size:.9rem}
+.switch{margin-top:18px;text-align:center;color:var(--muted);font-size:.9rem}
+.switch a{color:var(--neon);font-weight:600}
+.profile-head{display:flex;align-items:center;gap:14px;margin:16px 0 22px;padding-bottom:18px;border-bottom:1px solid var(--line)}
+.row{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
+.foot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;padding:28px clamp(18px,4vw,48px);border-top:1px solid rgba(22,139,255,.14);color:var(--muted);font-size:.8rem}
+@media(max-width:900px){.grid{grid-template-columns:1fr}}
+@media(max-width:760px){.burger{display:flex}.menu{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;align-items:stretch;gap:0;padding:8px 18px 18px;background:rgba(3,5,8,.97);border-bottom:1px solid var(--line)}.menu.open{display:flex}.menu a{padding:14px 4px;border-bottom:1px solid rgba(22,139,255,.1)}.menu .signin,.menu .user-chip{margin-top:14px;justify-content:center}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
 </style>
 </head>
 <body>
-<div class="lights"><i></i><i></i></div>
+<div class="lights" aria-hidden="true"><i></i><i></i></div>
+
 <header class="nav">
- <div class="top"><a class="brand" href="#/home"><img id="nlogo" alt=""><span>EditConnect</span></a><a id="acct" class="btn s" href="#/login">Login</a></div>
- <nav class="tabs"><a href="#/home">Home</a><a href="#/projects">Projects</a><a href="#/editors">Editors</a><a href="#/work">My Work</a><a href="#/profile">Profile</a></nav>
+ <a class="brand" href="#top" aria-label="EditConnect by Dheeraj home"><img src="assets/logo.png" alt=""><span><b>EditConnect</b><small>by Dheeraj</small></span></a>
+ <button class="burger" type="button" aria-label="Toggle menu" aria-expanded="false" aria-controls="menu"><span></span><span></span></button>
+ <nav class="menu" id="menu" aria-label="Main">
+  <a href="#features">Explore</a>
+  <a href="#community">Profiles</a>
+  <a href="#first-client">Opportunities</a>
+  <a href="#signin" class="signin" id="nav-auth">Sign in</a>
+ </nav>
 </header>
-<main id="view"></main>
-<footer class="foot">© 2026 EditConnect · Skills Meet Opportunities.<br>Other freelance subjects are coming soon.</footer>
-<div id="toast" role="status" hidden></div>
+
+<main id="home">
+ <section class="hero" id="top">
+  <div class="logo-wrap"><span class="soon" aria-hidden="true">COMING SOON</span><img class="logo" src="assets/logo.png" alt="EditConnect logo"></div>
+  <h1>Skills Meet Opportunities.</h1>
+  <p class="sub">Prove your skills. Earn recognition. Discover your first professional opportunity.</p>
+  <div class="actions">
+   <a href="#start" class="btn primary" id="hero-btn">START NOW <span aria-hidden="true">→</span></a>
+   <a href="#community" class="btn">VIEW PROFILES</a>
+  </div>
+  <p class="pill"><i></i><span id="hero-status">Early Access Member Profiles Live</span></p>
+ </section>
+
+ <section class="features" id="features"><div class="wrap">
+  <article class="feature lead" id="first-client">
+   <span class="tag live" id="fc-tag">Open for Early Access</span>
+   <h2>First Client Programme</h2>
+   <p>Help qualified beginners discover genuine client opportunities.</p>
+   <button type="button" class="btn primary small" id="fc-btn">Register interest →</button>
+  </article>
+  <div class="grid">
+   <article class="feature"><span class="tag">Skill Track</span><h3>Skill Certification</h3><p>Practical skill assessments and subject-specific platform certificates.</p></article>
+   <article class="feature"><span class="tag">Intelligence</span><h3>AI Progress Intelligence</h3><p>Track learning, assessments, projects and skill development from registration.</p></article>
+   <article class="feature"><span class="tag">Smart Match</span><h3>AI Project Matching</h3><p>Recommend suitable projects using demonstrated skills and client requirements.</p></article>
+  </div>
+ </div></section>
+
+ <section class="members-sec" id="community"><div class="wrap">
+  <div class="sec-head">
+   <div>
+    <span class="tag live" id="count">0 Registered Profiles</span>
+    <h2>Registered Member Profiles</h2>
+    <p>Creators, video editors, and clients who have joined EditConnect.</p>
+   </div>
+   <a href="#start" class="btn small" id="join-btn">+ Create Your Profile</a>
+  </div>
+  <div id="members"></div>
+ </div></section>
+</main>
+
+<section class="onboard" id="auth" hidden><div class="panel">
+ <a href="#top" class="back">← Back to home</a>
+ <h2 id="ob-title">Join EditConnect</h2>
+ <p class="panel-sub" id="ob-sub"></p>
+ <form id="ob-form">
+  <fieldset class="roles" id="ob-roles">
+   <legend>I am a</legend>
+   <label><input type="radio" name="role" value="Student / Beginner Freelancer" checked><span>Student / Beginner Freelancer</span></label>
+   <label><input type="radio" name="role" value="Experienced Freelancer"><span>Experienced Freelancer</span></label>
+   <label><input type="radio" name="role" value="Client"><span>Client</span></label>
+  </fieldset>
+  <label class="field" id="f-name">Full name<input name="name" autocomplete="name" maxlength="60"></label>
+  <label class="field">Email<input type="email" name="email" autocomplete="email" required></label>
+  <label class="field" id="f-skill">Primary Skill / Niche (Optional)<input name="skill" maxlength="80" placeholder="e.g., Premiere Pro, After Effects, Reels Editing"></label>
+  <label class="field">Password<input type="password" name="password" minlength="6" required></label>
+  <button class="btn primary" type="submit" id="ob-submit" style="width:100%">Create account</button>
+ </form>
+ <div class="divider">or</div>
+ <button type="button" class="btn-google" id="g-btn"><b>G</b> Continue with Google</button>
+ <p class="switch" id="ob-switch"></p>
+ <p class="result" id="ob-result" role="status" hidden></p>
+</div></section>
+
+<section class="onboard" id="profile-view" hidden><div class="panel">
+ <a href="#community" class="back">← View all registered profiles</a>
+ <div class="profile-head" id="p-head"></div>
+ <form id="p-form">
+  <label class="field">Your Role
+   <select id="p-role"><option>Student / Beginner Freelancer</option><option>Experienced Freelancer</option><option>Client</option></select>
+  </label>
+  <label class="field">Primary Video Editing Skill / Niche<input id="p-skill" maxlength="80" placeholder="e.g., Premiere Pro, After Effects, YouTube Documentaries"></label>
+  <label class="field">Portfolio or Channel Link (Optional)<input type="url" id="p-port" placeholder="https://youtube.com/@yourchannel"></label>
+  <div class="row">
+   <button type="submit" class="btn primary small">Save Profile</button>
+   <button type="button" class="btn small danger" id="out-btn">Sign out</button>
+  </div>
+ </form>
+ <p class="result" id="p-result" role="status" hidden></p>
+</div></section>
+
+<footer class="foot">
+ <span>© 2026 EditConnect by Dheeraj</span>
+ <span>Skills Meet Opportunities • Early Access Community</span>
+</footer>
 
 <script type="module">
 import{initializeApp}from"https://www.gstatic.com/firebasejs/12.7.0/firebase-app.js";
-import{getAuth,onAuthStateChanged,createUserWithEmailAndPassword,signInWithEmailAndPassword,signOut}from"https://www.gstatic.com/firebasejs/12.7.0/firebase-auth.js";
-import{getFirestore,doc,getDoc,setDoc,addDoc,deleteDoc,collection,query,where,orderBy,limit,getDocs,serverTimestamp}from"https://www.gstatic.com/firebasejs/12.7.0/firebase-firestore.js";
+import{getAuth,onAuthStateChanged,createUserWithEmailAndPassword,signInWithEmailAndPassword,GoogleAuthProvider,signInWithPopup,signOut}from"https://www.gstatic.com/firebasejs/12.7.0/firebase-auth.js";
+import{getFirestore,doc,getDoc,setDoc,collection,query,orderBy,limit,onSnapshot,serverTimestamp}from"https://www.gstatic.com/firebasejs/12.7.0/firebase-firestore.js";
 
 const app=initializeApp({apiKey:"AIzaSyDl8rk3KAYc4-AiNAUvAkeoAPopfRI8tm4",authDomain:"editconnect-77505.firebaseapp.com",projectId:"editconnect-77505",appId:"1:279328250493:web:85b70045215e737523ef14"});
-const auth=getAuth(app),db=getFirestore(app);
+const auth=getAuth(app),db=getFirestore(app),gp=new GoogleAuthProvider();
+gp.setCustomParameters({prompt:"select_account"});
 
-const $=s=>document.querySelector(s),view=$("#view");
-let me=null,mode="in",side="client",busy=false,onlyB=false;
+const $=s=>document.querySelector(s);
+const ROLE="Student / Beginner Freelancer";
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-const list=s=>[...new Set((s||"").split(",").map(x=>x.trim()).filter(Boolean))].slice(0,12);
 const safe=u=>/^https?:\/\//i.test(u||"")?u:"";
-const isC=()=>me?.role==="Client";
-const toast=m=>{const t=$("#toast");t.textContent=m;t.hidden=false;clearTimeout(toast.t);toast.t=setTimeout(()=>t.hidden=true,4500)};
-const ERR={"auth/invalid-credential":"Incorrect email or password.","auth/email-already-in-use":"This email already has an account.","auth/weak-password":"Password needs at least 6 characters.","auth/invalid-email":"Invalid email address.","auth/network-request-failed":"Check your internet connection.","permission-denied":"Permission denied. Check the Firestore rules."};
-const why=e=>ERR[e.code]||e.message||"Something went wrong.";
-const setSide=s=>{side=s;document.documentElement.dataset.side=s;document.querySelectorAll("[data-sb]").forEach(b=>b.classList.toggle("on",b.dataset.sb==s))};
-const pg=(t,s,b)=>`<div class="wrap"><h2 class="pt">${t}</h2><p class="muted">${s}</p>${b}</div>`;
-const gate=t=>pg(t,"Login or create an account to continue.",'<br><a class="btn p" href="#/login">LOGIN →</a>');
-const tags=a=>(a||[]).map(t=>`<span class="tag">${esc(t)}</span>`).join(" ");
+const say=(el,m)=>{el.textContent=m;el.hidden=false};
+const ERR={"auth/invalid-credential":"Incorrect email or password.","auth/email-already-in-use":"This email already has an account. Use Sign in.","auth/weak-password":"Password needs at least 6 characters.","auth/invalid-email":"Invalid email address.","auth/too-many-requests":"Too many attempts. Please wait a moment.","auth/network-request-failed":"Check your internet connection.","auth/unauthorized-domain":"Add dheerajisaireddy.github.io under Firebase Authentication > Settings > Authorized domains.","auth/operation-not-allowed":"This sign-in method is switched off in Firebase (Authentication > Sign-in method).","auth/popup-blocked":"Your browser blocked the Google pop-up. Allow pop-ups and try again.","auth/popup-closed-by-user":"Google sign-in was closed before it finished.","permission-denied":"Database permission denied. Publish the Firestore rules."};
+const why=e=>String(e.code).includes("requests-from-referer")?"Your Firebase API key blocks this website. Add https://dheerajisaireddy.github.io/* to the key's allowed websites in Google Cloud Console.":ERR[e.code]||e.message||"Something went wrong.";
 
-/* ---------- logo (your PNG, with a built-in backup) ---------- */
-const FB="data:image/svg+xml,"+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="300" height="300" viewBox="0 0 100 100"><defs><radialGradient id="g" cx=".35" cy=".3"><stop offset="0" stop-color="#8ff"/><stop offset=".35" stop-color="#1e78ff"/><stop offset="1" stop-color="#0a2a9a"/></radialGradient></defs><path fill="url(#g)" d="M20 52C18 32 36 18 56 16C76 14 86 30 84 48C83 58 76 62 80 70C83 78 80 84 72 84C60 84 54 76 42 78C30 80 22 68 20 52Z"/></svg>');
-const logos=["logo.png","1000007354.png",FB];
-const mk=el=>{let i=0;el.onerror=()=>{if(i<2)el.src=logos[++i]};el.src=logos[0];return el};
-const L=mk(new Image());mk($("#nlogo"));
+const home=$("#home"),authView=$("#auth"),profView=$("#profile-view"),form=$("#ob-form"),res=$("#ob-result"),pres=$("#p-result"),roles=$("#ob-roles"),nameF=$("#f-name"),skillF=$("#f-skill"),menu=$("#menu"),burger=$(".burger");
+let me=null,people=[],mode="signup",busy=false,ready=false;
+const ref=id=>doc(db,"profiles",id);
+const today=()=>new Date().toLocaleDateString("en-IN",{day:"numeric",month:"short",year:"numeric"});
+const avatar=(p,c)=>p.picture?`<img class="av ${c}" src="${esc(p.picture)}" alt="" referrerpolicy="no-referrer">`:`<span class="av ${c}">${esc((p.name||"U")[0].toUpperCase())}</span>`;
 
-/* ---------- wobbling fluid logo ---------- */
-const N=56;
-(function loop(t){
- const cv=$("#fluid");
- if(cv&&L.naturalWidth){
-  const c=cv.getContext("2d"),S=cv.width,w=L.naturalWidth,h=L.naturalHeight,z=S*.9/Math.max(w,h),dw=w*z,dh=h*z,x0=(S-dw)/2,y0=(S-dh)/2,sh=h/N,k=1+.018*Math.sin(t/1700);
-  c.clearRect(0,0,S,S);c.save();c.translate(S/2,S/2);c.rotate(.02*Math.sin(t/3100));c.scale(k,k);c.translate(-S/2,-S/2);
-  for(let i=0;i<N;i++){
-   const o=S*.011*Math.sin(t/950+i*.21)+S*.006*Math.sin(t/1500-i*.13),s=1+.012*Math.sin(t/1200+i*.3);
-   c.drawImage(L,0,i*sh,w,sh,x0+o-(dw*s-dw)/2,y0+i*dh/N,dw*s,dh/N+1);
-  }
-  c.restore();
+function renderMembers(){
+ const n=people.length;
+ $("#count").textContent=n==1?"1 Registered Profile":n+" Registered Profiles";
+ $("#hero-status").textContent=me?`Signed in as ${me.name} • ${n} Profile${n==1?"":"s"} Live`:n?`${n} Registered Member Profile${n==1?"":"s"} Live`:"Early Access Member Profiles Live";
+ const j=$("#join-btn");j.href=me?"#profile":"#start";j.textContent=me?"Edit Your Profile":"+ Create Your Profile";
+ $("#members").innerHTML=n?`<div class="members-grid">${people.map(p=>`<article class="member-card ${me&&me.id==p.id?"is-you":""}"><div class="mc-top">${avatar(p,"big")}<div><div class="mc-name">${esc(p.name)}${me&&me.id==p.id?' <span class="tag live" style="font-size:.7rem;padding:1px 8px">You</span>':""}</div><div class="mc-role">${esc(p.role)}</div></div></div>${p.skill?`<p class="mc-skill"><strong>Focus:</strong> ${esc(p.skill)}</p>`:`<p class="mc-skill empty">Role: ${esc(p.role)}</p>`}<div class="mc-foot"><span>${p.fc?"✓ First Client Programme":"Active Member"}</span>${safe(p.portfolio)?`<a class="mc-link" href="${esc(safe(p.portfolio))}" target="_blank" rel="noopener noreferrer">Portfolio ↗</a>`:`<span>${esc(p.joined||"Early Member")}</span>`}</div></article>`).join("")}</div>`:`<div class="empty-members"><p>No profiles registered yet. Be the first creator or client to appear here!</p><a href="#start" class="btn primary small">Create First Profile →</a></div>`;
+}
+
+function sync(){
+ const a=$("#nav-auth"),hb=$("#hero-btn");
+ if(me){
+  a.className="user-chip";a.href="#profile";a.innerHTML=avatar(me,"")+`<span>${esc((me.name||"Member").split(" ")[0])}</span>`;
+  hb.href="#profile";hb.innerHTML='MY PROFILE <span aria-hidden="true">→</span>';
+  $("#fc-tag").textContent=me.fc?"✓ Registered":"Open for Early Access";
+  $("#fc-btn").textContent=me.fc?"Registered in First Client Programme ✓":"Register interest →";
+ }else{
+  a.className="signin";a.href="#signin";a.textContent="Sign in";
+  hb.href="#start";hb.innerHTML='START NOW <span aria-hidden="true">→</span>';
+  $("#fc-tag").textContent="Open for Early Access";$("#fc-btn").textContent="Register interest →";
  }
- requestAnimationFrame(loop);
-})(0);
-
-/* ---------- data ---------- */
-const getP=async()=>(await getDocs(query(collection(db,"projects"),orderBy("created","desc"),limit(50)))).docs.map(d=>({id:d.id,...d.data()}));
-const act=p=>!me?'<a class="btn s" href="#/login">LOGIN TO APPLY</a>':p.owner==me.uid?`<button class="btn s" data-a="del" data-id="${p.id}">DELETE</button>`:isC()?"":`<details><summary class="btn s">APPLY</summary><form data-f="apply" data-id="${p.id}" data-t="${esc(p.title)}" data-o="${esc(p.owner)}"><label class="field">Note to the client<textarea name="note" maxlength="400" placeholder="Why are you a good fit?"></textarea></label><button class="btn p s" type="submit">SEND APPLICATION</button></form></details>`;
-const card=p=>`<article class="card"><h3>${esc(p.title)}</h3>${p.beginner?'<span class="tag hot">Beginner-friendly</span>':""}<p>${esc(p.desc)}</p><p>${tags(p.skills)}</p><p class="muted">By ${esc(p.ownerName)}${p.budget?" · Budget "+esc(p.budget):""}</p>${act(p)}</article>`;
-const postForm=`<details class="panel"><summary class="btn p s">POST A PROJECT</summary><form data-f="post"><label class="field">Title<input name="title" required maxlength="80"></label><label class="field">Description<textarea name="desc" required maxlength="600"></textarea></label><label class="field">Skills needed (comma separated)<input name="skills" required></label><label class="field">Budget (optional)<input name="budget" maxlength="30"></label><label class="field"><input type="checkbox" name="beginner" style="display:inline;width:auto;margin-right:8px">Beginner-friendly</label><button class="btn p" type="submit">PUBLISH PROJECT</button></form></details>`;
-
-/* ---------- pages ---------- */
-const V={
-home:()=>`<section class="hero">${me?"":`<div class="tog"><button data-sb="client" class="${side=="client"?"on":""}">Client</button><button data-sb="editor" class="${side=="editor"?"on":""}">Editor</button></div>`}<div class="orb"><div class="halo"></div><canvas id="fluid" width="420" height="420"></canvas></div><h1>Skills Meet Opportunities.</h1><p class="sub"><span class="cl">Hire the right video editor. Compare every editor by Connects, price and experience, then choose the best.</span><span class="ed">Prove your skills, earn Connects with every project, and find your first client.</span></p><a class="btn p" href="#/${me?(isC()?"editors":"projects"):"join"}">START NOW →</a></section>`,
-
-projects:async()=>{const ps=(await getP()).filter(p=>!onlyB||p.beginner);
- return pg("Projects","Editing projects posted by clients.",`<button class="btn s ${onlyB?"p":""}" data-a="fb">Beginner-friendly only</button>`+(isC()?postForm:"")+(ps.length?ps.map(card).join(""):'<p class="muted">No projects yet.</p>'))},
-
-editors:async()=>{
- const[us,rv]=await Promise.all([getDocs(query(collection(db,"users"),where("role","==","Editor"),limit(100))),getDocs(query(collection(db,"reviews"),limit(500)))]);
- const st={};rv.docs.forEach(d=>{const r=d.data();(st[r.editor]??={n:0,c:0});st[r.editor].n++;st[r.editor].c+=10+r.rating});
- const eds=us.docs.map(d=>({id:d.id,...d.data(),n:st[d.id]?.n||0,c:st[d.id]?.c||0})).sort((a,b)=>b.c-a.c);
- return pg("Editors","Ranked by Connects: 10 for each completed project, plus 1 for every star the client gives.",eds.length?eds.map((e,i)=>`<article class="card"><span class="tag hot">#${i+1}</span><p class="cn">${e.c} <small>Connects</small></p><h3>${esc(e.name)}</h3><p><span class="tag">${e.n} project${e.n==1?"":"s"} done</span>${e.price?`<span class="tag">Price: ${esc(e.price)}</span>`:""}${e.exp?`<span class="tag">Experience: ${esc(e.exp)}</span>`:""}</p><p>${esc(e.bio)}</p><p>${tags(e.skills)}</p>${safe(e.link)?`<a class="btn s" href="${esc(safe(e.link))}" target="_blank" rel="noopener">PORTFOLIO</a>`:""}</article>`).join(""):'<p class="muted">No editors yet.</p>')},
-
-work:async()=>{if(!me)return gate("My Work");
- const cl=isC();
- const as=(await getDocs(query(collection(db,"applications"),where(cl?"owner":"applicant","==",me.uid)))).docs.map(d=>({id:d.id,...d.data()}));
- const rv=(await getDocs(query(collection(db,"reviews"),where(cl?"client":"editor","==",me.uid)))).docs.map(d=>({id:d.id,...d.data()}));
- const done=Object.fromEntries(rv.map(r=>[r.id,r]));
- const cn=rv.reduce((s,r)=>s+10+r.rating,0);
- const stats=cl?[[as.length,"Applications received"],[rv.length,"Projects completed"]]:[[cn,"Connects"],[rv.length,"Projects completed"],[as.length,"Applications sent"]];
- return pg("My Work",cl?"See who applied, then mark the work complete and rate the editor.":"Your applications and the Connects you have earned.",`<div class="stats">${stats.map(s=>`<div><b>${s[0]}</b><span class="muted">${s[1]}</span></div>`).join("")}</div>`+(as.length?as.map(a=>{const r=done[a.id];return `<div class="row"><span><b>${esc(cl?a.applicantName:a.projectTitle)}</b>${cl?" applied to "+esc(a.projectTitle):""}<br><span class="muted">${esc(a.note)}</span></span>${r?`<span class="tag hot">Done · ${r.rating}★</span>`:cl?`<form data-f="done" data-id="${esc(a.id)}" data-p="${esc(a.project)}" data-e="${esc(a.applicant)}"><select name="rating">${[5,4,3,2,1].map(n=>`<option value="${n}">${n}★</option>`).join("")}</select> <button class="btn p s" type="submit">COMPLETE</button></form>`:'<span class="tag">Pending</span>'}</div>`}).join(""):'<p class="muted">Nothing here yet.</p>'))},
-
-profile:()=>{if(!me)return gate("Profile");const ed=!isC();
- return pg("Profile",`You are signed up as ${esc(me.role)}.`,`<form class="panel" data-f="profile"><label class="field">Full name<input name="name" required maxlength="60" value="${esc(me.name)}"></label><label class="field">Short bio<textarea name="bio" maxlength="300">${esc(me.bio)}</textarea></label>${ed?`<label class="field">Skills (comma separated)<input name="skills" value="${esc((me.skills||[]).join(", "))}"></label><label class="field">Your price (e.g. 500 per video)<input name="price" maxlength="40" value="${esc(me.price)}"></label><label class="field">Experience (e.g. 2 years)<input name="exp" maxlength="40" value="${esc(me.exp)}"></label><label class="field">Portfolio link<input name="link" type="url" value="${esc(me.link)}"></label>`:""}<button class="btn p" type="submit">SAVE PROFILE</button></form>`)},
-
-login:()=>`<div class="wrap narrow"><div class="panel"><h2>${mode=="in"?"Login":"Create your account"}</h2><br><form data-f="auth">${mode=="up"?`<label class="field">Full name<input name="name" required maxlength="60"></label><div class="roles"><label><input type="radio" name="role" value="Client" ${side=="client"?"checked":""}> <b>Client</b><small>I want to hire editors</small></label><label><input type="radio" name="role" value="Editor" ${side=="editor"?"checked":""}> <b>Editor</b><small>I want to find clients</small></label></div>`:""}<label class="field">Email<input name="email" type="email" required autocomplete="email"></label><label class="field">Password<input name="password" type="password" required minlength="6"></label><button class="btn p" type="submit">${mode=="in"?"LOGIN":"CREATE ACCOUNT"}</button></form><p class="sw">${mode=="in"?'New here? <a href="#" data-a="mode">Create an account</a>':'Already have an account? <a href="#" data-a="mode">Login</a>'}</p></div></div>`
-};
-
-/* ---------- actions ---------- */
-const A={
-mode:()=>{mode=mode=="in"?"up":"in";view.innerHTML=V.login()},
-del:async b=>{if(!confirm("Delete this project?"))return;await deleteDoc(doc(db,"projects",b.dataset.id));toast("Project deleted.");go()},
-fb:()=>{onlyB=!onlyB;go()}
-};
-const F={
-auth:async f=>{const d=Object.fromEntries(new FormData(f));
- if(mode=="in"){await signInWithEmailAndPassword(auth,d.email,d.password)}
- else{busy=true;try{const c=await createUserWithEmailAndPassword(auth,d.email,d.password);
-  await setDoc(doc(db,"users",c.user.uid),{name:d.name.trim(),role:d.role,bio:"",skills:[],price:"",exp:"",link:"",created:serverTimestamp()});
-  await load(c.user);location.hash="#/work"}finally{busy=false}}},
-post:async f=>{const d=Object.fromEntries(new FormData(f));
- await addDoc(collection(db,"projects"),{owner:me.uid,ownerName:me.name||"Client",title:d.title.trim(),desc:d.desc.trim(),skills:list(d.skills),budget:d.budget.trim(),beginner:!!d.beginner,created:serverTimestamp()});
- toast("Project published.");go()},
-apply:async f=>{const d=f.dataset;
- await setDoc(doc(db,"applications",d.id+"_"+me.uid),{project:d.id,projectTitle:d.t,owner:d.o,applicant:me.uid,applicantName:me.name||"",note:new FormData(f).get("note").trim(),created:serverTimestamp()});
- toast("Application sent.");f.closest("details").open=false},
-done:async f=>{const d=f.dataset,rt=+new FormData(f).get("rating");
- await setDoc(doc(db,"reviews",d.id),{project:d.p,editor:d.e,client:me.uid,rating:rt,created:serverTimestamp()});
- toast("Marked complete. Connects awarded.");go()},
-profile:async f=>{const d=Object.fromEntries(new FormData(f));const p={name:d.name.trim(),bio:d.bio.trim(),role:me.role};
- if(!isC())Object.assign(p,{skills:list(d.skills),price:(d.price||"").trim(),exp:(d.exp||"").trim(),link:safe((d.link||"").trim())});
- await setDoc(doc(db,"users",me.uid),p,{merge:true});Object.assign(me,p);toast("Profile saved.")}
-};
-
-view.addEventListener("click",async e=>{
- const s=e.target.closest("[data-sb]");if(s){setSide(s.dataset.sb);return}
- const b=e.target.closest("[data-a]");if(!b)return;
- if(b.tagName=="A")e.preventDefault();
- try{await A[b.dataset.a](b)}catch(x){toast(why(x))}
-});
-view.addEventListener("change",e=>{if(e.target.name=="role")setSide(e.target.value.toLowerCase())});
-view.addEventListener("submit",async e=>{
- e.preventDefault();const f=e.target,b=f.querySelector('[type=submit]');if(b)b.disabled=true;
- try{await F[f.dataset.f](f)}catch(x){toast(why(x))}finally{if(b)b.disabled=false}
-});
-
-/* ---------- login state + router ---------- */
-async function load(u){
- me=null;
- if(u){me={uid:u.uid,name:u.displayName||"",role:"Editor",bio:"",skills:[],price:"",exp:"",link:""};
-  const s=await getDoc(doc(db,"users",u.uid));if(s.exists())Object.assign(me,s.data());
-  setSide(me.role=="Client"?"client":"editor")}
- const a=$("#acct");a.textContent=me?"Logout":"Login";a.href=me?"#/out":"#/login";
+ renderMembers();
 }
-async function go(){
- let r=location.hash.replace("#/","")||"home";
- if(r=="out"){await signOut(auth);me=null;setSide("client");location.hash="#/home";return}
- if(r=="join"){mode="up";r="login"}else if(r=="login")mode="in";
- document.querySelectorAll(".tabs a").forEach(a=>a.classList.toggle("on",a.getAttribute("href")=="#/"+r));
- view.innerHTML='<p class="wrap muted">Loading...</p>';
- try{view.innerHTML=await(V[r]||V.home)()}
- catch(e){view.innerHTML=pg("Something went wrong",esc(why(e)),'<a class="btn" href="#/home">GO HOME</a>')}
- scrollTo(0,0);
+
+async function ensure(u,x={}){
+ const r=ref(u.uid),s=await getDoc(r);
+ if(s.exists()){me={id:u.uid,...s.data()};return}
+ const p={name:x.name||u.displayName||(u.email||"Member").split("@")[0],role:x.role||ROLE,skill:x.skill||"",portfolio:"",picture:u.photoURL||"",fc:false,joined:today()};
+ await setDoc(r,{...p,created:serverTimestamp()});
+ me={id:u.uid,...p};
 }
-window.addEventListener("hashchange",go);
+
+function route(){
+ const h=location.hash,m=h=="#start"?"signup":h=="#signin"?"signin":null,pr=h=="#profile";
+ home.hidden=!!(m||pr);authView.hidden=!m;profView.hidden=!pr;res.hidden=pres.hidden=true;
+ if(pr){
+  if(!ready)return;
+  if(!me){location.hash="#signin";return}
+  $("#p-head").innerHTML=`${avatar(me,"huge")}<div><h3>${esc(me.name)}</h3><p class="muted">${esc(me.role)}</p></div>`;
+  $("#p-role").value=me.role;$("#p-skill").value=me.skill||"";$("#p-port").value=me.portfolio||"";
+  scrollTo(0,0);return;
+ }
+ if(m){
+  mode=m;const su=m=="signup";
+  $("#ob-title").textContent=su?"Join EditConnect":"Sign in to EditConnect";
+  $("#ob-sub").textContent=su?"Create your account. Your profile will be visible to everyone on EditConnect.":"Welcome back. Sign in with your registered email.";
+  $("#ob-submit").textContent=su?"Create Account & Show Profile":"Sign in";
+  $("#ob-switch").innerHTML=su?'Already have an account? <a href="#signin">Sign in</a>':'New to EditConnect? <a href="#start">Create an account</a>';
+  for(const el of[roles,nameF,skillF]){el.hidden=!su;el.querySelectorAll("input").forEach(i=>i.disabled=!su)}
+  scrollTo(0,0);return;
+ }
+ const t=document.getElementById(h.slice(1));
+ t?t.scrollIntoView({behavior:"smooth"}):scrollTo(0,0);
+}
+
+onSnapshot(query(collection(db,"profiles"),orderBy("created","desc"),limit(60)),s=>{
+ people=s.docs.map(d=>({id:d.id,...d.data()}));
+ const m=me&&people.find(p=>p.id==me.id);if(m)me={...me,...m};
+ sync();
+},e=>{$("#members").innerHTML=`<div class="empty-members"><p>${esc(why(e))}</p></div>`});
+
 onAuthStateChanged(auth,async u=>{
  if(busy)return;
- try{await load(u);if(me&&location.hash=="#/login")location.hash="#/work";else await go()}
- catch(e){toast(why(e));await go()}
+ try{me=null;if(u)await ensure(u)}catch(e){console.error(e)}
+ ready=true;sync();route();
 });
+
+form.addEventListener("submit",async e=>{
+ e.preventDefault();
+ const f=form.elements,btn=$("#ob-submit");btn.disabled=true;
+ try{
+  if(mode=="signup"){
+   const name=f.name.value.trim();
+   if(!name){say(res,"Please enter your full name.");return}
+   busy=true;
+   const c=await createUserWithEmailAndPassword(auth,f.email.value.trim(),f.password.value);
+   await ensure(c.user,{name,role:f.role.value,skill:f.skill.value.trim()});
+  }else{
+   busy=true;
+   const c=await signInWithEmailAndPassword(auth,f.email.value.trim(),f.password.value);
+   await ensure(c.user);
+  }
+  form.reset();sync();location.hash="#community";
+ }catch(x){say(res,why(x))}
+ finally{busy=false;btn.disabled=false}
+});
+
+$("#g-btn").addEventListener("click",async()=>{
+ busy=true;
+ try{
+  const{user}=await signInWithPopup(auth,gp);
+  await ensure(user,{role:mode=="signup"?form.elements.role.value:""});
+  sync();location.hash="#community";
+ }catch(x){say(res,why(x))}
+ finally{busy=false}
+});
+
+$("#p-form").addEventListener("submit",async e=>{
+ e.preventDefault();if(!me)return;
+ const p={role:$("#p-role").value,skill:$("#p-skill").value.trim().slice(0,80),portfolio:safe($("#p-port").value.trim())};
+ try{await setDoc(ref(me.id),p,{merge:true});me={...me,...p};sync();say(pres,"Profile saved. Everyone can now see your update in Registered Member Profiles!")}
+ catch(x){say(pres,why(x))}
+});
+
+$("#fc-btn").addEventListener("click",async()=>{
+ if(!me){location.hash="#start";return}
+ try{await setDoc(ref(me.id),{fc:true},{merge:true});me.fc=true;sync()}catch(x){alert(why(x))}
+});
+
+$("#out-btn").addEventListener("click",async()=>{await signOut(auth);me=null;sync();location.hash="#top"});
+
+burger.addEventListener("click",()=>{const o=menu.classList.toggle("open");burger.setAttribute("aria-expanded",o)});
+menu.addEventListener("click",e=>{if(e.target.closest("a")){menu.classList.remove("open");burger.setAttribute("aria-expanded","false")}});
+addEventListener("hashchange",route);
+route();
 </script>
- <script type="module" src="firebase/firebase-google.js"></script>
 </body>
-</html>
+ </html>
